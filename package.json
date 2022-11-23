@@ -11,6 +11,9 @@
     "heroku-postbuild": "npm run clean && npm run build && npm run deploy"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.10.15",
     "@reach/combobox": "^0.18.0",
     "@react-google-maps/api": "^2.17.0",
     "date-fns": "^2.29.3",

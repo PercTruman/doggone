@@ -6,4 +6,4 @@ function DogRegistration() {
   )
 }
 
-export default DogRegistration
+export default DogRegistration;

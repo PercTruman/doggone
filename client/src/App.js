@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import { Routes, Route } from "react-router-dom";
-import { ThemeProvider } from "@mui/material/styles";
+// import { ThemeProvider } from "@mui/material/styles";
 import Welcome from './Pages/Welcome';
 import Signup from './Pages/Signup';
 import Login from './Pages/Login';
@@ -11,7 +11,7 @@ import NewSighting from './Pages/NewSighting';
 import RegisteredDogGallery from './Pages/RegisteredDogGallery';
 import SeenDogs from './Pages/SeenDogs';
 import Sightings from './Pages/Sightings';
-import LostDog from './Pages/LostDog';
+import LostDog from './LostDog.jpg';
 
 
 function App() {
@@ -23,7 +23,6 @@ function App() {
       width: "auto",
       backgroundSize: "cover"
     }} >
-      <ThemeProvider  theme={theme}>
         <Routes>
           <Route path="/" element={<Welcome />} />
           <Route path="/-login" element={<Login />} />
@@ -36,7 +35,6 @@ function App() {
           <Route path="/-registered_dogs/:id" element={<DogDetail />} />
           <Route path="/-seen_dogs/:id" element={<DogDetail />} />
         </Routes>
-      </ThemeProvider>
     </div>
   );
 }

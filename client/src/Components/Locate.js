@@ -1,14 +1,14 @@
-import React from 'react'
+// import React from 'react'
 
-function Locate({panTo}) {
-  return (
-    <button className='locate' onClick = {()=> {
-        navigator.geolocation.getCurrentPosition((position)=>{ panTo({lat: position.coords.latitude,
-        lng: position.coords.longitude})}, ()=>null);
-    }}>
-        <img src= "compass.svg" alt="compass - locate me"/>
-    </button>
-  )
-}
+// function Locate({panTo}) {
+//   return (
+//     <button className='locate' onClick = {()=> {
+//         navigator.geolocation.getCurrentPosition((position)=>{ panTo({lat: position.coords.latitude,
+//         lng: position.coords.longitude})}, ()=>null);
+//     }}>
+//         <img src= "compass.svg" alt="compass - locate me"/>
+//     </button>
+//   )
+// }
 
-export default Locate
+// export default Locate

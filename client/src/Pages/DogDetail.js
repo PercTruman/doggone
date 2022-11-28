@@ -6,4 +6,4 @@ function DogDetail() {
   )
 }
 
-export default DogDetail
+export default DogDetail;

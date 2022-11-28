@@ -6,4 +6,4 @@ function RegisteredDogGallery() {
   )
 }
 
-export default RegisteredDogGallery
+export default RegisteredDogGallery;

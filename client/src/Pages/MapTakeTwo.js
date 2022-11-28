@@ -5,8 +5,10 @@ import { formatRelative } from "date-fns";
 import dogPaw from './dog-paw.svg';
 
 const mapContainerStyle = {
-  width: "50vw",
-  height: "50vh",
+    margin: '0 auto',
+   
+  width: "75vw",
+  height: "75vh",
 };
 
 const options = {
@@ -27,7 +29,6 @@ function MapTakeTwo() {
   const [selected, setSelected] = useState(null);
 
   const onMapClick = useCallback((e) => {
-    // (e) => {
     setMarkers((current) => [
       ...current,
       {

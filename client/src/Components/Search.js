@@ -16,14 +16,16 @@
 //   const {
 //     ready,
 //     value,
-//     suggestions: { status, data, setValue, clearSuggestions },
+//     suggestions: { status, data },
+//     setValue,
+//     clearSuggestions,
 //   } = usePlacesAutocomplete({
 //     requestOptions: {
 //       location: {
 //         lat: () => 32.59048,
 //         lng: () => -97.04098,
 //       },
-//       radius: 1000,
+//       debounce: 1000,
 //     },
 //   });
 //   return (
@@ -50,12 +52,12 @@
 //           placeholder="Enter an address"
 //         />
 //         <ComboboxPopover>
-//             <ComboboxList>
-//                 {status === "OK" &&
-//                     data.map(({ id, description }) => (
-//                     <ComboboxOption key={id} value={description}></ComboboxOption>
-//                  ))}
-//             </ComboboxList>
+//           <ComboboxList>
+//             {status === "OK" &&
+//               data.map(({ id, description }) => (
+//                 <ComboboxOption key={id} value={description}></ComboboxOption>
+//               ))}
+//           </ComboboxList>
 //         </ComboboxPopover>
 //       </Combobox>
 //     </div>

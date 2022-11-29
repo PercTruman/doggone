@@ -2,6 +2,7 @@ import React, { useState, useMemo, useCallback, useRef } from "react";
 import { useLoadScript, GoogleMap, Marker, InfoWindow } from "@react-google-maps/api";
 import { formatRelative } from "date-fns";
 import dogPaw from "../Pages/dog-paw.svg";
+
 import Locate from "./Locate";
 
 const mapContainerStyle = {
@@ -84,9 +85,9 @@ function FinderMap() {
             </div>
           </InfoWindow>
         ) : null}
-       
+      <Locate panTo={panTo}/> 
       </GoogleMap>
-      <Locate panTo={panTo}/>
+      
     </div>
   );
 }

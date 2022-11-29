@@ -8,7 +8,7 @@ function Locate({panTo}) {
         navigator.geolocation.getCurrentPosition((position)=>{ panTo({lat: position.coords.latitude,
         lng: position.coords.longitude})}, ()=>null);
     }}>
-        <img src={compass} alt="compass - locate me"style={{opacity:.75}}/>
+        <img src={compass} alt="compass-locate me"style={{opacity:.75}}/>
         <p>Locate Me</p>
     </button>
     </div>

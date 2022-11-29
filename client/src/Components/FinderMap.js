@@ -58,11 +58,13 @@ function FinderMap() {
         onClick={onMapClick}
         onLoad={onMapLoad}
         options={options}
+        
       >
         {markers.map((marker) => (
           <Marker
             key={marker.time.toISOString()}
             position={{ lat: marker.lat, lng: marker.lng }}
+            draggable = {true}
             icon={{
               url: dogPaw,
               scaledSize: new window.google.maps.Size(20, 20),

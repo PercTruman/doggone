@@ -1,9 +1,21 @@
-import React from 'react'
+import React, { useState, useContext } from "react";
+import { UserContext } from "../UserContext";
+import FinderMap from "../Components/FinderMap";
+import FinderForm from "../Components/FinderForm";
+import Box from "@mui/material/Box";
+
+
 
 function NewSighting() {
+  const { user } = useContext(UserContext);
+
   return (
-    <div>NewSighting</div>
-  )
+    <Box>
+      NewSighting
+      <FinderForm />
+      <FinderMap />
+    </Box>
+  );
 }
 
-export default NewSighting
+export default NewSighting;

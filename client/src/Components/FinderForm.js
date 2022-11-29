@@ -98,7 +98,8 @@ function FinderForm() {
               label="Color:"
               size="small"
               id="outlined-basic"
-              variant="outlined"
+              variant="filled"
+              sx={{background:'white'}}
               name="color"
               type="text"
               autoComplete="on"
@@ -108,8 +109,9 @@ function FinderForm() {
             <TextField
               label="Sex, if known:"
               size="small"
+              sx={{background:'white'}}
               id="outlined-basic"
-              variant="outlined"
+              variant="filled"
               name="sex"
               type="text"
               autoComplete="on"
@@ -120,7 +122,8 @@ function FinderForm() {
               label="Breed, if known:"
               size="small"
               id="outlined-basic"
-              variant="outlined"
+              sx={{background:'white'}}
+              variant="filled"
               name="breed"
               type="text"
               autoComplete="on"
@@ -132,6 +135,7 @@ function FinderForm() {
               <Select
                 value={formData.age_group}
                 name="age_group"
+                sx={{background:'white'}}
                 onChange={handleChange}
               >
                 {ageDropDownOptions}
@@ -141,8 +145,9 @@ function FinderForm() {
               label="Additional Details:"
               multiline
               size="small"
+              sx={{background:'white'}}
               id="outlined-basic"
-              variant="outlined"
+              variant="filled"
               name="additional_details"
               type="text"
               autoComplete="on"
@@ -155,6 +160,7 @@ function FinderForm() {
               <Select
                 value={formData.contact_method}
                 name="contact_method"
+                sx={{background:'white'}}
                 onChange={handleChange}
               >
                 {contactOptions}

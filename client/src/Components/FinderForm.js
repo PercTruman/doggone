@@ -1,7 +1,5 @@
 import React, {useState, useContext} from 'react'
 import { UserContext } from "../UserContext";
-
-
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Box from "@mui/material/Box";
@@ -78,12 +76,13 @@ function FinderForm() {
     
       const ageChoices = ["Baby", "Puppy", "Adult", "Mature"];
       const ageDropDownOptions = ageChoices.map((choice) => {
-        <MenuItem key={choice} type="text" name={choice} value={choice}>
+        <MenuItem key={choice} type="text" name="choice" value={choice}>
           {choice}
         </MenuItem>;
       });
     
       const contacts = ["Text Message", "Phone", "Email", "No Contact"]
+     
       const contactOptions = contacts.map((choice) => {
         <MenuItem key={choice} type="text" name={choice} value={choice}>{choice}</MenuItem>})
   return (
@@ -91,15 +90,16 @@ function FinderForm() {
         <Grid sx={{ justifyContent: "center" }} container spacing={2}>
         <form onSubmit={handleSubmit}>
           <h2 style={{ marginTop: "3rem", marginLeft: "2rem" }}>
-            Create New Class
+            Create New Sighting
           </h2>
           <Grid xs>
             <TextField
               label="Color:"
+              margin='1rem'
               size="small"
               id="outlined-basic"
               variant="filled"
-              sx={{background:'white'}}
+              sx={{background:'white', margin:'1rem'}}
               name="color"
               type="text"
               autoComplete="on"
@@ -109,7 +109,7 @@ function FinderForm() {
             <TextField
               label="Sex, if known:"
               size="small"
-              sx={{background:'white'}}
+              sx={{background:'white', margin:'1rem'}}
               id="outlined-basic"
               variant="filled"
               name="sex"
@@ -122,7 +122,7 @@ function FinderForm() {
               label="Breed, if known:"
               size="small"
               id="outlined-basic"
-              sx={{background:'white'}}
+              sx={{background:'white', margin:'1rem'}}
               variant="filled"
               name="breed"
               type="text"
@@ -130,12 +130,19 @@ function FinderForm() {
               value={formData.breed}
               onChange={handleChange}
             />
+               <Button
+              sx={{ mb: "5em", marginLeft: "4em", padding: "7px" }}
+              variant="contained"
+              type="submit"
+            >
+              Breed Images
+            </Button>
             <FormControl fullWidth sx={{ mb: "1em" }}>
               <InputLabel> Approximate Age</InputLabel>
               <Select
                 value={formData.age_group}
                 name="age_group"
-                sx={{background:'white'}}
+                sx={{background:'white', margin:'1rem'}}
                 onChange={handleChange}
               >
                 {ageDropDownOptions}
@@ -145,7 +152,7 @@ function FinderForm() {
               label="Additional Details:"
               multiline
               size="small"
-              sx={{background:'white'}}
+              sx={{background:'white', margin:'1rem'}}
               id="outlined-basic"
               variant="filled"
               name="additional_details"
@@ -160,7 +167,7 @@ function FinderForm() {
               <Select
                 value={formData.contact_method}
                 name="contact_method"
-                sx={{background:'white'}}
+                sx={{background:'white', margin:'1rem'}}
                 onChange={handleChange}
               >
                 {contactOptions}

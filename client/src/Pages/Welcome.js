@@ -1,13 +1,14 @@
 import React from 'react'
-import FinderMap from '../Components/FinderMap';
+
 
 
 function Welcome() {
  
   return (
     <div>
-      <h1>Welcome</h1>
-       <FinderMap />
+      <h1>Welcome to Doggone!</h1>
+      <p>Helping owners reunite with their pets</p>
+       
     </div>
    
   )

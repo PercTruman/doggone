@@ -130,13 +130,17 @@ function FinderForm() {
               value={formData.breed}
               onChange={handleChange}
             />
+          
+              <a href="https://animalcorner.org/dog-breeds" target="_blank" rel="noreferrer">
                <Button
               sx={{ mb: "5em", marginLeft: "4em", padding: "7px" }}
               variant="contained"
-              type="submit"
+             
             >
               Breed Images
             </Button>
+            </a>
+          
             <FormControl fullWidth sx={{ mb: "1em" }}>
               <InputLabel> Approximate Age</InputLabel>
               <Select

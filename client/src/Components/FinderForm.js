@@ -1,4 +1,10 @@
-import React, {useState, useContext, useEffect} from 'react'
+import React, {
+  useState,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+} from "react";
 import { UserContext } from "../UserContext";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
@@ -8,126 +14,145 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Button from "@mui/material/Button";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import FinderMap from './FinderMap';
+import FinderMap from "./FinderMap";
+import Locate from "./Locate";
 
-function FinderForm() {
+function FinderForm({latitude, longitude}) {
   useEffect(() => {
-    fetch('https://api.thedogapi.com/v1/breeds?page=0')
-    .then(res=>res.json())
-    .then(data=> setBreedNames(data))
-  },[])
+    fetch("https://api.thedogapi.com/v1/breeds?page=0")
+      .then((res) => res.json())
+      .then((data) => setBreedNames(data));
+  }, []);
 
-    const { user } = useContext(UserContext);
-    const [breedNames, setBreedNames] = useState([])
-    const [latitude, setLatitude] = useState(null)
-    const [longitude, setLongitude] = useState(null)
-    const [formData, setFormData] = useState({
-        color: "",
-        sex: "",
-        breed: "",
-        age_group: "",
-        additional_details: "",
-        img: "",
-        map_lat: latitude,
-        map_lng: longitude,
-        contact_finder: false,
-        contact_method: "",
-        time_of_sighting: "",
-        date_of_sighting: "",
-        finder_id: "",
-        owner_id: "",
-      });
-    console.log(latitude)
-      const handleChange = (e) => {
-        setFormData({
-          ...formData,
-          [e.target.name]: e.target.value,
-          finder_id: user.id,
+  const { user } = useContext(UserContext);
+  const [breedNames, setBreedNames] = useState([]);
+ 
+
+  const [formData, setFormData] = useState({
+    color: "",
+    sex: "",
+    breed: "",
+    age_group: "",
+    additional_details: "",
+    img: "",
+    map_lat: latitude,
+    map_lng: longitude,
+    contact_finder: false,
+    contact_method: "",
+    time_of_sighting: "",
+    date_of_sighting: "",
+    finder_id: "",
+    owner_id: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+      finder_id: user.id,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    fetch("/sightings", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    }).then((res) => {
+      if (res.ok) {
+        res.json().then(() => {
+          alert(
+            "Thank you for submitting.  Your sighting has been saved successfully. If you allowed your contact information to be visible, you may be contacted soon."
+          );
+
+          setFormData({
+            color: "",
+            sex: "",
+            breed: "",
+            age_group: "",
+            additional_details: "",
+            img: "",
+            map_lat: "",
+            map_lng: "",
+            contact_finder: false,
+            contact_method: "",
+            time_of_sighting: "",
+            date_of_sighting: "",
+            finder_id: "",
+            owner_id: "",
+          });
         });
-      };
-    
-      const handleSubmit = (e) => {
-        e.preventDefault();
-        fetch("/sightings", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        }).then((res) => {
-          if (res.ok) {
-            res.json().then(() => {
-              alert(
-                "Thank you for submitting.  Your sighting has been saved successfully. If you allowed your contact information to be visible, you may be contacted soon."
-              );
-    
-              setFormData({
-                color: "",
-                sex: "",
-                breed: "",
-                age_group: "",
-                additional_details: "",
-                img: "",
-                map_lat: "",
-                map_lng: "",
-                contact_finder: false,
-                contact_method: "",
-                time_of_sighting: "",
-                date_of_sighting: "",
-                finder_id: "",
-                owner_id: "",
-              });
-            });
-          } else {
-            res.json().then((errors) => {
-              alert(errors.error);
-            });
-          }
+      } else {
+        res.json().then((errors) => {
+          alert(errors.error);
         });
-      };
+      }
+    });
+  };
 
-      const sexChoices = ["Male", "Female", "Neutered Male", "Spayed Female"];
-      const sexDropDownOptions = sexChoices.map((choice) => (
-        <MenuItem key={choice} type="text" name="choice" value={choice}>
-          {choice}
-        </MenuItem>
-      ));
 
-      const colorChoices = ["Black", "White", "Light Brown", "Dark Brown", "Golden", "Gray", "Cream", "Other"];
-      const colorDropDownOptions = colorChoices.map((choice) => (
-        <MenuItem key={choice} type="text" name="choice" value={choice}>
-          {choice}
-        </MenuItem>
-      ));
-    
-      const ageChoices = ["Baby", "Puppy", "Adult", "Mature"];
-      const ageDropDownOptions = ageChoices.map((choice) => (
-        <MenuItem key={choice} type="text" name="choice" value={choice}>
-          {choice}
-        </MenuItem>
-      ));
 
-      const contacts = ["Text Message", "Phone", "Email", "No Contact"]
-      const contactOptions = contacts.map((choice) => (
-        <MenuItem key={choice} type="text" name={choice} value={choice}>{choice}</MenuItem>));
+  const sexChoices = ["Male", "Female", "Neutered Male", "Spayed Female"];
+  const sexDropDownOptions = sexChoices.map((choice) => (
+    <MenuItem key={choice} type="text" name="choice" value={choice}>
+      {choice}
+    </MenuItem>
+  ));
 
-      const breedList = breedNames && breedNames.map((breed)=> (
-        <MenuItem key={breed.id} value={breed.name}>{breed.name}</MenuItem>
-      ));
-            
-      
+  const colorChoices = [
+    "Black",
+    "White",
+    "Light Brown",
+    "Dark Brown",
+    "Golden",
+    "Gray",
+    "Cream",
+    "Other",
+  ];
+  const colorDropDownOptions = colorChoices.map((choice) => (
+    <MenuItem key={choice} type="text" name="choice" value={choice}>
+      {choice}
+    </MenuItem>
+  ));
+
+  const ageChoices = ["Baby", "Puppy", "Adult", "Mature"];
+  const ageDropDownOptions = ageChoices.map((choice) => (
+    <MenuItem key={choice} type="text" name="choice" value={choice}>
+      {choice}
+    </MenuItem>
+  ));
+
+  const contacts = ["Text Message", "Phone", "Email", "No Contact"];
+  const contactOptions = contacts.map((choice) => (
+    <MenuItem key={choice} type="text" name={choice} value={choice}>
+      {choice}
+    </MenuItem>
+  ));
+
+  const breedList =
+    breedNames &&
+    breedNames.map((breed) => (
+      <MenuItem key={breed.id} value={breed.name}>
+        {breed.name}
+      </MenuItem>
+    ));
+
   return (
-    <Box>FinderForm
-        <Grid sx={{ justifyContent: "center" }} container spacing={2}>
+    <Box>
+      FinderForm
+      <Grid sx={{ justifyContent: "center" }} container spacing={2}>
         <form onSubmit={handleSubmit}>
-          <h2 style={{ marginTop: "3rem", marginLeft: "2rem" }}>
+          <h2 style={{ color:"#85BBCC",marginTop: "3rem", marginLeft: "2rem" }}>
             Create New Sighting
           </h2>
           <Grid xs>
-          <FormControl fullWidth sx={{ mb: "1em" }}>
-              <InputLabel> Primary Color</InputLabel>
+            <FormControl fullWidth sx={{ mb: "1em" }}>
+              <InputLabel sx={{textAlign: "center"}}> Primary Color</InputLabel>
               <Select
                 value={formData.color}
                 name="color"
-                sx={{background:'white', margin:'1rem'}}
+                sx={{ background: "white", margin: "1rem",  }}
                 onChange={handleChange}
               >
                 {colorDropDownOptions}
@@ -138,7 +163,7 @@ function FinderForm() {
               <Select
                 value={formData.sex}
                 name="sex"
-                sx={{background:'white', margin:'1rem'}}
+                sx={{ background: "white", margin: "1rem" }}
                 onChange={handleChange}
               >
                 {sexDropDownOptions}
@@ -149,26 +174,30 @@ function FinderForm() {
               <Select
                 value={formData.breed}
                 name="breed"
-                sx={{background:'white', margin:'1rem'}}
+                sx={{ background: "white", margin: "1rem" }}
                 onChange={handleChange}
               >
                 {breedList}
               </Select>
             </FormControl>
-          <a href="https://www.dogthelove.com/category" target="_blank" rel="noreferrer">
-               <Button
-              sx={{ mb: "5em", marginLeft: "4em", padding: "7px" }}
-              variant="contained"
-             >
-              Breed Images
-            </Button>
+            <a
+              href="https://www.dogthelove.com/category"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Button
+                sx={{ mb: "5em", marginLeft: "4em", padding: "7px" }}
+                variant="contained"
+              >
+                Breed Images
+              </Button>
             </a>
-          <FormControl fullWidth sx={{ mb: "1em" }}>
+            <FormControl fullWidth sx={{ mb: "1em" }}>
               <InputLabel> Approximate Age Group</InputLabel>
               <Select
                 value={formData.age_group}
                 name="age_group"
-                sx={{background:'white', margin:'1rem'}}
+                sx={{ background: "white", margin: "1rem" }}
                 onChange={handleChange}
               >
                 {ageDropDownOptions}
@@ -178,7 +207,7 @@ function FinderForm() {
               label="Additional Details:"
               multiline
               size="small"
-              sx={{background:'white', margin:'1rem'}}
+              sx={{ background: "white", margin: "1rem" }}
               id="outlined-basic"
               variant="filled"
               name="additional_details"
@@ -189,28 +218,30 @@ function FinderForm() {
             />
           </Grid>
           <FormControl fullWidth sx={{ mb: "1em" }}>
-              <InputLabel> Contact Me By:</InputLabel>
-              <Select
-                value={formData.contact_method}
-                name="contact_method"
-                sx={{background:'white', margin:'1rem'}}
-                onChange={handleChange}
-              >
-                {contactOptions}
-              </Select>
-            </FormControl>
-            <FinderMap  setLatitude={setLatitude} setLongitude={setLongitude}/>
-            <Button
-              sx={{ mb: "5em", marginLeft: "4em", padding: "7px" }}
-              variant="contained"
-              type="submit"
+            <InputLabel> Contact Me By:</InputLabel>
+            <Select
+              value={formData.contact_method}
+              name="contact_method"
+              sx={{ background: "white", margin: "1rem" }}
+              onChange={handleChange}
             >
-              Create Sighting
-            </Button>
+              {contactOptions}
+            </Select>
+          </FormControl>
+        
+         
+          <Button
+            sx={{ mb: "5em", marginLeft: "4em", padding: "7px" }}
+            variant="contained"
+            type="submit"
+          >
+            Create Sighting
+          </Button>
         </form>
-      </Grid>
+       </Grid>
+      
     </Box>
-  )
+  );
 }
 
-export default FinderForm
+export default FinderForm;

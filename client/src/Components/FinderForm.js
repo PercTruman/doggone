@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react'
+import React, {useState, useContext, useEffect} from 'react'
 import { UserContext } from "../UserContext";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
@@ -10,7 +10,13 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 
 function FinderForm() {
+  useEffect(() => {
+    fetch('https://api.thedogapi.com/v1/breeds?page=0')
+    .then(res=>res.json())
+    .then(data=> setBreedNames(data))
+  },[])
     const { user } = useContext(UserContext);
+    const [breedNames, setBreedNames] = useState([])
     const [formData, setFormData] = useState({
         color: "",
         sex: "",
@@ -73,17 +79,37 @@ function FinderForm() {
           }
         });
       };
+
+      const sexChoices = ["Male", "Female", "Neutered Male", "Spayed Female"];
+      const sexDropDownOptions = sexChoices.map((choice) => (
+        <MenuItem key={choice} type="text" name="choice" value={choice}>
+          {choice}
+        </MenuItem>
+      ));
+
+      const colorChoices = ["Black", "White", "Light Brown", "Dark Brown", "Golden", "Gray", "Cream", "Other"];
+      const colorDropDownOptions = colorChoices.map((choice) => (
+        <MenuItem key={choice} type="text" name="choice" value={choice}>
+          {choice}
+        </MenuItem>
+      ));
     
       const ageChoices = ["Baby", "Puppy", "Adult", "Mature"];
       const ageDropDownOptions = ageChoices.map((choice) => (
         <MenuItem key={choice} type="text" name="choice" value={choice}>
           {choice}
         </MenuItem>
-       
       ));
+
       const contacts = ["Text Message", "Phone", "Email", "No Contact"]
       const contactOptions = contacts.map((choice) => (
         <MenuItem key={choice} type="text" name={choice} value={choice}>{choice}</MenuItem>));
+
+      const breedList = breedNames && breedNames.map((breed)=> (
+        <MenuItem key={breed.id} value={breed.name}>{breed.name}</MenuItem>
+      ));
+            
+      
   return (
     <Box>FinderForm
         <Grid sx={{ justifyContent: "center" }} container spacing={2}>
@@ -92,44 +118,40 @@ function FinderForm() {
             Create New Sighting
           </h2>
           <Grid xs>
-            <TextField
-              label="Color:"
-              margin='normal'
-              size="small"
-              id="outlined-basic"
-              variant="filled"
-              sx={{background:'white', margin:'1rem'}}
-              name="color"
-              type="text"
-              autoComplete="on"
-              value={formData.color}
-              onChange={handleChange}
-            />
-            <TextField
-              label="Sex, if known:"
-              size="small"
-              sx={{background:'white', margin:'1rem'}}
-              id="outlined-basic"
-              variant="filled"
-              name="sex"
-              type="text"
-              autoComplete="on"
-              value={formData.sex}
-              onChange={handleChange}
-            />
-            <TextField
-              label="Breed, if known:"
-              size="small"
-              id="outlined-basic"
-              sx={{background:'white', margin:'1rem'}}
-              variant="filled"
-              name="breed"
-              type="text"
-              autoComplete="on"
-              value={formData.breed}
-              onChange={handleChange}
-            />
-          <a href="https://animalcorner.org/dog-breeds" target="_blank" rel="noreferrer">
+          <FormControl fullWidth sx={{ mb: "1em" }}>
+              <InputLabel> Primary Color</InputLabel>
+              <Select
+                value={formData.color}
+                name="color"
+                sx={{background:'white', margin:'1rem'}}
+                onChange={handleChange}
+              >
+                {colorDropDownOptions}
+              </Select>
+            </FormControl>
+            <FormControl fullWidth sx={{ mb: "1em" }}>
+              <InputLabel>Sex, if known:</InputLabel>
+              <Select
+                value={formData.sex}
+                name="sex"
+                sx={{background:'white', margin:'1rem'}}
+                onChange={handleChange}
+              >
+                {sexDropDownOptions}
+              </Select>
+            </FormControl>
+            <FormControl fullWidth sx={{ mb: "1em" }}>
+              <InputLabel>Breed, if known:</InputLabel>
+              <Select
+                value={formData.breed}
+                name="breed"
+                sx={{background:'white', margin:'1rem'}}
+                onChange={handleChange}
+              >
+                {breedList}
+              </Select>
+            </FormControl>
+          <a href="https://www.dogthelove.com/category" target="_blank" rel="noreferrer">
                <Button
               sx={{ mb: "5em", marginLeft: "4em", padding: "7px" }}
               variant="contained"

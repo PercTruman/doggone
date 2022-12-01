@@ -75,16 +75,15 @@ function FinderForm() {
       };
     
       const ageChoices = ["Baby", "Puppy", "Adult", "Mature"];
-      const ageDropDownOptions = ageChoices.map((choice) => {
+      const ageDropDownOptions = ageChoices.map((choice) => (
         <MenuItem key={choice} type="text" name="choice" value={choice}>
           {choice}
-        </MenuItem>;
-      });
-    
+        </MenuItem>
+       
+      ));
       const contacts = ["Text Message", "Phone", "Email", "No Contact"]
-     
-      const contactOptions = contacts.map((choice) => {
-        <MenuItem key={choice} type="text" name={choice} value={choice}>{choice}</MenuItem>})
+      const contactOptions = contacts.map((choice) => (
+        <MenuItem key={choice} type="text" name={choice} value={choice}>{choice}</MenuItem>));
   return (
     <Box>FinderForm
         <Grid sx={{ justifyContent: "center" }} container spacing={2}>
@@ -95,7 +94,7 @@ function FinderForm() {
           <Grid xs>
             <TextField
               label="Color:"
-              margin='1rem'
+              margin='normal'
               size="small"
               id="outlined-basic"
               variant="filled"
@@ -130,18 +129,15 @@ function FinderForm() {
               value={formData.breed}
               onChange={handleChange}
             />
-          
-              <a href="https://animalcorner.org/dog-breeds" target="_blank" rel="noreferrer">
+          <a href="https://animalcorner.org/dog-breeds" target="_blank" rel="noreferrer">
                <Button
               sx={{ mb: "5em", marginLeft: "4em", padding: "7px" }}
               variant="contained"
-             
-            >
+             >
               Breed Images
             </Button>
             </a>
-          
-            <FormControl fullWidth sx={{ mb: "1em" }}>
+          <FormControl fullWidth sx={{ mb: "1em" }}>
               <InputLabel> Approximate Age</InputLabel>
               <Select
                 value={formData.age_group}

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { UserContext } from "../UserContext";
 import FinderMap from "../Components/FinderMap";
 import FinderForm from "../Components/FinderForm";
@@ -13,7 +13,7 @@ function NewSighting() {
     <Box>
       NewSighting
       <FinderForm />
-      <FinderMap />
+    
     </Box>
   );
 }

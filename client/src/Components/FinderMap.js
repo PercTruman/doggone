@@ -16,13 +16,13 @@ const options = {
   zoomControl: true,
 };
 
-const libraries = ["places"];
+// const libraries = ["places"];
 
-function FinderMap() {
+function FinderMap( {setLatitude, setLongitude}) {
   const center = useMemo(() => ({ lat: 32.59048, lng: -97.04098 }),[]);
   const { isLoaded } = useLoadScript({
     googleMapsApiKey:  process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-    libraries
+    // libraries
   });
 
   const [markers, setMarkers] = useState([]);
@@ -34,6 +34,9 @@ function FinderMap() {
   }, []);
 
   const onMapClick = useCallback((e) => {
+    setLatitude(e.latLng.lat)
+    setLongitude(e.latLng.lng)
+    // console.log(e.latLng.lng())
     setMarkers((current) => [
       ...current,
       {

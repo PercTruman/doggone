@@ -8,6 +8,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Button from "@mui/material/Button";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
+import FinderMap from './FinderMap';
 
 function FinderForm() {
   useEffect(() => {
@@ -15,8 +16,11 @@ function FinderForm() {
     .then(res=>res.json())
     .then(data=> setBreedNames(data))
   },[])
+
     const { user } = useContext(UserContext);
     const [breedNames, setBreedNames] = useState([])
+    const [latitude, setLatitude] = useState(null)
+    const [longitude, setLongitude] = useState(null)
     const [formData, setFormData] = useState({
         color: "",
         sex: "",
@@ -24,8 +28,8 @@ function FinderForm() {
         age_group: "",
         additional_details: "",
         img: "",
-        map_lat: "",
-        map_lng: "",
+        map_lat: latitude,
+        map_lng: longitude,
         contact_finder: false,
         contact_method: "",
         time_of_sighting: "",
@@ -33,7 +37,7 @@ function FinderForm() {
         finder_id: "",
         owner_id: "",
       });
-    
+    console.log(latitude)
       const handleChange = (e) => {
         setFormData({
           ...formData,
@@ -160,7 +164,7 @@ function FinderForm() {
             </Button>
             </a>
           <FormControl fullWidth sx={{ mb: "1em" }}>
-              <InputLabel> Approximate Age</InputLabel>
+              <InputLabel> Approximate Age Group</InputLabel>
               <Select
                 value={formData.age_group}
                 name="age_group"
@@ -195,6 +199,7 @@ function FinderForm() {
                 {contactOptions}
               </Select>
             </FormControl>
+            <FinderMap  setLatitude={setLatitude} setLongitude={setLongitude}/>
             <Button
               sx={{ mb: "5em", marginLeft: "4em", padding: "7px" }}
               variant="contained"

@@ -15,8 +15,8 @@ function Locate({ panTo }) {
           });
         }}
       >
-        <img src={compass} alt="compass-locate me" style={{ opacity: 0.75 }} />
-        <p>Locate Me</p>
+        <img src={compass} alt="compass-locate me"  />
+        <p style ={{color:"red", fontWeight:"bold"}}>Locate Me</p>
       </button>
     </div>
   );

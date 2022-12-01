@@ -10,9 +10,10 @@ import dogPaw from "../Pages/dog-paw.svg";
 import Locate from "./Locate";
 
 const mapContainerStyle = {
-  margin: "0 auto",
-  width: "75vw",
-  height: "75vh",
+  margin: "10rem 5rem",
+  width: "50vw",
+  height: "50vh",
+  padding: "2rem"
 };
 
 const options = {
@@ -62,7 +63,7 @@ function FinderMap({ setLatitude, setLongitude, mapRef }) {
      
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
-        zoom={15}
+        zoom={17}
         center={center}
         onClick={onMapClick}
         onLoad={onMapLoad}
@@ -95,8 +96,9 @@ function FinderMap({ setLatitude, setLongitude, mapRef }) {
             </div>
           </InfoWindow>
         ) : null}
+         <Locate panTo={panTo} />
       </GoogleMap>
-      <Locate panTo={panTo} />
+     
     </div>
   );
 }

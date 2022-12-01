@@ -139,14 +139,10 @@ function FinderForm({latitude, longitude}) {
     ));
 
   return (
-    <Box>
-      FinderForm
-      <Grid sx={{ justifyContent: "center" }} container spacing={2}>
+   <Box>
+     
+      <Box>
         <form onSubmit={handleSubmit}>
-          <h2 style={{ color:"#85BBCC",marginTop: "3rem", marginLeft: "2rem" }}>
-            Create New Sighting
-          </h2>
-          <Grid xs>
             <FormControl fullWidth sx={{ mb: "1em" }}>
               <InputLabel sx={{textAlign: "center"}}> Primary Color</InputLabel>
               <Select
@@ -216,7 +212,7 @@ function FinderForm({latitude, longitude}) {
               value={formData.additional_details}
               onChange={handleChange}
             />
-          </Grid>
+        
           <FormControl fullWidth sx={{ mb: "1em" }}>
             <InputLabel> Contact Me By:</InputLabel>
             <Select
@@ -238,9 +234,8 @@ function FinderForm({latitude, longitude}) {
             Create Sighting
           </Button>
         </form>
-       </Grid>
-      
-    </Box>
+      </Box>
+  </Box>
   );
 }
 

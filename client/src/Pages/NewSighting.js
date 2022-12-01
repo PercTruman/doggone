@@ -13,15 +13,25 @@ function NewSighting() {
   const mapRef = useRef();
 
   return (
+  <Box padding={0}>
+     <Box sx={{textAlign:"center"}}>
+        <h2 style={{ color:"#85BBCC", marginLeft: "2rem" }}>
+            Create New Sighting
+        </h2>
+      </Box>
+       <Box display={"flex"} >
     <Box>
-      NewSighting
       <FinderForm latitude={latitude} longitude={longitude} />
+    </Box>
+    <Box>
       <FinderMap
             setLatitude={setLatitude}
             setLongitude={setLongitude}
             mapRef={mapRef}
           />
     </Box>
+  </Box>
+  </Box>
   );
 }
 

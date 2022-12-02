@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, useRef } from "react";
+import React, { useState, useMemo, useCallback, useRef} from "react";
 import {
   useLoadScript,
   GoogleMap,
@@ -8,6 +8,9 @@ import {
 import { formatRelative } from "date-fns";
 import dogPaw from "../Pages/dog-paw.svg";
 import Locate from "./Locate";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+
 
 const mapContainerStyle = {
   margin: "10rem 5rem",
@@ -16,20 +19,19 @@ const mapContainerStyle = {
   padding: "2rem"
 };
 
+
+
 const options = {
   disableDefaultUI: true,
   zoomControl: true,
 };
 
 
-
-// const libraries = ["places"];
-
 function FinderMap({ setLatitude, setLongitude, mapRef }) {
+  const [isDraggable, setIsDraggable] = useState(true)
   const center = useMemo(() => ({ lat: 32.59048, lng: -97.04098 }), []);
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-    // libraries
   });
 
   const panTo = useCallback(({ lat, lng }) => {
@@ -43,7 +45,6 @@ function FinderMap({ setLatitude, setLongitude, mapRef }) {
   const onMapClick = useCallback((e) => {
     setLatitude(e.latLng.lat);
     setLongitude(e.latLng.lng);
-    // console.log(e.latLng.lng())
     setMarkers((current) => [
       ...current,
       {
@@ -73,13 +74,14 @@ function FinderMap({ setLatitude, setLongitude, mapRef }) {
           <Marker
             key={marker.time.toISOString()}
             position={{ lat: marker.lat, lng: marker.lng }}
-            draggable={true}
+            draggable={isDraggable}
             icon={{
               url: dogPaw,
               scaledSize: new window.google.maps.Size(20, 20),
               origin: new window.google.maps.Point(0, 0),
               anchor: new window.google.maps.Point(15, 15),
             }}
+          
             onClick={() => {
               setSelected(marker);
             }}
@@ -91,8 +93,12 @@ function FinderMap({ setLatitude, setLongitude, mapRef }) {
             onCloseClick={() => setSelected(null)}
           >
             <div>
-              <h2> Dog Sighted!</h2>
+              <h2> Save this Location?</h2>
               <p> Sighted {formatRelative(selected.time, new Date())}</p>
+              <Box display="flex" justifyContent={"space-around"}>
+              <Button margin ="10px" size="small" variant="contained">Yes</Button>
+              <Button margin = "10px" size="small" variant="contained">No</Button>
+              </Box>
             </div>
           </InfoWindow>
         ) : null}

@@ -19,8 +19,8 @@ function App() {
     <div className="App"
     style={{
       backgroundImage: `url(${LostDog})`,
-      height: "100vh",
-      width: "auto",
+      height: "100%",
+      width: "100%",
       backgroundSize: "cover"
     }} >
         <Routes>

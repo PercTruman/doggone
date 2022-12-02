@@ -1,21 +1,17 @@
 import React, {
   useState,
-  useCallback,
   useContext,
   useEffect,
-  useRef,
 } from "react";
 import { UserContext } from "../UserContext";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Unstable_Grid2";
 import Button from "@mui/material/Button";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import FinderMap from "./FinderMap";
-import Locate from "./Locate";
+
 
 function FinderForm({latitude, longitude}) {
   useEffect(() => {
@@ -140,11 +136,10 @@ function FinderForm({latitude, longitude}) {
 
   return (
    <Box>
-     
-      <Box>
+     <Box>
         <form onSubmit={handleSubmit}>
             <FormControl fullWidth sx={{ mb: "1em" }}>
-              <InputLabel sx={{textAlign: "center"}}> Primary Color</InputLabel>
+              <InputLabel  sx={{padding: "1rem 8rem"}}> Primary Color</InputLabel>
               <Select
                 value={formData.color}
                 name="color"
@@ -155,7 +150,7 @@ function FinderForm({latitude, longitude}) {
               </Select>
             </FormControl>
             <FormControl fullWidth sx={{ mb: "1em" }}>
-              <InputLabel>Sex, if known:</InputLabel>
+              <InputLabel  sx={{padding: "1rem 8rem"}}>Sex, if known:</InputLabel>
               <Select
                 value={formData.sex}
                 name="sex"
@@ -166,7 +161,7 @@ function FinderForm({latitude, longitude}) {
               </Select>
             </FormControl>
             <FormControl fullWidth sx={{ mb: "1em" }}>
-              <InputLabel>Breed, if known:</InputLabel>
+              <InputLabel sx={{padding: "1rem 8rem"}}>Breed, if known:</InputLabel>
               <Select
                 value={formData.breed}
                 name="breed"
@@ -189,7 +184,7 @@ function FinderForm({latitude, longitude}) {
               </Button>
             </a>
             <FormControl fullWidth sx={{ mb: "1em" }}>
-              <InputLabel> Approximate Age Group</InputLabel>
+              <InputLabel  sx={{padding: "1rem 8rem"}}> Approximate Age Group</InputLabel>
               <Select
                 value={formData.age_group}
                 name="age_group"
@@ -214,7 +209,7 @@ function FinderForm({latitude, longitude}) {
             />
         
           <FormControl fullWidth sx={{ mb: "1em" }}>
-            <InputLabel> Contact Me By:</InputLabel>
+            <InputLabel  sx={{padding: "1rem 8rem"}}> Contact Me By:</InputLabel>
             <Select
               value={formData.contact_method}
               name="contact_method"

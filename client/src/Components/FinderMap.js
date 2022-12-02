@@ -39,13 +39,13 @@ function FinderMap({ setLatitude, setLongitude, mapRef }) {
     mapRef.current.setZoom(15);
   }, []);
 
-  const [markers, setMarkers] = useState([]);
+  const [marker, setMarker] = useState([]);
   const [selected, setSelected] = useState(null);
 
   const onMapClick = useCallback((e) => {
     setLatitude(e.latLng.lat);
     setLongitude(e.latLng.lng);
-    setMarkers((current) => [
+    setMarker((current) => [
       ...current,
       {
         lat: e.latLng.lat(),
@@ -58,6 +58,11 @@ function FinderMap({ setLatitude, setLongitude, mapRef }) {
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
   }, []);
+
+  const removeMarker=()=>{
+    setMarker([])
+    setSelected(null)
+  }
   if (!isLoaded) return <div>Loading...</div>;
   return (
     <div>
@@ -70,7 +75,7 @@ function FinderMap({ setLatitude, setLongitude, mapRef }) {
         onLoad={onMapLoad}
         options={options}
       >
-        {markers.map((marker) => (
+        {marker.map((marker) => (
           <Marker
             key={marker.time.toISOString()}
             position={{ lat: marker.lat, lng: marker.lng }}
@@ -94,10 +99,10 @@ function FinderMap({ setLatitude, setLongitude, mapRef }) {
           >
             <div>
               <h2> Save this Location?</h2>
-              <p> Sighted {formatRelative(selected.time, new Date())}</p>
+              {/* <p> Sighted {formatRelative(selected.time, new Date())}</p> */}
               <Box display="flex" justifyContent={"space-around"}>
               <Button margin ="10px" size="small" variant="contained">Yes</Button>
-              <Button margin = "10px" size="small" variant="contained">No</Button>
+              <Button onClick={()=>removeMarker()}margin = "10px" size="small" variant="contained">No</Button>
               </Box>
             </div>
           </InfoWindow>

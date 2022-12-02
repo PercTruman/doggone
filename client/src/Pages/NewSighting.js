@@ -8,6 +8,7 @@ function NewSighting() {
   const { user } = useContext(UserContext);
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
+   const [showMap, setShowMap] = useState(true)
   const mapRef = useRef();
 
   return (
@@ -21,13 +22,17 @@ function NewSighting() {
         <Box>
           <FinderForm latitude={latitude} longitude={longitude} />
         </Box>
+        {showMap ? 
         <Box>
           <FinderMap
+          setShowMap={setShowMap}
+          latitude={latitude}
+          longitude={longitude}
             setLatitude={setLatitude}
             setLongitude={setLongitude}
             mapRef={mapRef}
           />
-        </Box>
+        </Box> : null}
       </Box>
     </Box>
   );

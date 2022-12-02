@@ -5,7 +5,7 @@ import {
   Marker,
   InfoWindow,
 } from "@react-google-maps/api";
-import { formatRelative } from "date-fns";
+// import { formatRelative } from "date-fns";
 import dogPaw from "../Pages/dog-paw.svg";
 import Locate from "./Locate";
 import Button from "@mui/material/Button";
@@ -27,13 +27,13 @@ const options = {
 };
 
 
-function FinderMap({ setLatitude, setLongitude, mapRef }) {
+function FinderMap({ setShowMap, setLatitude, setLongitude, mapRef }) {
   const [isDraggable, setIsDraggable] = useState(true)
   const center = useMemo(() => ({ lat: 32.59048, lng: -97.04098 }), []);
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
-
+ 
   const panTo = useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(15);
@@ -53,6 +53,7 @@ function FinderMap({ setLatitude, setLongitude, mapRef }) {
         time: new Date(),
       },
     ]);
+    
   }, []);
 
   const onMapLoad = useCallback((map) => {
@@ -63,6 +64,12 @@ function FinderMap({ setLatitude, setLongitude, mapRef }) {
     setMarker([])
     setSelected(null)
   }
+  const saveMarker=()=>{
+  
+    setShowMap(false)
+    alert("Dog Location saved successfully.")
+  }
+  
   if (!isLoaded) return <div>Loading...</div>;
   return (
     <div>
@@ -101,7 +108,7 @@ function FinderMap({ setLatitude, setLongitude, mapRef }) {
               <h2> Save this Location?</h2>
               {/* <p> Sighted {formatRelative(selected.time, new Date())}</p> */}
               <Box display="flex" justifyContent={"space-around"}>
-              <Button margin ="10px" size="small" variant="contained">Yes</Button>
+              <Button onClick={()=>saveMarker()}margin ="10px" size="small" variant="contained">Yes</Button>
               <Button onClick={()=>removeMarker()}margin = "10px" size="small" variant="contained">No</Button>
               </Box>
             </div>

@@ -28,7 +28,7 @@ const options = {
 
 
 function FinderMap({ setShowMap, setLatitude, setLongitude, mapRef }) {
-  const [isDraggable, setIsDraggable] = useState(true)
+  const [showSaveWindow, setShowSaveWindow] = useState(false)
   const center = useMemo(() => ({ lat: 32.59048, lng: -97.04098 }), []);
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -39,20 +39,20 @@ function FinderMap({ setShowMap, setLatitude, setLongitude, mapRef }) {
     mapRef.current.setZoom(15);
   }, []);
 
-  const [marker, setMarker] = useState([]);
+  const [marker, setMarker] = useState( null);
   const [selected, setSelected] = useState(null);
 
   const onMapClick = useCallback((e) => {
+    setShowSaveWindow(true)
     setLatitude(e.latLng.lat);
     setLongitude(e.latLng.lng);
-    setMarker((current) => [
-      ...current,
+    setMarker(
       {
         lat: e.latLng.lat(),
         lng: e.latLng.lng(),
         time: new Date(),
       },
-    ]);
+    );
     
   }, []);
 
@@ -61,7 +61,7 @@ function FinderMap({ setShowMap, setLatitude, setLongitude, mapRef }) {
   }, []);
 
   const removeMarker=()=>{
-    setMarker([])
+    setMarker( null)
     setSelected(null)
   }
   const saveMarker=()=>{
@@ -69,7 +69,7 @@ function FinderMap({ setShowMap, setLatitude, setLongitude, mapRef }) {
     setShowMap(false)
     alert("Dog Location saved successfully.")
   }
-  
+  console.log(marker)
   if (!isLoaded) return <div>Loading...</div>;
   return (
     <div>
@@ -82,11 +82,11 @@ function FinderMap({ setShowMap, setLatitude, setLongitude, mapRef }) {
         onLoad={onMapLoad}
         options={options}
       >
-        {marker.map((marker) => (
+       
+        {marker ?
           <Marker
-            key={marker.time.toISOString()}
+            key={marker.time}
             position={{ lat: marker.lat, lng: marker.lng }}
-            draggable={isDraggable}
             icon={{
               url: dogPaw,
               scaledSize: new window.google.maps.Size(20, 20),
@@ -97,9 +97,9 @@ function FinderMap({ setShowMap, setLatitude, setLongitude, mapRef }) {
             onClick={() => {
               setSelected(marker);
             }}
-          />
-        ))}
-        {selected ? (
+          /> : null}
+        {/* ))} */}
+        {showSaveWindow && selected ? (
           <InfoWindow
             position={{ lat: selected.lat, lng: selected.lng }}
             onCloseClick={() => setSelected(null)}

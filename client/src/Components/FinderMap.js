@@ -107,7 +107,7 @@ function FinderMap({ setShowMap, setLatitude, setLongitude, mapRef }) {
                 Yes
               </Button>
               <Button
-                onClick={() => removeMarker()}
+                onClick={() => {removeMarker(); setSelected(null);}}
                 margin="10px"
                 size="small"
                 variant="contained"

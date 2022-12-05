@@ -79,6 +79,7 @@ function FinderForm({ handleSubmit, setFormData, formData }) {
         <Grid container flexDirection="column" justifyContent={"center"}>
          <form onSubmit={handleSubmit}>
           <ImageUpload />
+          <Box display={'flex'} flexDirection="column" justifyContent={"center"}>
             <FormControl fullWidth sx={{ mb: "1em" }}>
               <InputLabel sx={{ padding: "1rem 2rem" }}>
                 {" "}
@@ -127,14 +128,14 @@ function FinderForm({ handleSubmit, setFormData, formData }) {
             >
               <Button
                 sx={{
+                  width: "150px",
                   mb: "5em",
-                  mt: "1.75em",
-                  marginLeft: "-15rem",
+                  mt: "0",
                   padding: "7px",
                 }}
                 variant="contained"
               >
-                Breed Images
+                Breed Image Helper
               </Button>
             </a>
             <FormControl fullWidth sx={{ mt: "-1.8em", mb: "1em" }}>
@@ -155,7 +156,7 @@ function FinderForm({ handleSubmit, setFormData, formData }) {
               sx={{
                 borderRadius: "3px",
                 background: "white",
-                marginLeft: "-10rem",
+        
               }}
               id="outlined-basic"
               variant="outlined"
@@ -181,12 +182,14 @@ function FinderForm({ handleSubmit, setFormData, formData }) {
             </FormControl>
 
             <Button
-              sx={{ mb: "5em", marginLeft: "4em", padding: "7px" }}
+              sx={{ background: "red", mb: "5em", marginLeft: "4em", padding: "7px" }}
               variant="contained"
               type="submit"
             >
               Create Sighting
             </Button>
+
+            </Box>
           </form>
         </Grid>
       </Box>

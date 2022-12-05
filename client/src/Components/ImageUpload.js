@@ -15,6 +15,7 @@ export function ImageUpload() {
 
   return (
     <div className="App">
+        <h3 style={{color: '#76B5C5'}}>Upload Image</h3>
       <ImageUploading
         multiple
         value={images}
@@ -34,15 +35,16 @@ export function ImageUpload() {
           // write your building UI
           <div className="upload__image-wrapper">
             <Button
+            size='small'
             variant="contained" 
               style={isDragging ? { color: 'red' } : undefined}
               onClick={onImageUpload}
               {...dragProps}
             >
-              Click or Drop here
+              Add Image
               </Button>
             &nbsp;
-            <Button variant="contained" onClick={onImageRemoveAll}>Remove all images</Button>
+            <Button size='small' variant="contained" onClick={onImageRemoveAll}>Remove all images</Button>
             {imageList.map((image, index) => (
               <div key={index} className="image-item">
                 <img src={image['data_url']} alt="" width="100" />

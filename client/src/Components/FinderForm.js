@@ -75,10 +75,10 @@ function FinderForm({ handleSubmit, setFormData, formData }) {
 
   return (
     <Box>
-      <Box>
+      <Box >
         <Grid container flexDirection="column" justifyContent={"center"}>
+         <form onSubmit={handleSubmit}>
           <ImageUpload />
-          <form onSubmit={handleSubmit}>
             <FormControl fullWidth sx={{ mb: "1em" }}>
               <InputLabel sx={{ padding: "1rem 2rem" }}>
                 {" "}

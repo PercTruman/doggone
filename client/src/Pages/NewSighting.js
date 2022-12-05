@@ -74,8 +74,8 @@ function NewSighting() {
           Create New Sighting
         </h2>
       </Box>
-      <Box display={"flex"}>
-        <Box>
+      <Box display={"flex"} justifyContent={'space-around'}>
+        <Box border={'2px solid red'}>
           <FinderForm
             latitude={latitude}
             longitude={longitude}
@@ -85,7 +85,7 @@ function NewSighting() {
           />
         </Box>
         {showMap ? (
-          <Box>
+          <Box border={'2px solid blue'}>
             <FinderMap
               setShowMap={setShowMap}
               latitude={latitude}

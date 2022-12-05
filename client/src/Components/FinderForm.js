@@ -1,8 +1,4 @@
-import React, {
-  useState,
-  useContext,
-  useEffect,
-} from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { UserContext } from "../UserContext";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
@@ -11,10 +7,9 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import Grid from "@mui/material/Grid"
+import Grid from "@mui/material/Grid";
 
-
-function FinderForm({latitude, longitude}) {
+function FinderForm({ handleSubmit, setFormData, formData }) {
   useEffect(() => {
     fetch("https://api.thedogapi.com/v1/breeds?page=0")
       .then((res) => res.json())
@@ -23,24 +18,6 @@ function FinderForm({latitude, longitude}) {
 
   const { user } = useContext(UserContext);
   const [breedNames, setBreedNames] = useState([]);
- 
-
-  const [formData, setFormData] = useState({
-    color: "",
-    sex: "",
-    breed: "",
-    age_group: "",
-    additional_details: "",
-    img: "",
-    map_lat: latitude,
-    map_lng: longitude,
-    contact_finder: false,
-    contact_method: "",
-    time_of_sighting: "",
-    date_of_sighting: "",
-    finder_id: "",
-    owner_id: "",
-  });
 
   const handleChange = (e) => {
     setFormData({
@@ -49,46 +26,6 @@ function FinderForm({latitude, longitude}) {
       finder_id: user.id,
     });
   };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    fetch("/sightings", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    }).then((res) => {
-      if (res.ok) {
-        res.json().then(() => {
-          alert(
-            "Thank you for submitting.  Your sighting has been saved successfully. If you allowed your contact information to be visible, you may be contacted soon."
-          );
-
-          setFormData({
-            color: "",
-            sex: "",
-            breed: "",
-            age_group: "",
-            additional_details: "",
-            img: "",
-            map_lat: "",
-            map_lng: "",
-            contact_finder: false,
-            contact_method: "",
-            time_of_sighting: "",
-            date_of_sighting: "",
-            finder_id: "",
-            owner_id: "",
-          });
-        });
-      } else {
-        res.json().then((errors) => {
-          alert(errors.error);
-        });
-      }
-    });
-  };
-
-
 
   const sexChoices = ["Male", "Female", "Neutered Male", "Spayed Female"];
   const sexDropDownOptions = sexChoices.map((choice) => (
@@ -136,39 +73,46 @@ function FinderForm({latitude, longitude}) {
     ));
 
   return (
-   <Box>
-     <Box>
-      <Grid container flexDirection="column" justifyContent={"center"}>
-        <Grid item>
-        <form onSubmit={handleSubmit}>
+    <Box>
+      <Box>
+        <Grid container flexDirection="column" justifyContent={"center"}>
+          <form onSubmit={handleSubmit}>
             <FormControl fullWidth sx={{ mb: "1em" }}>
-              <InputLabel  sx={{padding: "1rem 2rem"}}> Primary Color</InputLabel>
+              <InputLabel sx={{ padding: "1rem 2rem" }}>
+                {" "}
+                Primary Color
+              </InputLabel>
               <Select
                 value={formData.color}
                 name="color"
-                sx={{ background: "white", margin: "1rem", maxWidth:"200px" }}
+                sx={{ background: "white", margin: "1rem", maxWidth: "200px" }}
                 onChange={handleChange}
               >
                 {colorDropDownOptions}
               </Select>
             </FormControl>
+
             <FormControl fullWidth sx={{ mb: "1em" }}>
-              <InputLabel  sx={{padding: "1rem 2rem"}}>Sex, if known:</InputLabel>
+              <InputLabel sx={{ padding: "1rem 2rem" }}>
+                Sex, if known:
+              </InputLabel>
               <Select
                 value={formData.sex}
                 name="sex"
-                sx={{ background: "white", margin: "1rem", maxWidth:"200px" }}
+                sx={{ background: "white", margin: "1rem", maxWidth: "200px" }}
                 onChange={handleChange}
               >
                 {sexDropDownOptions}
               </Select>
             </FormControl>
             <FormControl fullWidth sx={{ mb: "1em" }}>
-              <InputLabel sx={{padding: "1rem 2rem"}}>Breed, if known:</InputLabel>
+              <InputLabel sx={{ padding: "1rem 2rem" }}>
+                Breed, if known:
+              </InputLabel>
               <Select
                 value={formData.breed}
                 name="breed"
-                sx={{ background: "white", margin: "1rem" , maxWidth:"200px"}}
+                sx={{ background: "white", margin: "1rem", maxWidth: "200px" }}
                 onChange={handleChange}
               >
                 {breedList}
@@ -180,18 +124,23 @@ function FinderForm({latitude, longitude}) {
               rel="noreferrer"
             >
               <Button
-                sx={{ mb: "5em", mt:"1.75em", marginLeft: "-8rem", padding: "7px" }}
+                sx={{
+                  mb: "5em",
+                  mt: "1.75em",
+                  marginLeft: "-15rem",
+                  padding: "7px",
+                }}
                 variant="contained"
               >
                 Breed Images
               </Button>
             </a>
             <FormControl fullWidth sx={{ mt: "-1.8em", mb: "1em" }}>
-              <InputLabel  sx={{padding: "1rem 2rem"}}>Age Group</InputLabel>
+              <InputLabel sx={{ padding: "1rem 2rem" }}>Age Group</InputLabel>
               <Select
                 value={formData.age_group}
                 name="age_group"
-                sx={{ background: "white", margin: "1rem", maxWidth:"200px" }}
+                sx={{ background: "white", margin: "1rem", maxWidth: "200px" }}
                 onChange={handleChange}
               >
                 {ageDropDownOptions}
@@ -201,40 +150,45 @@ function FinderForm({latitude, longitude}) {
               label="Additional Details:"
               multiline
               size="medium"
-              sx={{ background: "white", margin: "1rem", height: "10rem"}}
+              sx={{
+                borderRadius: "3px",
+                background: "white",
+                marginLeft: "-10rem",
+              }}
               id="outlined-basic"
-              variant="filled"
+              variant="outlined"
               name="additional_details"
               type="text"
               value={formData.additional_details}
               onChange={handleChange}
             />
-        
-          <FormControl fullWidth sx={{ mb: "1em" }}>
-            <InputLabel  sx={{padding: "1rem 2rem"}}> Contact Me By:</InputLabel>
-            <Select
-              value={formData.contact_method}
-              name="contact_method"
-              sx={{ background: "white", margin: "1rem", maxWidth:"200px" }}
-              onChange={handleChange}
+
+            <FormControl fullWidth sx={{ mb: "1em" }}>
+              <InputLabel sx={{ padding: "1rem 2rem" }}>
+                {" "}
+                Contact Me By:
+              </InputLabel>
+              <Select
+                value={formData.contact_method}
+                name="contact_method"
+                sx={{ background: "white", margin: "1rem", maxWidth: "200px" }}
+                onChange={handleChange}
+              >
+                {contactOptions}
+              </Select>
+            </FormControl>
+
+            <Button
+              sx={{ mb: "5em", marginLeft: "4em", padding: "7px" }}
+              variant="contained"
+              type="submit"
             >
-              {contactOptions}
-            </Select>
-          </FormControl>
-        
-         
-          <Button
-            sx={{ mb: "5em", marginLeft: "4em", padding: "7px" }}
-            variant="contained"
-            type="submit"
-          >
-            Create Sighting
-          </Button>
-        </form>
-        </Grid>
+              Create Sighting
+            </Button>
+          </form>
         </Grid>
       </Box>
-  </Box>
+    </Box>
   );
 }
 

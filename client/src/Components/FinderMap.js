@@ -12,10 +12,9 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 
 const mapContainerStyle = {
-  margin: "10rem 5rem",
-  width: "50vw",
-  height: "50vh",
-  padding: "2rem",
+  margin: "4rem auto",
+  width: "40vw",
+  height: "40vh",
 };
 
 const options = {
@@ -75,48 +74,54 @@ function FinderMap({ setShowMap, setLatitude, setLongitude, mapRef }) {
       >
         {marker ? (
           <div>
-          <MarkerF
-            key={marker.time}
-            position={{ lat: marker.lat, lng: marker.lng }}
-            icon={{
-              url: dogPaw,
-              scaledSize: new window.google.maps.Size(20, 20),
-              origin: new window.google.maps.Point(0, 0),
-              anchor: new window.google.maps.Point(15, 15),
-            }}
-            onClick={() => {
-              setSelected(marker);
-            }}
-          />
-          <InfoWindowF
-          options={{pixelOffset: new window.google.maps.Size(0, -15)}}
-          position={{ lat: marker.lat, lng: marker.lng }}
-          onCloseClick={() => {
-            setSelected(null);
-            removeMarker(); }}
-        >
-          <div>
-            <h2> Save this Location?</h2>
-            <Box display="flex" justifyContent={"space-around"}>
-              <Button
-                onClick={() => saveMarker()}
-                margin="10px"
-                size="small"
-                variant="contained"
-              >
-                Yes
-              </Button>
-              <Button
-                onClick={() => {removeMarker(); setSelected(null);}}
-                margin="10px"
-                size="small"
-                variant="contained"
-              >
-                No
-              </Button>
-            </Box>
+            <MarkerF
+              key={marker.time}
+              position={{ lat: marker.lat, lng: marker.lng }}
+              icon={{
+                url: dogPaw,
+                scaledSize: new window.google.maps.Size(20, 20),
+                origin: new window.google.maps.Point(0, 0),
+                anchor: new window.google.maps.Point(15, 15),
+              }}
+              onClick={() => {
+                setSelected(marker);
+              }}
+            />
+            <InfoWindowF
+              options={{ pixelOffset: new window.google.maps.Size(0, -15) }}
+              position={{ lat: marker.lat, lng: marker.lng }}
+              onCloseClick={() => {
+                setSelected(null);
+                removeMarker();
+              }}
+            >
+              <div>
+                <h2> Save this Location?</h2>
+                <Box display="flex" justifyContent={"space-around"}>
+                  <Button
+                    onClick={() => saveMarker()}
+                    margin="10px"
+                    size="small"
+                    variant="contained"
+                  >
+                    Yes
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      removeMarker();
+                      setSelected(null);
+                    }}
+                    margin="10px"
+                    size="small"
+                    variant="contained"
+                  >
+                    No
+                  </Button>
+                </Box>
+              </div>
+            </InfoWindowF>{" "}
           </div>
-        </InfoWindowF> </div> ): null}
+        ) : null}
         <Locate panTo={panTo} />
       </GoogleMap>
     </div>

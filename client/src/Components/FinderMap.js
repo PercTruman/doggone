@@ -91,8 +91,9 @@ function FinderMap({ setShowMap, setLatitude, setLongitude, mapRef }) {
           <InfoWindowF
           options={{pixelOffset: new window.google.maps.Size(0, -15)}}
           position={{ lat: marker.lat, lng: marker.lng }}
-          onCloseClick={() => (
-            setSelected(null) )}
+          onCloseClick={() => {
+            setSelected(null);
+            removeMarker(); }}
         >
           <div>
             <h2> Save this Location?</h2>

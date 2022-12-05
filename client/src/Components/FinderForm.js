@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Grid from "@mui/material/Grid";
-import {ImageUpload} from "./ImageUpload"
+import { ImageUpload } from "./ImageUpload";
 
 function FinderForm({ handleSubmit, setFormData, formData }) {
   useEffect(() => {
@@ -75,120 +75,162 @@ function FinderForm({ handleSubmit, setFormData, formData }) {
 
   return (
     <Box>
-      <Box >
+      <Box>
         <Grid container flexDirection="column" justifyContent={"center"}>
-         <form onSubmit={handleSubmit}>
-          <ImageUpload />
-          <Box display={'flex'} flexDirection="column" justifyContent={"center"}>
-            <FormControl fullWidth sx={{ mb: "1em" }}>
-              <InputLabel sx={{ padding: "1rem 2rem" }}>
-                {" "}
-                Primary Color
-              </InputLabel>
-              <Select
-                value={formData.color}
-                name="color"
-                sx={{ background: "white", margin: "1rem", maxWidth: "200px" }}
-                onChange={handleChange}
-              >
-                {colorDropDownOptions}
-              </Select>
-            </FormControl>
-
-            <FormControl fullWidth sx={{ mb: "1em" }}>
-              <InputLabel sx={{ padding: "1rem 2rem" }}>
-                Sex, if known:
-              </InputLabel>
-              <Select
-                value={formData.sex}
-                name="sex"
-                sx={{ background: "white", margin: "1rem", maxWidth: "200px" }}
-                onChange={handleChange}
-              >
-                {sexDropDownOptions}
-              </Select>
-            </FormControl>
-            <FormControl fullWidth sx={{ mb: "1em" }}>
-              <InputLabel sx={{ padding: "1rem 2rem" }}>
-                Breed, if known:
-              </InputLabel>
-              <Select
-                value={formData.breed}
-                name="breed"
-                sx={{ background: "white", margin: "1rem", maxWidth: "200px" }}
-                onChange={handleChange}
-              >
-                {breedList}
-              </Select>
-            </FormControl>
-            <a
-              href="https://www.dogthelove.com/category"
-              target="_blank"
-              rel="noreferrer"
+          <form onSubmit={handleSubmit}>
+            <ImageUpload />
+            <Box
+            marginTop={'0'}
+              display={"flex"}
+              flexDirection="column"
+              justifyContent={"center"}
             >
+              <Box border={'2px solid yellow'} display={'flex'} width={'300px'} alignItems={'center'} justifyContent={'space-around'}>
+              <FormControl sx={{ mb: "1em" }}>
+                <InputLabel sx={{  fontSize:'12px', paddingTop:'9px', paddingLeft:'15px'}}>
+                  {" "}
+                  Primary Color
+                </InputLabel>
+                <Select
+                  value={formData.color}
+                  name="color"
+                  sx={{
+                    margin: "1rem",
+                    background: "white",
+                    width:'125px',
+                    height: '40px'
+                   
+                 
+                  }}
+                  onChange={handleChange}
+                >
+                  {colorDropDownOptions}
+                </Select>
+              </FormControl>
+
+              <FormControl fullWidth sx={{ mb: "1em",maxWidth: '150px'}}>
+                <InputLabel sx={{  fontSize:'12px', paddingTop:'9px', paddingLeft:'15px' }}>
+                  Sex
+                </InputLabel>
+                <Select
+                  value={formData.sex}
+                  name="sex"
+                  sx={{
+                    background: "white",
+                    margin: "1rem",
+                    width:'125px',
+                    height: '40px'
+                  }}
+                  onChange={handleChange}
+                >
+                  {sexDropDownOptions}
+                </Select>
+              </FormControl>
+              </Box>
+              <Box border={'2px solid yellow'} display={'flex'} width={'300px'} alignItems={'center'} justifyContent={'space-between'}>
+              <FormControl fullWidth sx={{ mb: "1em", maxWidth: '150px' }}>
+                <InputLabel sx={{  fontSize:'12px', paddingTop:'9px', paddingLeft:'15px' }}>
+                  Breed, if known:
+                </InputLabel>
+                <Select
+                  value={formData.breed}
+                  name="breed"
+                  sx={{
+                    background: "white",
+                
+                    width:'125px',
+                    height: '40px'
+                  }}
+                  onChange={handleChange}
+                >
+                  {breedList}
+                </Select>
+              </FormControl>
+              <a
+                href="https://www.dogthelove.com/category"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Button
+                  sx={{
+                    width: "100px",
+               
+               
+                    padding: "7px",
+                    fontSize: "8px"
+                  }}
+                  variant="contained"
+                >
+                  Breed Pictures
+                </Button>
+              </a>
+              </Box>
+              <FormControl fullWidth sx={{ mt: "-1.8em", mb: "1em" , maxWidth: '150px'}}>
+                <InputLabel sx={{  fontSize:'12px', paddingTop:'8px', paddingLeft:'5px'  }}>Age Group</InputLabel>
+                <Select
+                  value={formData.age_group}
+                  name="age_group"
+                  sx={{
+                    background: "white",
+                    margin: "1rem",
+                    maxWidth: "200px",
+                    maxHeight:'35px'
+                  }}
+                  onChange={handleChange}
+                >
+                  {ageDropDownOptions}
+                </Select>
+              </FormControl>
+              <TextField
+                label="Additional Details:"
+                
+                multiline
+                size="medium"
+                sx={{
+                  maxWidth: '150px',
+                  borderRadius: "3px",
+                  background: "white",
+                }}
+                id="outlined-basic"
+                variant="outlined"
+                name="additional_details"
+                type="text"
+                value={formData.additional_details}
+                onChange={handleChange}
+              />
+
+              <FormControl fullWidth sx={{ mb: "1em", maxWidth: '150px' }}>
+                <InputLabel sx={{  fontSize:'12px', paddingTop:'8px', paddingLeft:'5px'  }}>
+                  {" "}
+                  Contact Me By:
+                </InputLabel>
+                <Select
+                  value={formData.contact_method}
+                  name="contact_method"
+                  sx={{
+                    background: "white",
+                    margin: "1rem",
+                    maxWidth: "200px",
+                    maxHeight:'35px'
+                  }}
+                  onChange={handleChange}
+                >
+                  {contactOptions}
+                </Select>
+              </FormControl>
+
               <Button
                 sx={{
-                  width: "150px",
+                  background: "red",
                   mb: "5em",
-                  mt: "0",
+                  marginLeft: "4em",
                   padding: "7px",
                 }}
                 variant="contained"
+                type="submit"
               >
-                Breed Image Helper
+                Create Sighting
               </Button>
-            </a>
-            <FormControl fullWidth sx={{ mt: "-1.8em", mb: "1em" }}>
-              <InputLabel sx={{ padding: "1rem 2rem" }}>Age Group</InputLabel>
-              <Select
-                value={formData.age_group}
-                name="age_group"
-                sx={{ background: "white", margin: "1rem", maxWidth: "200px" }}
-                onChange={handleChange}
-              >
-                {ageDropDownOptions}
-              </Select>
-            </FormControl>
-            <TextField
-              label="Additional Details:"
-              multiline
-              size="medium"
-              sx={{
-                borderRadius: "3px",
-                background: "white",
-        
-              }}
-              id="outlined-basic"
-              variant="outlined"
-              name="additional_details"
-              type="text"
-              value={formData.additional_details}
-              onChange={handleChange}
-            />
-
-            <FormControl fullWidth sx={{ mb: "1em" }}>
-              <InputLabel sx={{ padding: "1rem 2rem" }}>
-                {" "}
-                Contact Me By:
-              </InputLabel>
-              <Select
-                value={formData.contact_method}
-                name="contact_method"
-                sx={{ background: "white", margin: "1rem", maxWidth: "200px" }}
-                onChange={handleChange}
-              >
-                {contactOptions}
-              </Select>
-            </FormControl>
-
-            <Button
-              sx={{ background: "red", mb: "5em", marginLeft: "4em", padding: "7px" }}
-              variant="contained"
-              type="submit"
-            >
-              Create Sighting
-            </Button>
-
             </Box>
           </form>
         </Grid>

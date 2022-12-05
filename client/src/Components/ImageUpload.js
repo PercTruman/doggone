@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import ImageUploading from 'react-images-uploading';
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+
 
 
 export function ImageUpload() {
@@ -14,8 +16,8 @@ export function ImageUpload() {
   };
 
   return (
-    <div className="App">
-        <h3 style={{color: '#76B5C5'}}>Upload Image</h3>
+    <Box className="App" margin={'0'} paddingTop={'0'}>
+        <h3 style={{color: '#76B5C5', marginTop:'0'}}>Upload Image</h3>
       <ImageUploading
         multiple
         value={images}
@@ -33,9 +35,10 @@ export function ImageUpload() {
           dragProps,
         }) => (
           // write your building UI
-          <div className="upload__image-wrapper">
+          <Box paddingBottom='2rem'className="upload__image-wrapper">
             <Button
             size='small'
+            sx={{fontSize:'8px'}}
             variant="contained" 
               style={isDragging ? { color: 'red' } : undefined}
               onClick={onImageUpload}
@@ -44,7 +47,7 @@ export function ImageUpload() {
               Add Image
               </Button>
             &nbsp;
-            <Button size='small' variant="contained" onClick={onImageRemoveAll}>Remove all images</Button>
+            <Button sx={{fontSize:'8px'}}size='small' variant="contained" onClick={onImageRemoveAll}>Remove all images</Button>
             {imageList.map((image, index) => (
               <div key={index} className="image-item">
                 <img src={image['data_url']} alt="" width="100" />
@@ -54,9 +57,9 @@ export function ImageUpload() {
                 </div>
               </div>
             ))}
-          </div>
+          </Box>
         )}
       </ImageUploading>
-    </div>
+    </Box>
   );
 }

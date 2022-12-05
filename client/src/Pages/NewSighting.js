@@ -68,24 +68,25 @@ function NewSighting() {
   };
 
   return (
-    <Box padding={0}>
+    <Box border={'2px solid yellow'} >
       <Box sx={{ textAlign: "center" }}>
         <h2 style={{ paddingTop: "2rem", marginTop: 0, color: "#85BBCC" }}>
           Create New Sighting
         </h2>
       </Box>
-      <Box display={"flex"} justifyContent={'space-around'}>
-        <Box border={'2px solid red'}>
-          <FinderForm
+      <Box border={'2px solid purple'}display={"flex"} justifyContent={'space-around'}>
+        <Box display={"flex"} justifyContent={'space-around'}>
+          <Box border={'2px solid red'}padding={'4rem'} marginRight={'6rem'}>
+           <FinderForm
             latitude={latitude}
             longitude={longitude}
             handleSubmit={handleSubmit}
             formData={formData}
             setFormData={setFormData}
-          />
-        </Box>
+            />
+          </Box>
         {showMap ? (
-          <Box border={'2px solid blue'}>
+          <Box marginLeft={'6rem'} border={'2px solid blue'}>
             <FinderMap
               setShowMap={setShowMap}
               latitude={latitude}
@@ -96,6 +97,7 @@ function NewSighting() {
             />
           </Box>
         ) : null}
+        </Box>
       </Box>
     </Box>
   );

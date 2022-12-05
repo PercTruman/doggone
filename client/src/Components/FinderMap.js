@@ -2,8 +2,8 @@ import React, { useState, useMemo, useCallback, useRef } from "react";
 import {
   useLoadScript,
   GoogleMap,
-  Marker,
-  InfoWindow,
+  MarkerF,
+  InfoWindowF,
 } from "@react-google-maps/api";
 // import { formatRelative } from "date-fns";
 import dogPaw from "../Pages/dog-paw.svg";
@@ -75,7 +75,7 @@ function FinderMap({ setShowMap, setLatitude, setLongitude, mapRef }) {
       >
         {marker ? (
           <div>
-          <Marker
+          <MarkerF
             key={marker.time}
             position={{ lat: marker.lat, lng: marker.lng }}
             icon={{
@@ -88,7 +88,7 @@ function FinderMap({ setShowMap, setLatitude, setLongitude, mapRef }) {
               setSelected(marker);
             }}
           />
-          <InfoWindow
+          <InfoWindowF
           options={{pixelOffset: new window.google.maps.Size(0, -15)}}
           position={{ lat: marker.lat, lng: marker.lng }}
           onCloseClick={() => (
@@ -115,7 +115,7 @@ function FinderMap({ setShowMap, setLatitude, setLongitude, mapRef }) {
               </Button>
             </Box>
           </div>
-        </InfoWindow> </div> ): null}
+        </InfoWindowF> </div> ): null}
         <Locate panTo={panTo} />
       </GoogleMap>
     </div>

@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Grid from "@mui/material/Grid";
+import {ImageUpload} from "./ImageUpload"
 
 function FinderForm({ handleSubmit, setFormData, formData }) {
   useEffect(() => {
@@ -76,6 +77,7 @@ function FinderForm({ handleSubmit, setFormData, formData }) {
     <Box>
       <Box>
         <Grid container flexDirection="column" justifyContent={"center"}>
+          <ImageUpload />
           <form onSubmit={handleSubmit}>
             <FormControl fullWidth sx={{ mb: "1em" }}>
               <InputLabel sx={{ padding: "1rem 2rem" }}>

@@ -74,6 +74,7 @@ function FinderMap({ setShowMap, setLatitude, setLongitude, mapRef }) {
         options={options}
       >
         {marker ? (
+          <div>
           <Marker
             key={marker.time}
             position={{ lat: marker.lat, lng: marker.lng }}
@@ -87,36 +88,34 @@ function FinderMap({ setShowMap, setLatitude, setLongitude, mapRef }) {
               setSelected(marker);
             }}
           />
-        ) : null}
-
-        {marker ?  
-         <InfoWindow
-            position={{ lat: marker.lat, lng: marker.lng }}
-            onCloseClick={() => setSelected(null)}
-          >
-            <div>
-              <h2> Save this Location?</h2>
-              <Box display="flex" justifyContent={"space-around"}>
-                <Button
-                  onClick={() => saveMarker()}
-                  margin="10px"
-                  size="small"
-                  variant="contained"
-                >
-                  Yes
-                </Button>
-                <Button
-                  onClick={() => removeMarker()}
-                  margin="10px"
-                  size="small"
-                  variant="contained"
-                >
-                  No
-                </Button>
-              </Box>
-            </div>
-          </InfoWindow> : null}
-     
+          <InfoWindow
+          options={{pixelOffset: new window.google.maps.Size(0, -15)}}
+          position={{ lat: marker.lat, lng: marker.lng }}
+          onCloseClick={() => (
+            setSelected(null) )}
+        >
+          <div>
+            <h2> Save this Location?</h2>
+            <Box display="flex" justifyContent={"space-around"}>
+              <Button
+                onClick={() => saveMarker()}
+                margin="10px"
+                size="small"
+                variant="contained"
+              >
+                Yes
+              </Button>
+              <Button
+                onClick={() => removeMarker()}
+                margin="10px"
+                size="small"
+                variant="contained"
+              >
+                No
+              </Button>
+            </Box>
+          </div>
+        </InfoWindow> </div> ): null}
         <Locate panTo={panTo} />
       </GoogleMap>
     </div>

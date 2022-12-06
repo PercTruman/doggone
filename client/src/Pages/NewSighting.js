@@ -68,9 +68,9 @@ function NewSighting() {
   };
 
   return (
-    <Box border={'2px solid yellow'} >
+    <Box border={'2px solid yellow'}  >
       <Box sx={{ textAlign: "center" }}>
-        <h2 style={{ paddingTop: "2rem", marginTop: 0, color: "#85BBCC" }}>
+        <h2 style={{ paddingTop: "2rem", color: "#85BBCC" }}>
           Create New Sighting
         </h2>
       </Box>

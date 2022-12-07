@@ -38,7 +38,7 @@ export function ImageUpload() {
           <Box paddingBottom='2rem'className="upload__image-wrapper">
             <Button
             size='small'
-            sx={{fontSize:'8px'}}
+            sx={{m:'5px',fontSize:'8px', color:'black',backgroundColor:'#F6E89D'}}
             variant="contained" 
               style={isDragging ? { color: 'red' } : undefined}
               onClick={onImageUpload}
@@ -47,13 +47,13 @@ export function ImageUpload() {
               Add Image
               </Button>
             &nbsp;
-            <Button sx={{fontSize:'8px'}}size='small' variant="contained" onClick={onImageRemoveAll}>Remove all images</Button>
+            <Button sx={{m:'5px',fontSize:'8px', color:'black',backgroundColor:'#F6E89D'}}size='small' variant="contained" onClick={onImageRemoveAll}>Remove all images</Button>
             {imageList.map((image, index) => (
               <div key={index} className="image-item">
                 <img src={image['data_url']} alt="" width="100" />
                 <div className="image-item__btn-wrapper">
-                  <button onClick={() => onImageUpdate(index)}>Update</button>
-                  <button onClick={() => onImageRemove(index)}>Remove</button>
+                  <Button  sx={{ m:'5px', fontSize:'8px', color:'black', backgroundColor:'#F6E89D'}}variant='contained' size='small' onClick={() => onImageUpdate(index)}>Update</Button>
+                  <Button sx={{m:'5px',fontSize:'8px', color:'black',backgroundColor:'#F6E89D'}} variant='contained' size='small' onClick={() => onImageRemove(index)}>Remove</Button>
                 </div>
               </div>
             ))}

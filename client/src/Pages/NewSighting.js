@@ -3,6 +3,7 @@ import { UserContext } from "../UserContext";
 import FinderMap from "../Components/FinderMap";
 import FinderForm from "../Components/FinderForm";
 import Box from "@mui/material/Box";
+import Navbar from '../Components/Navbar'
 
 
 function NewSighting() {
@@ -68,12 +69,14 @@ function NewSighting() {
   };
 
   return (
+    
     <Box >
-      <Box border={"2px solid green"} sx={{ textAlign: "center", fontSize:"30px" }}>
+      <Navbar />
+      <Box  sx={{ textAlign: "center", fontSize:"30px" }}>
         <h2 style={{ color: "#85BBCC" }}>Create New Sighting</h2>
       </Box>
       {showMap ? (
-        <Box marginLeft={"6rem"} border={"2px solid blue"}>
+        <Box marginLeft={"6rem"} >
           <FinderMap
             setShowMap={setShowMap}
             latitude={latitude}
@@ -86,7 +89,7 @@ function NewSighting() {
       ) : null}
       {!showMap ? (
         <Box
-          border={"2px solid purple"}
+          
           display={"flex"}
           justifyContent={"space-around"}
         >

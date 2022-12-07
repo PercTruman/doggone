@@ -68,37 +68,42 @@ function NewSighting() {
   };
 
   return (
-    <Box border={'2px solid yellow'}  >
-      <Box sx={{ textAlign: "center" }}>
-        <h2 style={{ paddingTop: "2rem", color: "#85BBCC" }}>
-          Create New Sighting
-        </h2>
+    <Box border={"2px solid yellow"}>
+      <Box border={"2px solid green"} sx={{ textAlign: "center", fontSize:"30px" }}>
+        <h2 style={{ color: "#85BBCC" }}>Create New Sighting</h2>
+        <h4 style={{ fontSize:"20px", color: "#85BBCC"}}>Using this form, please upload a photo, and/or provide additional details about the dog you saw.</h4>
       </Box>
-      <Box border={'2px solid purple'}display={"flex"} justifyContent={'space-around'}>
-        <Box display={"flex"} justifyContent={'space-around'}>
-          <Box border={'2px solid red'}padding={'4rem'} marginRight={'6rem'}>
-           <FinderForm
+      {showMap ? (
+        <Box marginLeft={"6rem"} border={"2px solid blue"}>
+          <FinderMap
+            setShowMap={setShowMap}
             latitude={latitude}
             longitude={longitude}
-            handleSubmit={handleSubmit}
-            formData={formData}
-            setFormData={setFormData}
-            />
-          </Box>
-        {showMap ? (
-          <Box marginLeft={'6rem'} border={'2px solid blue'}>
-            <FinderMap
-              setShowMap={setShowMap}
-              latitude={latitude}
-              longitude={longitude}
-              setLatitude={setLatitude}
-              setLongitude={setLongitude}
-              mapRef={mapRef}
-            />
-          </Box>
-        ) : null}
+            setLatitude={setLatitude}
+            setLongitude={setLongitude}
+            mapRef={mapRef}
+          />
         </Box>
-      </Box>
+      ) : null}
+      {!showMap ? (
+        <Box
+          border={"2px solid purple"}
+          display={"flex"}
+          justifyContent={"space-around"}
+        >
+          <Box display={"flex"} justifyContent={"space-around"}>
+            <Box border={"2px solid red"} padding={"4rem"} marginRight={"6rem"}>
+              <FinderForm
+                latitude={latitude}
+                longitude={longitude}
+                handleSubmit={handleSubmit}
+                formData={formData}
+                setFormData={setFormData}
+              />
+            </Box>
+          </Box>
+        </Box>
+      ) : null}
     </Box>
   );
 }

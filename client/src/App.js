@@ -15,14 +15,25 @@ import LostDog from './LostDog.jpg';
 
 
 function App() {
-  return (
-    <div className="App"
-    style={{
+  const styles ={
+    fullOpacity:{
       backgroundImage: `url(${LostDog})`,
       height: "100%",
       width: "100%",
       backgroundSize: "cover"
-    }} >
+    },
+    transparent:{
+      backgroundImage: `url(${LostDog})`,
+      backgroundColor: "rgba(0,0,0,0.5)",
+      height: "100%",
+      width: "100%",
+      backgroundSize: "cover"
+    }
+  }
+  return (
+    <div className="App"
+    style={styles.fullOpacity}
+      >
         <Routes>
           <Route path="/" element={<Welcome />} />
           <Route path="/-login" element={<Login />} />

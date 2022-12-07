@@ -13,8 +13,8 @@ import Box from "@mui/material/Box";
 
 const mapContainerStyle = {
   margin: "4rem auto",
-  width: "80vw",
-  height: "80vh",
+  width: "60vw",
+  height: "60vh",
 };
 
 const options = {

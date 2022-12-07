@@ -70,13 +70,13 @@ function NewSighting() {
 
   return (
     
-    <Box >
+    <Box display={'flex'} flexDirection={'column'} justifyContent={'center'}>
       <Navbar />
-      <Box  sx={{ textAlign: "center", fontSize:"30px" }}>
-        <h2 style={{ color: "#85BBCC" }}>Create New Sighting</h2>
+      <Box   sx={{ textAlign: "center", fontSize:"30px"}}>
+        <h2 style={{marginTop:'1rem', paddingBottom:'0', marginBottom:'0',color: "#85BBCC" }}>Create New Sighting</h2>
       </Box>
       {showMap ? (
-        <Box marginLeft={"6rem"} >
+        <Box  >
           <FinderMap
             setShowMap={setShowMap}
             latitude={latitude}
@@ -89,7 +89,6 @@ function NewSighting() {
       ) : null}
       {!showMap ? (
         <Box
-          
           display={"flex"}
           justifyContent={"space-around"}
         >

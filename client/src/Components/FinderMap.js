@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 
 const mapContainerStyle = {
-  margin: "4rem auto",
+  margin: "0 auto",
   width: "60vw",
   height: "60vh",
 };
@@ -63,7 +63,7 @@ function FinderMap({ setShowMap, setLatitude, setLongitude, mapRef }) {
 
   if (!isLoaded) return <div>Loading...</div>;
   return (
-    <div>
+    <div style={{border: '2px solid red'}}>
       <h2  style={{color: "#85BBCC"}}>Click the map to mark the location of the dog:</h2>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}

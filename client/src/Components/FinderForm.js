@@ -83,14 +83,13 @@ function FinderForm({ handleSubmit, setFormData, formData }) {
     ));
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <h4
+    <Box sx={{ flexGrow: 1}}>
+      <h4 
         style={{
           fontSize: "16px",
           color: "#85BBCC",
           marginTop: "0",
-          marginBottom: "2rem",
-          padding: "0",
+         
         }}
       >
         Using this form, please upload a photo, and/or provide additional
@@ -99,7 +98,7 @@ function FinderForm({ handleSubmit, setFormData, formData }) {
 
       <Grid2
         container
-        backgroundColor={'black'}
+        backgroundColor={'darkGray'}
         padding={'1rem'}
         borderRadius={'10px'}
         spacing={2}
@@ -118,7 +117,8 @@ function FinderForm({ handleSubmit, setFormData, formData }) {
               <InputLabel
                 sx={{
                   fontSize: "12px",
-                  paddingTop: "9px",
+                  fontWeight: 'bold',
+                  paddingTop: "10px",
                   paddingLeft: "15px",
                 }}
               >
@@ -143,7 +143,8 @@ function FinderForm({ handleSubmit, setFormData, formData }) {
               <InputLabel
                 sx={{
                   fontSize: "12px",
-                  paddingTop: "9px",
+                  fontWeight: "bold",
+                  paddingTop: "10px",
                   paddingLeft: "15px",
                 }}
               >
@@ -175,8 +176,9 @@ function FinderForm({ handleSubmit, setFormData, formData }) {
               <InputLabel
                 sx={{
                   fontSize: "12px",
-                  paddingTop: "9px",
+                  paddingTop: "10px",
                   paddingLeft: "15px",
+                  fontWeight: "bold"
                 }}
               >
                 Breed
@@ -186,6 +188,7 @@ function FinderForm({ handleSubmit, setFormData, formData }) {
                 name="breed"
                 sx={{
                   margin: "1rem",
+                  paddingTop: '5px',
                   background: "white",
                   width: "150px",
                   height: "40px",
@@ -199,8 +202,10 @@ function FinderForm({ handleSubmit, setFormData, formData }) {
               <InputLabel
                 sx={{
                   fontSize: "12px",
-                  paddingTop: "8px",
+                  fontWeight: "bold",
+                  paddingTop: "10px",
                   paddingLeft: "5px",
+               
                 }}
               >
                 Age Group
@@ -249,7 +254,7 @@ function FinderForm({ handleSubmit, setFormData, formData }) {
               multiline
               size="small"
               sx={{
-               
+                fontWeight: "bold",
                 width: "200px",
                 borderRadius: "3px",
                 background: "white",
@@ -273,11 +278,12 @@ function FinderForm({ handleSubmit, setFormData, formData }) {
               <InputLabel
                 sx={{
                   fontSize: "12px",
-                  paddingTop: "8px",
+                  fontWeight: "bold",
+                  paddingTop: "10px",
                   paddingLeft: "5px",
                 }}
               >
-                {" "}
+              
                 Contact Me By:
               </InputLabel>
               <Select

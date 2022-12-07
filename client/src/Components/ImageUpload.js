@@ -17,7 +17,7 @@ export function ImageUpload() {
 
   return (
     <Box className="App" margin={'0'} paddingTop={'0'}>
-        <h3 style={{color: '#76B5C5', marginTop:'0'}}>Upload Image</h3>
+        <h3 style={{color: 'black', marginTop:'0'}}>Upload Image</h3>
       <ImageUploading
         multiple
         value={images}
@@ -47,13 +47,13 @@ export function ImageUpload() {
               Add Image
               </Button>
             &nbsp;
-            <Button sx={{m:'5px',fontSize:'8px', color:'black',backgroundColor:'#F6E89D'}}size='small' variant="contained" onClick={onImageRemoveAll}>Remove all images</Button>
+            <Button sx={{m:'5px',fontSize:'8px', fontWeight:'bold', color:'black',backgroundColor:'#F6E89D'}}size='small' variant="contained" onClick={onImageRemoveAll}>Remove all images</Button>
             {imageList.map((image, index) => (
               <div key={index} className="image-item">
                 <img src={image['data_url']} alt="" width="100" />
                 <div className="image-item__btn-wrapper">
-                  <Button  sx={{ m:'5px', fontSize:'8px', color:'black', backgroundColor:'#F6E89D'}}variant='contained' size='small' onClick={() => onImageUpdate(index)}>Update</Button>
-                  <Button sx={{m:'5px',fontSize:'8px', color:'black',backgroundColor:'#F6E89D'}} variant='contained' size='small' onClick={() => onImageRemove(index)}>Remove</Button>
+                  <Button  sx={{ m:'5px', fontSize:'8px', fontWeight:'bold',color:'black', backgroundColor:'#F6E89D'}}variant='contained' size='small' onClick={() => onImageUpdate(index)}>Update</Button>
+                  <Button sx={{m:'5px',fontSize:'8px',fontWeight:'bold', color:'black',backgroundColor:'#F6E89D'}} variant='contained' size='small' onClick={() => onImageRemove(index)}>Remove</Button>
                 </div>
               </div>
             ))}

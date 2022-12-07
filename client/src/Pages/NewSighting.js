@@ -3,7 +3,7 @@ import { UserContext } from "../UserContext";
 import FinderMap from "../Components/FinderMap";
 import FinderForm from "../Components/FinderForm";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
+
 
 function NewSighting() {
   const { user } = useContext(UserContext);
@@ -68,7 +68,7 @@ function NewSighting() {
   };
 
   return (
-    <Box border={"2px solid yellow"}>
+    <Box >
       <Box border={"2px solid green"} sx={{ textAlign: "center", fontSize:"30px" }}>
         <h2 style={{ color: "#85BBCC" }}>Create New Sighting</h2>
       </Box>

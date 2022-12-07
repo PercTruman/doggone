@@ -7,9 +7,18 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import Grid from "@mui/material/Grid";
+import Grid2 from '@mui/material/Unstable_Grid2'
 import { ImageUpload } from "./ImageUpload";
+import { styled } from "@mui/material/styles";
+import Paper from "@mui/material/Paper";
 
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: "center",
+  color: theme.palette.text.secondary,
+}));
 function FinderForm({ handleSubmit, setFormData, formData }) {
   useEffect(() => {
     fetch("https://api.thedogapi.com/v1/breeds?page=0")
@@ -74,7 +83,7 @@ function FinderForm({ handleSubmit, setFormData, formData }) {
     ));
 
   return (
-    <Box border={"2px solid red"}>
+    <Box border={"2px solid red"} sx={{ flexGrow: 1 }}>
       <h4
         style={{
           fontSize: "16px",
@@ -88,62 +97,68 @@ function FinderForm({ handleSubmit, setFormData, formData }) {
         details about the dog you saw.
       </h4>
 
-      <Grid container flexDirection="column">
+      <Grid2 container spacing={2} border={'2px solid green'} justifyContent={'center'}>
         <form onSubmit={handleSubmit}>
           <ImageUpload />
-          <Grid item border={"2px solid blue"} marginTop="2rem">
-            <FormControl>
-              <InputLabel
-                sx={{
-                  fontSize: "12px",
-                  paddingTop: "9px",
-                  paddingLeft: "15px",
-                }}
-              >
-                {" "}
-                Primary Color
-              </InputLabel>
-              <Select
-                value={formData.color}
-                name="color"
-                sx={{
-                  margin: "1rem",
-                  background: "white",
-                  width: "125px",
-                  height: "40px",
-                }}
-                onChange={handleChange}
-              >
-                {colorDropDownOptions}
-              </Select>
-            </FormControl>
+          <Grid2 xs display="flex" justifyContent="center" alignItems="center" border={"2px solid blue"} >
+            <Item>
+             
+              <FormControl>
+                <InputLabel
+                  sx={{
+                    fontSize: "12px",
+                    paddingTop: "9px",
+                    paddingLeft: "15px",
+                  }}
+                >
+                  Primary Color
+                </InputLabel>
+                <Select
+                  value={formData.color}
+                  name="color"
+                  sx={{
+                    margin: "1rem",
+                    background: "white",
+                    width: "125px",
+                    height: "40px",
+                  }}
+                  onChange={handleChange}
+                >
+                  {colorDropDownOptions}
+                </Select>
+              </FormControl>
+            </Item>
+          </Grid2>
+          <Grid2  xs display="flex" justifyContent="center" alignItems="center">
+            <Item>
+              <FormControl fullWidth sx={{ mb: "1em", maxWidth: "150px" }}>
+                <InputLabel
+                  sx={{
+                    fontSize: "12px",
+                    paddingTop: "9px",
+                    paddingLeft: "15px",
+                  }}
+                >
+                  Sex
+                </InputLabel>
+                <Select
+                  value={formData.sex}
+                  name="sex"
+                  sx={{
+                    background: "white",
+                    margin: "1rem",
+                    width: "125px",
+                    height: "40px",
+                  }}
+                  onChange={handleChange}
+                >
+                  {sexDropDownOptions}
+                </Select>
+              </FormControl>
+            </Item>
+          </Grid2>
 
-            <FormControl fullWidth sx={{ mb: "1em", maxWidth: "150px" }}>
-              <InputLabel
-                sx={{
-                  fontSize: "12px",
-                  paddingTop: "9px",
-                  paddingLeft: "15px",
-                }}
-              >
-                Sex
-              </InputLabel>
-              <Select
-                value={formData.sex}
-                name="sex"
-                sx={{
-                  background: "white",
-                  margin: "1rem",
-                  width: "125px",
-                  height: "40px",
-                }}
-                onChange={handleChange}
-              >
-                {sexDropDownOptions}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item border={"2px solid red"}>
+          <Grid2 xs display="flex" justifyContent="center" alignItems="center"border={"2px solid red"}>
             <FormControl>
               <InputLabel
                 sx={{
@@ -185,8 +200,8 @@ function FinderForm({ handleSubmit, setFormData, formData }) {
                 Breed Pictures
               </Button>
             </a>
-          </Grid>
-          <Grid item border={"2px solid green"}>
+          </Grid2>
+          <Grid2 xs display="flex" justifyContent="center" alignItems="center" border={"2px solid green"}>
             <FormControl sx={{ mb: "1em", width: "150px" }}>
               <InputLabel
                 sx={{
@@ -227,8 +242,8 @@ function FinderForm({ handleSubmit, setFormData, formData }) {
               value={formData.additional_details}
               onChange={handleChange}
             />
-          </Grid>
-          <Grid border={"2px solid yellow"}>
+          </Grid2>
+          <Grid2 xs display="flex" justifyContent="center" alignItems="center"border={"2px solid yellow"}>
             <FormControl fullWidth sx={{ mb: "1em", maxWidth: "150px" }}>
               <InputLabel
                 sx={{
@@ -254,22 +269,21 @@ function FinderForm({ handleSubmit, setFormData, formData }) {
                 {contactOptions}
               </Select>
             </FormControl>
-            </Grid>
-            <Button
-              sx={{
-                background: "red",
-                mb: "5em",
-                margin: "1rem auto",
-                padding: "7px",
-              }}
-              variant="contained"
-              type="submit"
-            >
-              Create Sighting
-            </Button>
-          
+          </Grid2>
+          <Button
+            sx={{
+              background: "red",
+              mb: "5em",
+              margin: "1rem auto",
+              padding: "7px",
+            }}
+            variant="contained"
+            type="submit"
+          >
+            Create Sighting
+          </Button>
         </form>
-      </Grid>
+      </Grid2>
     </Box>
   );
 }

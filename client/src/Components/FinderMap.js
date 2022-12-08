@@ -63,7 +63,7 @@ function FinderMap({ setShowMap, setLatitude, setLongitude, mapRef }) {
 
   if (!isLoaded) return <div>Loading...</div>;
   return (
-    <div style={{border: '2px solid red'}}>
+    <div>
       <h2  style={{color: "#85BBCC"}}>Click the map to mark the location of the dog:</h2>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}

@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 
 
 
-export function ImageUpload() {
+export function ImageUpload({setPictures}) {
   const [images, setImages] = useState([]);
   const maxNumber = 5;
 
@@ -13,6 +13,7 @@ export function ImageUpload() {
     // data for submit
     console.log(imageList, addUpdateIndex);
     setImages(imageList);
+    setPictures(imageList)
   };
 
   return (

@@ -19,7 +19,7 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: "center",
   color: theme.palette.text.secondary,
 }));
-function FinderForm({ handleSubmit, setFormData, formData }) {
+function FinderForm({ handleSubmit, setFormData, formData, setPictures }) {
   useEffect(() => {
     fetch("https://api.thedogapi.com/v1/breeds?page=0")
       .then((res) => res.json())
@@ -105,8 +105,8 @@ function FinderForm({ handleSubmit, setFormData, formData }) {
         justifyContent={"center"}
       >
         <form onSubmit={handleSubmit}>
-          <ImageUpload />
-          <Grid2
+          <ImageUpload setPictures={setPictures}/>
+           <Grid2
             xs
             display="flex"
             justifyContent="center"

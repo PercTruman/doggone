@@ -46,12 +46,11 @@ const Signup = () => {
     <div>
       <Grid sx={{ justifyContent: "center" }} container spacing={2}>
       <Grid item>
-      <h2> Register Your Dog</h2>
+      <h2 style={{color: '#76B5C5'}}>Create an Account</h2>
       <form onSubmit={handleSubmit}>
         <TextField
            sx={{marginBottom: "2rem", background:'white'}}
            size = "small"
-          
            label = "Username"
            name="username"
            type="text"
@@ -98,7 +97,7 @@ const Signup = () => {
            onChange={(e) => setPasswordConfirmation(e.target.value)}
         />
         <br />
-        <Button variant="contained" type="submit" sx={{m: "2rem"}}>Add Dog</Button>
+        <Button variant="contained" type="submit" sx={{m: "2rem"}}>Create Account</Button>
         <Button variant="contained" onClick={()=>navigate('/')}>Back</Button>
       </form>
       </Grid>

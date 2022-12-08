@@ -18,15 +18,15 @@ function App() {
   const styles ={
     fullOpacity:{
       backgroundImage: `url(${LostDog})`,
-      height: "100%",
-      width: "100%",
+      height: "100vh",
+      width: "100vw",
       backgroundSize: "cover"
     },
     transparent:{
       backgroundImage: `url(${LostDog})`,
       backgroundColor: "rgba(0,0,0,0.5)",
-      height: "100%",
-      width: "100%",
+      height: "100vh",
+      width: "100vw",
       backgroundSize: "cover"
     }
   }
@@ -39,7 +39,7 @@ function App() {
           <Route path="/-login" element={<Login />} />
           <Route path="/-signup" element={<Signup />} />
           <Route path="/-sightings" element={<Sightings />} />
-          <Route path="/-seen_dogs" element={<SeenDogs />} />
+          <Route path="/-seen_dogs"  element={<SeenDogs />} />
           <Route path="/-registered_dogs" element={<RegisteredDogGallery />} />
           <Route path="/-new_sighting" element={<NewSighting />} />
           <Route path="/-dog_registration" element={<DogRegistration />} />

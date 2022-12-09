@@ -52,6 +52,8 @@ function NewSighting() {
     lostDogData.append("breed", formData.breed);
     lostDogData.append("age_group", formData.age_group);
     lostDogData.append("additional_details", formData.additional_details);
+    lostDogData.append("contact_method", formData.contact_method)
+    lostDogData.append("contact_finder", formData.contact_finder)
 
     const postSighting=()=>{
       fetch("/sightings", {

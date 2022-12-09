@@ -1,5 +1,5 @@
 class LostDogsController < ApplicationController
-
+    skip_before_action :authenticate_user, only: :create
     def index
         lost_dogs=LostDog.all.with_attached_image
         render json: lost_dogs, include: ['image'], status: :ok
@@ -8,7 +8,7 @@ class LostDogsController < ApplicationController
     def create
         lost_dog = LostDog.create!(lost_dog_params)
         render json: {
-            image: image,
+            lost_dog: lost_dog,
             status: {code:201, message: "Image created successfully!"}, status: :created }
     end
 
@@ -50,6 +50,6 @@ class LostDogsController < ApplicationController
     private
 
     def lost_dog_params
-        params.permit(:image, :color, :sex, :breed, :age_group, :additonal_details)
+        params.permit(:image, :color, :sex, :breed, :age_group, :additional_details)
     end
 end

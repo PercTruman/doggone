@@ -6,6 +6,7 @@ class LostDogsController < ApplicationController
     end
 
     def create
+       
         lost_dog = LostDog.create!(lost_dog_params)
         render json: {
             lost_dog: lost_dog,
@@ -50,6 +51,6 @@ class LostDogsController < ApplicationController
     private
 
     def lost_dog_params
-        params.permit(:image, :color, :sex, :breed, :age_group, :additional_details)
+        params.permit(:image, :color, :sex, :breed, :age_group, :additional_details, :contact_method, :contact_finder)
     end
 end

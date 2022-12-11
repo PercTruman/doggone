@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "/users", to: "users#index"
   get "/me", to: "users#show"
   get "/lost_dogs", to: "lost_dogs#index"
 

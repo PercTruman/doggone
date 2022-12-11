@@ -13,8 +13,9 @@ function NewSighting() {
   const [showMap, setShowMap] = useState(true);
   const mapRef = useRef();
   const [pictures, setPictures] = useState([]);
-  const image = pictures[0];
+ 
 
+ 
   useEffect(()=>{
     lostDog && postSighting()
   }, [lostDog])
@@ -45,15 +46,7 @@ function NewSighting() {
     owner_id: formData.owner_id,
   };
 
-  const lostDogData = new FormData();
-    lostDogData.append("image", image);
-    lostDogData.append("color", formData.color);
-    lostDogData.append("sex", formData.sex);
-    lostDogData.append("breed", formData.breed);
-    lostDogData.append("age_group", formData.age_group);
-    lostDogData.append("additional_details", formData.additional_details);
-    lostDogData.append("contact_method", formData.contact_method)
-    lostDogData.append("contact_finder", formData.contact_finder)
+
 
     const postSighting=()=>{
       fetch("/sightings", {
@@ -85,13 +78,7 @@ function NewSighting() {
       });
     }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    fetch("/lost_dogs", {
-      method: "POST",
-      body: lostDogData,
-    }).then((res) => res.json().then((data) => console.log(data)));
-  };
+
   
   
 
@@ -130,7 +117,6 @@ function NewSighting() {
                 setPictures={setPictures}
                 latitude={latitude}
                 longitude={longitude}
-                handleSubmit={handleSubmit}
                 formData={formData}
                 setFormData={setFormData}
               />

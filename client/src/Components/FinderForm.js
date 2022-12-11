@@ -19,7 +19,13 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: "center",
   color: theme.palette.text.secondary,
 }));
-function FinderForm({ handleSubmit, setFormData, formData, setPictures }) {
+
+
+
+
+
+function FinderForm({ setFormData, formData }) {
+  const [image, setImage] = useState(null);
   useEffect(() => {
     fetch("https://api.thedogapi.com/v1/breeds?page=0")
       .then((res) => res.json())
@@ -29,12 +35,38 @@ function FinderForm({ handleSubmit, setFormData, formData, setPictures }) {
   const { user } = useContext(UserContext);
   const [breedNames, setBreedNames] = useState([]);
 
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
       finder_id: user.id,
     });
+  };
+
+ 
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const lostDogData = new FormData();
+    lostDogData.append("post[image]", e.target.image.files[0]);
+    lostDogData.append("color", formData.color);
+    lostDogData.append("sex", formData.sex);
+    lostDogData.append("breed", formData.breed);
+    lostDogData.append("age_group", formData.age_group);
+    lostDogData.append("additional_details", formData.additional_details);
+    lostDogData.append("contact_method", formData.contact_method)
+    lostDogData.append("contact_finder", formData.contact_finder)
+
+    submitToAPI(lostDogData);
+  }
+
+  function submitToAPI(data) {
+    fetch("/lost_dogs", {
+      method: "POST",
+      body:data
+    }).then((res) => res.json().then((data) => setImage(data.image_url)))
+    .catch((err) => console.error(err));
   };
 
   const sexChoices = ["Male", "Female", "Neutered Male", "Spayed Female"];
@@ -95,6 +127,7 @@ function FinderForm({ handleSubmit, setFormData, formData, setPictures }) {
         Using this form, please upload a photo, and/or provide additional
         details about the dog you saw.
       </h4>
+      
 
       <Grid2
         container
@@ -105,7 +138,10 @@ function FinderForm({ handleSubmit, setFormData, formData, setPictures }) {
         justifyContent={"center"}
       >
         <form onSubmit={handleSubmit}>
-          <ImageUpload setPictures={setPictures}/>
+          {/* <ImageUpload setPictures={setPictures}/> */}
+          <h3 style={{color: 'black', marginTop:'0'}}>Upload Image</h3>
+          <input type="file" name="image" id="image" />
+          
            <Grid2
             xs
             display="flex"

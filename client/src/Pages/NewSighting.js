@@ -21,6 +21,7 @@ function NewSighting() {
   }, [lostDog])
 
   const [formData, setFormData] = useState({
+    image: null,
     color: "",
     sex: "",
     breed: "",

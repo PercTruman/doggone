@@ -8,9 +8,8 @@ class LostDogsController < ApplicationController
     def create
        
         lost_dog = LostDog.create!(lost_dog_params)
-        render json: {
-            lost_dog: lost_dog,
-            status: {code:201, message: "Image created successfully!"}, status: :created }
+    
+        byebug render json: LostDogSerializer.new(lost_dog).serializable_hash[:data][:attributes], status: :created 
     end
 
     def update
@@ -51,6 +50,6 @@ class LostDogsController < ApplicationController
     private
 
     def lost_dog_params
-        params.permit(:image, :color, :sex, :breed, :age_group, :additional_details, :contact_method, :contact_finder)
+        params.require(:lost_dog).permit(:image, :color, :sex, :breed, :age_group, :additional_details, :contact_method, :contact_finder)
     end
 end

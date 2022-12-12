@@ -8,20 +8,6 @@ import Button from "@mui/material/Button";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Grid2 from "@mui/material/Unstable_Grid2";
-import { ImageUpload } from "./ImageUpload";
-import { styled } from "@mui/material/styles";
-import Paper from "@mui/material/Paper";
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
-
-
-
 
 
 function FinderForm({ setFormData, formData }) {
@@ -45,23 +31,23 @@ function FinderForm({ setFormData, formData }) {
   };
 
  
-
-  const handleSubmit = (e) => {
+function handleSubmit(e) {
     e.preventDefault();
-    const lostDogData = new FormData();
-    lostDogData.append("post[image]", e.target.image.files[0]);
-    lostDogData.append("color", formData.color);
-    lostDogData.append("sex", formData.sex);
-    lostDogData.append("breed", formData.breed);
-    lostDogData.append("age_group", formData.age_group);
-    lostDogData.append("additional_details", formData.additional_details);
-    lostDogData.append("contact_method", formData.contact_method)
-    lostDogData.append("contact_finder", formData.contact_finder)
+    const lostDogData = new FormData()
+    lostDogData.append("lost_dog[image]", e.target.image.files[0]);
+    lostDogData.append("lost_dog[color]", formData.color);
+    lostDogData.append("lost_dog[sex]", formData.sex);
+    lostDogData.append("lost_dog[breed]", formData.breed);
+    lostDogData.append("lost_dog[age_group]", formData.age_group);
+    lostDogData.append("lost_dog[additional_details]", formData.additional_details);
+    lostDogData.append("lost_dog[contact_method]", formData.contact_method)
+    lostDogData.append("lost_dog[contact_finder]", formData.contact_finder)
 
     submitToAPI(lostDogData);
   }
 
   function submitToAPI(data) {
+    console.log(data)
     fetch("/lost_dogs", {
       method: "POST",
       body:data
@@ -140,7 +126,7 @@ function FinderForm({ setFormData, formData }) {
         <form onSubmit={handleSubmit}>
           {/* <ImageUpload setPictures={setPictures}/> */}
           <h3 style={{color: 'black', marginTop:'0'}}>Upload Image</h3>
-          <input type="file" name="image" id="image" />
+          <input type="file" name="image" id="image" placeholder="Dog Image"/>
           
            <Grid2
             xs

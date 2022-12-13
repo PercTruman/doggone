@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef, useEffect } from "react";
+import React, { useContext, useState, useRef} from "react";
 import { UserContext } from "../UserContext";
 import FinderMap from "../Components/FinderMap";
 import FinderForm from "../Components/FinderForm";
@@ -25,8 +25,8 @@ function NewSighting() {
     breed: "",
     age_group: "",
     additional_details: "",
-    map_lat: "",
-    map_lng: "",
+    map_lat: latitude,
+    map_lng: longitude,
     contact_finder: false,
     contact_method: "",
     time_of_sighting: "",

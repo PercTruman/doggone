@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   post "/signup", to: "users#create"
   post "/login", to: "sessions#create"
   post "/lost_dogs", to: "lost_dogs#create"
+  post "/sightings", to: "sightings#create"
 
   patch "/lost_dogs/:id", to: "lost_dogs#update"
 

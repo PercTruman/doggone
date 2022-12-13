@@ -49,7 +49,6 @@ function FinderForm({ setFormData, formData }) {
     lostDogData.append("lost_dog[contact_finder]", formData.contact_finder)
 
     createLostDog(lostDogData);
-    createSighting()
   }
 
   function createLostDog(data) {
@@ -67,7 +66,7 @@ function FinderForm({ setFormData, formData }) {
     map_lat: formData.map_lat,
     map_lng: formData.map_lng,
     finder_id: formData.finder_id,
-    // owner_id: formData.owner_id,
+    owner_id: formData.owner_id,
   };
 
 
@@ -92,6 +91,11 @@ function FinderForm({ setFormData, formData }) {
               contact_method: "",
               finder_id: "",
               owner_id: "",
+              image: null,
+              color: "",
+              sex: "",
+              breed: "",
+              age_group: ""
             });
           });
         } else {

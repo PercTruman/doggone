@@ -47,7 +47,7 @@ function handleSubmit(e) {
   }
 
   function submitToAPI(data) {
-    console.log(data)
+   
     fetch("/lost_dogs", {
       method: "POST",
       body:data
@@ -127,6 +127,7 @@ function handleSubmit(e) {
           {/* <ImageUpload setPictures={setPictures}/> */}
           <h3 style={{color: 'black', marginTop:'0'}}>Upload Image</h3>
           <input type="file" name="image" id="image" placeholder="Dog Image"/>
+          <img src={image} alt="Dog Image"/>
           
            <Grid2
             xs

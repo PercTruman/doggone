@@ -1,5 +1,4 @@
-class LostDogSerializer < ActiveModel::Serializer
+class LostDogSerializer
   include JSONAPI::Serializer
-  attributes :id, :breed, :color, :sex, :age_group, :image, :image_url, :created_at, :additional_details
-
+  attributes :id, :breed, :color, :sex, :age_group, :additional_details, :contact_method, :contact_finder, :image_url
 end

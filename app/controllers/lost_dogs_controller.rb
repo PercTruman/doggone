@@ -1,19 +1,18 @@
 class LostDogsController < ApplicationController
     skip_before_action :authenticate_user, only: :create
+
     def index
-        lost_dogs=LostDog.all.with_attached_image
+        lost_dogs=LostDog.all
         render json: lost_dogs, include: ['image'], status: :ok
     end
 
     def create
-       
-        lost_dog = LostDog.create!(lost_dog_params)
-    
-        byebug render json: LostDogSerializer.new(lost_dog).serializable_hash[:data][:attributes], status: :created 
+        @lost_dog = LostDog.create!(lost_dog_params)
+        render json: LostDogSerializer.new(@lost_dog).serializable_hash[:data][:attributes], status: :created 
     end
 
     def update
-        lost_dog = lost_dog.find(params[:id])
+        lost_dog = LostDog.find(params[:id])
         to_delete = params[:image_to_delete]
         lost_dog.update(lost_dog_params)
 

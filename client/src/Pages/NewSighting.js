@@ -16,9 +16,7 @@ function NewSighting() {
  
 
  
-  useEffect(()=>{
-    lostDog && postSighting()
-  }, [lostDog])
+
 
   const [formData, setFormData] = useState({
     image: null,
@@ -37,47 +35,7 @@ function NewSighting() {
     owner_id: "",
   });
 
-  const sightingData = {
-    lost_dog_id: lostDog && lostDog.id,
-    map_lat: formData.map_lat,
-    map_lng: formData.map_lng,
-    contact_finder: formData.contact_finder,
-    contact_method: formData.contact_method,
-    finder_id: formData.finder_id,
-    owner_id: formData.owner_id,
-  };
-
-
-
-    const postSighting=()=>{
-      fetch("/sightings", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(sightingData),
-      }).then((res) => {
-        if (res.ok) {
-          res.json().then(() => {
-            alert(
-              "Thank you for submitting.  Your sighting has been saved successfully. If you allowed your contact information to be visible, you may be contacted soon."
-            );
-  
-            setFormData({
-              additional_details: "",
-              map_lat: "",
-              map_lng: "",
-              contact_finder: false,
-              contact_method: "",
-              finder_id: "",
-              owner_id: "",
-            });
-          });
-        } else {
-          res.json().then((errors) => {
-            alert(errors.error);
-          });
-        }
-      });
-    }
+ 
 
 
   

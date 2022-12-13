@@ -11,12 +11,17 @@ import Grid2 from "@mui/material/Unstable_Grid2";
 
 
 function FinderForm({ setFormData, formData }) {
+  const [lostDog, setLostDog] = useState(null)
   const [image, setImage] = useState(null);
   useEffect(() => {
     fetch("https://api.thedogapi.com/v1/breeds?page=0")
       .then((res) => res.json())
       .then((data) => setBreedNames(data));
   }, []);
+
+  useEffect(()=>{
+    lostDog && createSighting()
+  }, [lostDog])
 
   const { user } = useContext(UserContext);
   const [breedNames, setBreedNames] = useState([]);
@@ -30,8 +35,8 @@ function FinderForm({ setFormData, formData }) {
     });
   };
 
- 
-function handleSubmit(e) {
+
+  function handleSubmit(e) {
     e.preventDefault();
     const lostDogData = new FormData()
     lostDogData.append("lost_dog[image]", e.target.image.files[0]);
@@ -43,17 +48,60 @@ function handleSubmit(e) {
     lostDogData.append("lost_dog[contact_method]", formData.contact_method)
     lostDogData.append("lost_dog[contact_finder]", formData.contact_finder)
 
-    submitToAPI(lostDogData);
+    createLostDog(lostDogData);
+    createSighting()
   }
 
-  function submitToAPI(data) {
-   
+  function createLostDog(data) {
     fetch("/lost_dogs", {
       method: "POST",
-      body:data
-    }).then((res) => res.json().then((data) => setImage(data.image_url)))
-    .catch((err) => console.error(err));
+      body: data
+    }).then((res) => res.json().then((data) => {
+      setImage(data.image_url);
+      setLostDog(data)}))
+      .catch((err) => console.error(err));
   };
+
+  const sightingData = {
+    lost_dog_id: lostDog && lostDog.id,
+    map_lat: formData.map_lat,
+    map_lng: formData.map_lng,
+    finder_id: formData.finder_id,
+    // owner_id: formData.owner_id,
+  };
+
+
+
+    const createSighting=()=>{
+      fetch("/sightings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(sightingData),
+      }).then((res) => {
+        if (res.ok) {
+          res.json().then(() => {
+            alert(
+              "Thank you for submitting.  Your sighting has been saved successfully. If you allowed your contact information to be visible, you may be contacted soon."
+            );
+  
+            setFormData({
+              additional_details: "",
+              map_lat: "",
+              map_lng: "",
+              contact_finder: false,
+              contact_method: "",
+              finder_id: "",
+              owner_id: "",
+            });
+          });
+        } else {
+          res.json().then((errors) => {
+            alert(errors.error);
+          });
+        }
+      });
+    }
+
 
   const sexChoices = ["Male", "Female", "Neutered Male", "Spayed Female"];
   const sexDropDownOptions = sexChoices.map((choice) => (
@@ -101,19 +149,19 @@ function handleSubmit(e) {
     ));
 
   return (
-    <Box sx={{ flexGrow: 1}}>
-      <h4 
+    <Box sx={{ flexGrow: 1 }}>
+      <h4
         style={{
           fontSize: "16px",
           color: "#85BBCC",
           marginTop: "0",
-         
+
         }}
       >
         Using this form, please upload a photo, and/or provide additional
         details about the dog you saw.
       </h4>
-      
+
 
       <Grid2
         container
@@ -125,11 +173,11 @@ function handleSubmit(e) {
       >
         <form onSubmit={handleSubmit}>
           {/* <ImageUpload setPictures={setPictures}/> */}
-          <h3 style={{color: 'black', marginTop:'0'}}>Upload Image</h3>
-          <input type="file" name="image" id="image" placeholder="Dog Image"/>
-          <img src={image} alt="Dog Image"/>
-          
-           <Grid2
+          <h3 style={{ color: 'black', marginTop: '0' }}>Upload Image</h3>
+          <input type="file" name="image" id="image" placeholder="Dog Image" />
+          <img src={image} alt="Dog Image" />
+
+          <Grid2
             xs
             display="flex"
             justifyContent="center"
@@ -228,7 +276,7 @@ function handleSubmit(e) {
                   fontWeight: "bold",
                   paddingTop: "10px",
                   paddingLeft: "5px",
-               
+
                 }}
               >
                 Age Group
@@ -257,9 +305,9 @@ function handleSubmit(e) {
               sx={{
                 fontSize: "8px",
                 width: "100px",
-                backgroundColor:'#F6E89D',
+                backgroundColor: '#F6E89D',
                 color: "black",
-                marginBottom:'2rem'
+                marginBottom: '2rem'
               }}
               variant="contained"
             >
@@ -282,7 +330,7 @@ function handleSubmit(e) {
                 borderRadius: "3px",
                 background: "white",
               }}
-              fontSize= '12px'
+              fontSize='12px'
               id="outlined-basic"
               variant="outlined"
               name="additional_details"
@@ -306,7 +354,7 @@ function handleSubmit(e) {
                   paddingLeft: "5px",
                 }}
               >
-              
+
                 Contact Me By:
               </InputLabel>
               <Select

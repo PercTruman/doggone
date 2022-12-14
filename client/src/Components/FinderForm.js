@@ -10,9 +10,12 @@ import MenuItem from "@mui/material/MenuItem";
 import Grid2 from "@mui/material/Unstable_Grid2";
 
 
-function FinderForm({ setFormData, formData }) {
+function FinderForm({ setFormData, formData, latitude, longitude }) {
+  const { user } = useContext(UserContext);
+  const [breedNames, setBreedNames] = useState([]);
   const [lostDog, setLostDog] = useState(null)
   const [image, setImage] = useState(null);
+
   useEffect(() => {
     fetch("https://api.thedogapi.com/v1/breeds?page=0")
       .then((res) => res.json())
@@ -23,9 +26,7 @@ function FinderForm({ setFormData, formData }) {
     lostDog && createSighting()
   }, [lostDog])
 
-  const { user } = useContext(UserContext);
-  const [breedNames, setBreedNames] = useState([]);
-
+  
 
   const handleChange = (e) => {
     setFormData({
@@ -61,13 +62,17 @@ function FinderForm({ setFormData, formData }) {
       .catch((err) => console.error(err));
   };
 
+
   const sightingData = {
-    lost_dog_id: lostDog && lostDog.id,
-    map_lat: formData.map_lat,
-    map_lng: formData.map_lng,
-    finder_id: formData.finder_id,
+    user_id: user.id,
+    lost_dog_id:  lostDog && lostDog.id,
+    map_lat: latitude,
+    map_lng: longitude,
+    finder_id: user.id,
     owner_id: formData.owner_id,
+  
   };
+  console.log(sightingData)
 
 
 

@@ -15,7 +15,7 @@ function NewSighting() {
   const [pictures, setPictures] = useState([]);
  
 
- 
+ console.log(latitude)
 
 
   const [formData, setFormData] = useState({
@@ -31,12 +31,12 @@ function NewSighting() {
     contact_method: "",
     time_of_sighting: "",
     date_of_sighting: "",
-    // finder_id: user.id,
+    finder_id: user && user.id,
     owner_id: "",
   });
 
  
-
+console.log(formData.map_lat)
 
   
   

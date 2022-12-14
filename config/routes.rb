@@ -11,6 +11,6 @@ Rails.application.routes.draw do
   patch "/lost_dogs/:id", to: "lost_dogs#update"
 
   delete "/lost_dogs/:id", to: "lost_dogs#destroy"
-  
+  delete '/logout', to: 'sessions#destroy'
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
 end

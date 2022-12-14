@@ -48,6 +48,7 @@ function FinderMap({ setShowMap, setLatitude, setLongitude, mapRef }) {
     });
   }, []);
 
+
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
   }, []);

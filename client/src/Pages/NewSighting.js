@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef} from "react";
+import React, { useContext, useState, useRef } from "react";
 import { UserContext } from "../UserContext";
 import FinderMap from "../Components/FinderMap";
 import FinderForm from "../Components/FinderForm";
@@ -7,15 +7,10 @@ import Navbar from "../Components/Navbar";
 
 function NewSighting() {
   const { user } = useContext(UserContext);
-  const [lostDog, setLostDog] = useState(null);
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [showMap, setShowMap] = useState(true);
   const mapRef = useRef();
-  const [pictures, setPictures] = useState([]);
- 
-
- console.log(latitude)
 
 
   const [formData, setFormData] = useState({
@@ -34,12 +29,6 @@ function NewSighting() {
     finder_id: user && user.id,
     owner_id: "",
   });
-
- 
-console.log(formData.map_lat)
-
-  
-  
 
   return (
     <Box display={"flex"} flexDirection={"column"} justifyContent={"center"}>
@@ -73,7 +62,6 @@ console.log(formData.map_lat)
           <Box display={"flex"} justifyContent={"space-around"}>
             <Box padding={"4rem"} marginRight={"6rem"}>
               <FinderForm
-                setPictures={setPictures}
                 latitude={latitude}
                 longitude={longitude}
                 formData={formData}

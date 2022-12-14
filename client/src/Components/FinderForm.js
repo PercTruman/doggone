@@ -9,11 +9,10 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Grid2 from "@mui/material/Unstable_Grid2";
 
-
 function FinderForm({ setFormData, formData, latitude, longitude }) {
   const { user } = useContext(UserContext);
   const [breedNames, setBreedNames] = useState([]);
-  const [lostDog, setLostDog] = useState(null)
+  const [lostDog, setLostDog] = useState(null);
   const [image, setImage] = useState(null);
 
   useEffect(() => {
@@ -22,11 +21,9 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
       .then((data) => setBreedNames(data));
   }, []);
 
-  useEffect(()=>{
-    lostDog && createSighting()
-  }, [lostDog])
-
-  
+  useEffect(() => {
+    lostDog && createSighting();
+  }, [lostDog]);
 
   const handleChange = (e) => {
     setFormData({
@@ -36,18 +33,20 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
     });
   };
 
-
   function handleSubmit(e) {
     e.preventDefault();
-    const lostDogData = new FormData()
+    const lostDogData = new FormData();
     lostDogData.append("lost_dog[image]", e.target.image.files[0]);
     lostDogData.append("lost_dog[color]", formData.color);
     lostDogData.append("lost_dog[sex]", formData.sex);
     lostDogData.append("lost_dog[breed]", formData.breed);
     lostDogData.append("lost_dog[age_group]", formData.age_group);
-    lostDogData.append("lost_dog[additional_details]", formData.additional_details);
-    lostDogData.append("lost_dog[contact_method]", formData.contact_method)
-    lostDogData.append("lost_dog[contact_finder]", formData.contact_finder)
+    lostDogData.append(
+      "lost_dog[additional_details]",
+      formData.additional_details
+    );
+    lostDogData.append("lost_dog[contact_method]", formData.contact_method);
+    lostDogData.append("lost_dog[contact_finder]", formData.contact_finder);
 
     createLostDog(lostDogData);
   }
@@ -55,62 +54,60 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
   function createLostDog(data) {
     fetch("/lost_dogs", {
       method: "POST",
-      body: data
-    }).then((res) => res.json().then((data) => {
-      setImage(data.image_url);
-      setLostDog(data)}))
+      body: data,
+    })
+      .then((res) =>
+        res.json().then((data) => {
+          setImage(data.image_url);
+          setLostDog(data);
+        })
+      )
       .catch((err) => console.error(err));
-  };
-
+  }
 
   const sightingData = {
     user_id: user.id,
-    lost_dog_id:  lostDog && lostDog.id,
+    lost_dog_id: lostDog && lostDog.id,
     map_lat: latitude,
     map_lng: longitude,
     finder_id: user.id,
     owner_id: formData.owner_id,
-  
   };
-  console.log(sightingData)
 
+  const createSighting = () => {
+    fetch("/sightings", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(sightingData),
+    }).then((res) => {
+      if (res.ok) {
+        res.json().then(() => {
+          alert(
+            "Thank you for submitting.  Your sighting has been saved successfully. If you allowed your contact information to be visible, you may be contacted soon."
+          );
 
-
-    const createSighting=()=>{
-      fetch("/sightings", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(sightingData),
-      }).then((res) => {
-        if (res.ok) {
-          res.json().then(() => {
-            alert(
-              "Thank you for submitting.  Your sighting has been saved successfully. If you allowed your contact information to be visible, you may be contacted soon."
-            );
-  
-            setFormData({
-              additional_details: "",
-              map_lat: "",
-              map_lng: "",
-              contact_finder: false,
-              contact_method: "",
-              finder_id: "",
-              owner_id: "",
-              image: null,
-              color: "",
-              sex: "",
-              breed: "",
-              age_group: ""
-            });
+          setFormData({
+            additional_details: "",
+            map_lat: "",
+            map_lng: "",
+            contact_finder: false,
+            contact_method: "",
+            finder_id: "",
+            owner_id: "",
+            image: null,
+            color: "",
+            sex: "",
+            breed: "",
+            age_group: "",
           });
-        } else {
-          res.json().then((errors) => {
-            alert(errors.error);
-          });
-        }
-      });
-    }
-
+        });
+      } else {
+        res.json().then((errors) => {
+          alert(errors.error);
+        });
+      }
+    });
+  };
 
   const sexChoices = ["Male", "Female", "Neutered Male", "Spayed Female"];
   const sexDropDownOptions = sexChoices.map((choice) => (
@@ -164,25 +161,23 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
           fontSize: "16px",
           color: "#85BBCC",
           marginTop: "0",
-
         }}
       >
         Using this form, please upload a photo, and/or provide additional
         details about the dog you saw.
       </h4>
 
-
       <Grid2
         container
-        backgroundColor={'darkGray'}
-        padding={'1rem'}
-        borderRadius={'10px'}
+        backgroundColor={"darkGray"}
+        padding={"1rem"}
+        borderRadius={"10px"}
         spacing={2}
         justifyContent={"center"}
       >
         <form onSubmit={handleSubmit}>
           {/* <ImageUpload setPictures={setPictures}/> */}
-          <h3 style={{ color: 'black', marginTop: '0' }}>Upload Image</h3>
+          <h3 style={{ color: "black", marginTop: "0" }}>Upload Image</h3>
           <input type="file" name="image" id="image" placeholder="Dog Image" />
           <img src={image} alt="Dog Image" />
 
@@ -197,7 +192,7 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
               <InputLabel
                 sx={{
                   fontSize: "12px",
-                  fontWeight: 'bold',
+                  fontWeight: "bold",
                   paddingTop: "10px",
                   paddingLeft: "15px",
                 }}
@@ -246,19 +241,14 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
             </FormControl>
           </Grid2>
 
-          <Grid2
-            xs
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-          >
+          <Grid2 xs display="flex" justifyContent="center" alignItems="center">
             <FormControl fullWidth>
               <InputLabel
                 sx={{
                   fontSize: "12px",
                   paddingTop: "10px",
                   paddingLeft: "15px",
-                  fontWeight: "bold"
+                  fontWeight: "bold",
                 }}
               >
                 Breed
@@ -268,7 +258,7 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
                 name="breed"
                 sx={{
                   margin: "1rem",
-                  paddingTop: '5px',
+                  paddingTop: "5px",
                   background: "white",
                   width: "150px",
                   height: "40px",
@@ -285,7 +275,6 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
                   fontWeight: "bold",
                   paddingTop: "10px",
                   paddingLeft: "5px",
-
                 }}
               >
                 Age Group
@@ -314,21 +303,16 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
               sx={{
                 fontSize: "8px",
                 width: "100px",
-                backgroundColor: '#F6E89D',
+                backgroundColor: "#F6E89D",
                 color: "black",
-                marginBottom: '2rem'
+                marginBottom: "2rem",
               }}
               variant="contained"
             >
               Breed Pictures
             </Button>
           </a>
-          <Grid2
-            xs
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-          >
+          <Grid2 xs display="flex" justifyContent="center" alignItems="center">
             <TextField
               label="Additional Details:"
               multiline
@@ -339,7 +323,7 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
                 borderRadius: "3px",
                 background: "white",
               }}
-              fontSize='12px'
+              fontSize="12px"
               id="outlined-basic"
               variant="outlined"
               name="additional_details"
@@ -348,12 +332,7 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
               onChange={handleChange}
             />
           </Grid2>
-          <Grid2
-            xs
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-          >
+          <Grid2 xs display="flex" justifyContent="center" alignItems="center">
             <FormControl fullWidth sx={{ mb: "1em", width: "150px" }}>
               <InputLabel
                 sx={{
@@ -363,7 +342,6 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
                   paddingLeft: "5px",
                 }}
               >
-
                 Contact Me By:
               </InputLabel>
               <Select

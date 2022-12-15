@@ -50,7 +50,7 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
 
     createLostDog(lostDogData);
   }
-
+  
   function createLostDog(data) {
     fetch("/lost_dogs", {
       method: "POST",

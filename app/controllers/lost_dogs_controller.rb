@@ -1,15 +1,23 @@
 class LostDogsController < ApplicationController
     skip_before_action :authenticate_user, only: :create
+   
 
     def index
         lost_dogs=LostDog.all
-        render json: lost_dogs, include: ['image'], status: :ok
+        render json: LostDogSerializer.new(lost_dogs), status: :ok
     end
+    
+    # def dog_images
+    #     @dog_images = LostDog.all
+    #     render json: LostDogSerializer.new(@dog_images).serializable_hash[:data][:attributes]
+
+    # end
 
     def create
         @lost_dog = LostDog.create!(lost_dog_params)
         render json: LostDogSerializer.new(@lost_dog).serializable_hash[:data][:attributes], status: :created 
     end
+
 
     def update
         lost_dog = LostDog.find(params[:id])
@@ -49,6 +57,6 @@ class LostDogsController < ApplicationController
     private
 
     def lost_dog_params
-        params.require(:lost_dog).permit(:image, :color, :sex, :breed, :age_group, :additional_details, :contact_method, :contact_finder)
+        params.require(:lost_dog).permit(:image, :color, :sex, :breed, :age_group, :image_url, :additional_details, :contact_method, :contact_finder)
     end
 end

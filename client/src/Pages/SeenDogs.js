@@ -22,9 +22,11 @@ import SaveIcon from '@mui/icons-material/Save';
 import PrintIcon from '@mui/icons-material/Print';
 import ShareIcon from '@mui/icons-material/Share';
 
+
+
 const actions = [
   { icon: <VisibilityIcon />, name: 'Add sighting for this dog ' },
-  { icon: <InfoIcon />, name: 'See sightings for this dog' },
+  { icon: <InfoIcon />, name: 'View sightings for this dog' },
 ];
 
 
@@ -78,24 +80,17 @@ function SeenDogs() {
                   loading="lazy"
                   alt="doggy"
                 />{" "}
-                {/* <ImageListItemBar
+                <ImageListItemBar
                   title={<span>{dogObject.attributes.breed}</span>}
-                  subtitle={<span> {dogObject.attributes.age_group}</span>}
-                  actionIcon={
-                    <IconButton
-                      sx={{ color: "rgba(255, 255, 255, 0.54)" }}
-                      aria-label={`info about ${dogObject.id}`}
-                      onClick={() => navigate(`/-seen_dogs/${dogObject.id}`)}
-                    >
-                      <VisibilityIcon />
-                    </IconButton>
-                   
-                  }
+                  subtitle={<span> {dogObject.attributes.age_group}</span>}/>
+               
+               
 
-                />{" "} */}
+               
       <SpeedDial
         ariaLabel="SpeedDial basic example"
-        sx={{  '& .MuiFab-primary': {width:40, height:40}, position: 'absolute', bottom: 16, right: 16}}
+        direction="down"
+        sx={{  '& .MuiFab-primary': {width:40, height:40}, position: 'absolute', top: 10, right: 5}}
         icon={<SpeedDialIcon />}
       >
         {actions.map((action) => (

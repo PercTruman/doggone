@@ -3,15 +3,30 @@ import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../Components/Navbar";
 import Box from "@mui/material/Box";
 import ImageList from "@mui/material/ImageList";
+import FinderMap from "../Components/FinderMap"
 import Button from "@mui/material/Button";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import IconButton from "@mui/material/IconButton";
 import InfoIcon from "@mui/icons-material/Info";
 import Typography from "@mui/material/Typography";
+import SpeedDial from '@mui/material/SpeedDial';
+import SpeedDialAction from '@mui/material/SpeedDialAction';
 import Grid from "@mui/material/Unstable_Grid2";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+
 import { padding } from "@mui/system";
+import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
+import SaveIcon from '@mui/icons-material/Save';
+import PrintIcon from '@mui/icons-material/Print';
+import ShareIcon from '@mui/icons-material/Share';
+
+const actions = [
+  { icon: <VisibilityIcon />, name: 'Add sighting for this dog ' },
+  { icon: <InfoIcon />, name: 'See sightings for this dog' },
+];
+
 
 function SeenDogs() {
   const [imageGallery, setImageGallery] = useState(null);
@@ -63,29 +78,35 @@ function SeenDogs() {
                   loading="lazy"
                   alt="doggy"
                 />{" "}
-                <ImageListItemBar
+                {/* <ImageListItemBar
                   title={<span>{dogObject.attributes.breed}</span>}
                   subtitle={<span> {dogObject.attributes.age_group}</span>}
-                  // actionIcon={
-                  //   <IconButton
-                  //     sx={{ color: "rgba(255, 255, 255, 0.54)" }}
-                  //     aria-label={`info about ${dogObject.id}`}
-                  //     onClick={() => navigate(`/-seen_dogs/${dogObject.id}`)}
-                  //   >
-                  //     <InfoIcon />
-                  //   </IconButton>
-                  // }
-                />{" "}
-    
-                <Box>
-                  <IconButton sx={{ color: "#85BBCC" }}>
-                    <VisibilityIcon />
-                  </IconButton>
+                  actionIcon={
+                    <IconButton
+                      sx={{ color: "rgba(255, 255, 255, 0.54)" }}
+                      aria-label={`info about ${dogObject.id}`}
+                      onClick={() => navigate(`/-seen_dogs/${dogObject.id}`)}
+                    >
+                      <VisibilityIcon />
+                    </IconButton>
+                   
+                  }
 
-                  <IconButton sx={{ color: "#F6E89D" }}>
-                    <InfoIcon />
-                  </IconButton>
-                </Box>
+                />{" "} */}
+      <SpeedDial
+        ariaLabel="SpeedDial basic example"
+        sx={{  '& .MuiFab-primary': {width:40, height:40}, position: 'absolute', bottom: 16, right: 16}}
+        icon={<SpeedDialIcon />}
+      >
+        {actions.map((action) => (
+          <SpeedDialAction
+            key={action.name}
+            icon={action.icon}
+            tooltipTitle={action.name}
+          />
+        ))}
+      </SpeedDial>
+          
               </ImageListItem>
             ))}
         </ImageList>

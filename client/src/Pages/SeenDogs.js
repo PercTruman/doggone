@@ -1,42 +1,36 @@
 import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../UserContext";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../Components/Navbar";
 import Box from "@mui/material/Box";
 import ImageList from "@mui/material/ImageList";
-import FinderMap from "../Components/FinderMap"
-import Button from "@mui/material/Button";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
-import IconButton from "@mui/material/IconButton";
 import InfoIcon from "@mui/icons-material/Info";
 import Typography from "@mui/material/Typography";
-import SpeedDial from '@mui/material/SpeedDial';
-import SpeedDialAction from '@mui/material/SpeedDialAction';
+import SpeedDial from "@mui/material/SpeedDial";
+import SpeedDialAction from "@mui/material/SpeedDialAction";
 import Grid from "@mui/material/Unstable_Grid2";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import SpeedDialIcon from '@mui/material/SpeedDialIcon';
-
-
-
-
-
-
+import SpeedDialIcon from "@mui/material/SpeedDialIcon";
 
 
 function SeenDogs() {
-  const {loggedIn} = useContext(UserContext)
+  const { loggedIn } = useContext(UserContext);
   const [imageGallery, setImageGallery] = useState(null);
   const navigate = useNavigate();
-  const { id } = useParams();
+
+
   useEffect(() => {
     getDogs();
   }, []);
 
-  const actions = loggedIn? [
-    { icon: <VisibilityIcon />, name: 'Add sighting for this dog ' },
-    { icon: <InfoIcon />, name: 'View sightings for this dog' },
-  ] : [ { icon: <VisibilityIcon />, name: 'Add sighting for this dog ' },]
+  const actions = loggedIn
+    ? [
+        { icon: <VisibilityIcon />, name: "Add sighting for this dog " },
+        { icon: <InfoIcon />, name: "View sightings for this dog" },
+      ]
+    : [{ icon: <VisibilityIcon />, name: "Add sighting for this dog " }];
 
   function getDogs() {
     fetch("/lost_dogs")
@@ -83,26 +77,30 @@ function SeenDogs() {
                 />{" "}
                 <ImageListItemBar
                   title={<span>{dogObject.attributes.breed}</span>}
-                  subtitle={<span> {dogObject.attributes.age_group}</span>}/>
-               
-               
-
-               
-      <SpeedDial
-        ariaLabel="SpeedDial basic example"
-        direction="down"
-        sx={{  '& .MuiFab-primary': {width:40, height:40}, position: 'absolute', top: 10, right: 5}}
-        icon={<SpeedDialIcon />}
-      >
-        {actions.map((action) => (
-          <SpeedDialAction
-            key={action.name}
-            icon={action.icon}
-            tooltipTitle={action.name}
-          />
-        ))}
-      </SpeedDial>
-          
+                  subtitle={<span> {dogObject.attributes.age_group}</span>}
+                />
+                <SpeedDial
+                  ariaLabel="SpeedDial"
+                  direction="down"
+                  sx={{
+                    "& .MuiFab-primary": { width: 40, height: 40 },
+                    position: "absolute",
+                    top: 10,
+                    right: 5,
+                  }}
+                  icon={<SpeedDialIcon />}
+                >
+                  {actions.map((action) => (
+                    <SpeedDialAction
+                      key={action.name}
+                      icon={action.icon}
+                      tooltipTitle={action.name}
+                      onClick={()=> {
+                        action.name === "Add sighting for this dog " ? navigate("/-new_sighting"): navigate(`/-seen_dogs/${dogObject.id}`)
+                      }}
+                    />
+                  ))}
+                </SpeedDial>
               </ImageListItem>
             ))}
         </ImageList>

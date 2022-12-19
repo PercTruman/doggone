@@ -3,7 +3,7 @@ class SightingsController < ApplicationController
     belongs_to :lost_dog
 
     def index
-        local_dogs = Sighting.near('Mansfield, TX, US',1 )
+        local_dogs = Sighting.near(@current_user[:latitude, :longitude],.01 )
         render json: local_dogs
     end
 

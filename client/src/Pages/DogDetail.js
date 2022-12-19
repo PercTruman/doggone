@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../Components/Navbar";
-import { Box, color } from "@mui/system";
+import { Box} from "@mui/system";
 import Grid2 from "@mui/material/Unstable_Grid2";
 import { Typography } from "@mui/material";
+import OwnerMap from "../Components/OwnerMap";
+import Button from "@mui/material/Button";
 
 function DogDetail() {
   const { id } = useParams();
+  const [showOwnerMap, setShowOwnerMap] = useState(false)
   const [dogDetails, setDogDetails] = useState(null);
   useEffect(() => {
     getDogDetails();
@@ -27,6 +30,9 @@ function DogDetail() {
         })
       );
   }
+
+  if(!dogDetails) return null;
+
   return (
     <Box>
       <Navbar />
@@ -46,8 +52,7 @@ function DogDetail() {
       </Grid2>
       <Grid2
         container
-        justifyContent={'center'}
-       
+        justifyContent={"center"}
         width={"500px"}
         height={"400px"}
         margin={"3rem auto"}
@@ -60,15 +65,26 @@ function DogDetail() {
             border={"2px solid #85BBCC"}
           />
         )}
-        <Grid2 margin={'1rem auto'} padding={'1rem'} backgroundColor={"darkGray"}>
-        <p style={{fontWeight:'bold'}}>Breed:  {dogDetails.breed}</p>
-          <p style={{fontWeight:'bold'}}>Age Range:  {dogDetails.age.toLowerCase()}</p>
-          <p style={{fontWeight:'bold'}}>Sex:  {dogDetails.sex.toLowerCase()}</p>
-
-         
+        <Grid2
+          margin={"1rem auto"}
+          padding={"1rem"}
+          backgroundColor={"darkGray"}
+          border={"2px solid black"}
+        >
+          <p style={{ fontWeight: "bold" }}>Breed: {dogDetails.breed}</p>
+          <p style={{ fontWeight: "bold" }}>
+            Age Range: {dogDetails.age.toLowerCase()}
+          </p>
+          <p style={{ fontWeight: "bold" }}>
+            Sex: {dogDetails.sex.toLowerCase()}
+          </p>
         </Grid2>
+
       </Grid2>
+      <Button variant="contained" onClick={()=>setShowOwnerMap(showOwnerMap =>!showOwnerMap)} sx={{height:'45px', marginTop:'2.5rem'}}>{showOwnerMap ? 'Close Map':'Show Sightings Map'}</Button>
+      {showOwnerMap? <OwnerMap/> : null}
     </Box>
+    
   );
 }
 

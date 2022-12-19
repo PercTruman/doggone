@@ -54,3 +54,5 @@ end
 gem "active_model_serializers", "~> 0.10.12"
 
 gem "jsonapi-serializer", "~> 2.2"
+gem "geocoder"
+

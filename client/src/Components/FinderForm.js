@@ -68,8 +68,8 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
   const sightingData = {
     user_id: user.id,
     lost_dog_id: lostDog && lostDog.id,
-    map_lat: latitude,
-    map_lng: longitude,
+    latitude: latitude,
+    longitude: longitude,
     finder_id: user.id,
     owner_id: formData.owner_id,
   };

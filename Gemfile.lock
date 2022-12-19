@@ -93,6 +93,7 @@ GEM
     diff-lcs (1.4.4)
     erubi (1.10.0)
     ffi (1.15.1)
+    geocoder (1.8.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     i18n (1.8.10)
@@ -212,6 +213,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.4.4)
   byebug
+  geocoder
   image_processing (>= 1.2)
   jsonapi-serializer (~> 2.2)
   listen (~> 3.3)

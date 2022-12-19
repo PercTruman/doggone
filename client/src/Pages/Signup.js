@@ -10,6 +10,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const { signup, errorsList, setErrorsList } = useContext(UserContext);
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ const Signup = () => {
       body: JSON.stringify({
         username: username,
         email: email,
+        address: address,
         password: password,
         password_confirmation: passwordConfirmation,
       }),
@@ -34,6 +36,7 @@ const Signup = () => {
         } else {
           setUsername("");
           setEmail("");
+          setAddress("")
           setPassword("");
           setPasswordConfirmation("");
           const errorLis = user.errors.map((e) => <li>{e}</li>);
@@ -70,6 +73,18 @@ const Signup = () => {
            id="email"
            value={email}
            onChange={(e) => setEmail(e.target.value)}
+        />{" "}
+        <br />
+        <TextField
+           sx={{marginBottom: "2rem",background:'white'}}
+           size = "small"
+           label = "Address"
+           name="address"
+           type="address"
+           autoComplete="on"
+           id="address"
+           value={address}
+           onChange={(e) => setAddress(e.target.value)}
         />{" "}
         <br />
         <TextField

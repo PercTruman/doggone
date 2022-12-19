@@ -19,6 +19,7 @@ class LostDogsController < ApplicationController
     end
 
 
+
     def update
         lost_dog = LostDog.find(params[:id])
         to_delete = params[:image_to_delete]

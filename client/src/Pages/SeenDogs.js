@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../UserContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Navbar from "../Components/Navbar";
 import Box from "@mui/material/Box";
 import ImageList from "@mui/material/ImageList";
@@ -19,6 +19,8 @@ function SeenDogs() {
   const { loggedIn } = useContext(UserContext);
   const [imageGallery, setImageGallery] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
+  const {lost_dog_id} = location.state
 
 
   useEffect(() => {

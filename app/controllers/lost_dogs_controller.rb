@@ -7,11 +7,10 @@ class LostDogsController < ApplicationController
         render json: LostDogSerializer.new(lost_dogs), status: :ok
     end
     
-    # def dog_images
-    #     @dog_images = LostDog.all
-    #     render json: LostDogSerializer.new(@dog_images).serializable_hash[:data][:attributes]
-
-    # end
+   def show
+    @lost_dog= LostDog.find(params[:id])
+    render json: LostDogSerializer.new(@lost_dog).serializable_hash[:data][:attributes], status: :created
+   end
 
     def create
         @lost_dog = LostDog.create!(lost_dog_params)

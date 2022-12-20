@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../UserContext";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import Navbar from "../Components/Navbar";
 import Box from "@mui/material/Box";
 import ImageList from "@mui/material/ImageList";
@@ -19,9 +19,7 @@ function SeenDogs() {
   const { loggedIn } = useContext(UserContext);
   const [imageGallery, setImageGallery] = useState(null);
   const navigate = useNavigate();
-  const location = useLocation();
-  const {lost_dog_id} = location.state
-
+ 
 
   useEffect(() => {
     getDogs();
@@ -98,7 +96,7 @@ function SeenDogs() {
                       icon={action.icon}
                       tooltipTitle={action.name}
                       onClick={()=> {
-                        action.name === "Add sighting for this dog " ? navigate("/-new_sighting"): navigate(`/-seen_dogs/${dogObject.id}`)
+                        action.name === "Add sighting for this dog " ? navigate(`/-new_sighting/${dogObject.id}`, {state:dogObject.id}): navigate(`/-seen_dogs/${dogObject.id}`)
                       }}
                     />
                   ))}

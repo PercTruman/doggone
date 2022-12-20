@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useCallback, useRef } from "react";
+
 import {
   useLoadScript,
   GoogleMap,
@@ -7,6 +8,7 @@ import {
 } from "@react-google-maps/api";
 import { formatRelative } from "date-fns";
 import dogPaw from "../Pages/dog-paw.svg";
+import Button from "@mui/material/Button";
 
 const mapContainerStyle = {
   margin: "0 auto",
@@ -19,7 +21,8 @@ const options = {
   zoomControl: true,
 };
 
-function OwnerMap() {
+function OwnerMap({ setShowOwnerMap }) {
+  
   const mapRef = useRef();
   const center = useMemo(() => ({ lat: 32.59048, lng: -97.04098 }), []);
   const { isLoaded } = useLoadScript({
@@ -35,7 +38,7 @@ function OwnerMap() {
   if (!isLoaded) return <div>Loading...</div>;
 
   return (
-    <div style={{paddingTop: '3rem'}}>
+    <div style={{ paddingTop: "3rem" }}>
       <h2 style={{ color: "#85BBCC" }}>Sightings for this dog:</h2>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
@@ -44,6 +47,13 @@ function OwnerMap() {
         onLoad={onMapLoad}
         options={options}
       ></GoogleMap>
+      <Button
+        variant="contained"
+        onClick={ ()=>setShowOwnerMap((showOwnerMap) => !showOwnerMap)}
+        sx={{ height: "45px", marginTop: "2.5rem" }}
+      >
+        Back to Details
+      </Button>
     </div>
   );
 }

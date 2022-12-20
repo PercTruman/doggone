@@ -34,7 +34,8 @@ function DogDetail() {
   if(!dogDetails) return null;
 
   return (
-    <Box>
+    showOwnerMap ? <OwnerMap setShowOwnerMap={setShowOwnerMap} showOwnerMap={showOwnerMap}/> : (
+       <Box>
       <Navbar />
       <Grid2
         container
@@ -82,8 +83,9 @@ function DogDetail() {
 
       </Grid2>
       <Button variant="contained" onClick={()=>setShowOwnerMap(showOwnerMap =>!showOwnerMap)} sx={{height:'45px', marginTop:'2.5rem'}}>{showOwnerMap ? 'Close Map':'Show Sightings Map'}</Button>
-      {showOwnerMap? <OwnerMap/> : null}
-    </Box>
+    
+    </Box>)
+   
     
   );
 }

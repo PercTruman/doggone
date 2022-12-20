@@ -22,7 +22,7 @@ const options = {
   zoomControl: true,
 };
 
-function FinderMap({ setShowMap, setLatitude, setLongitude, mapRef }) {
+function FinderMap({ setShowMap, setLatitude, setLongitude, mapRef, dogId }) {
   const [showSaveWindow, setShowSaveWindow] = useState(false);
   const center = useMemo(() => ({ lat: 32.59048, lng: -97.04098 }), []);
   const { isLoaded } = useLoadScript({

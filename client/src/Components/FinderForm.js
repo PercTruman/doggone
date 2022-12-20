@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { UserContext } from "../UserContext";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
@@ -9,12 +10,13 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Grid2 from "@mui/material/Unstable_Grid2";
 
-function FinderForm({ setFormData, formData, latitude, longitude }) {
+function FinderForm({ setFormData, formData, latitude, longitude}) {
   const { user } = useContext(UserContext);
   const [breedNames, setBreedNames] = useState([]);
   const [lostDog, setLostDog] = useState(null);
   const [image, setImage] = useState(null);
-
+  const {id} = useParams()
+  const [showImageUpload, setShowImageUpload] = useState( id ? false : true );
   useEffect(() => {
     fetch("https://api.thedogapi.com/v1/breeds?page=0")
       .then((res) => res.json())
@@ -50,7 +52,7 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
 
     createLostDog(lostDogData);
   }
-  
+
   function createLostDog(data) {
     fetch("/lost_dogs", {
       method: "POST",
@@ -154,6 +156,7 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
       </MenuItem>
     ));
 
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <h4
@@ -163,7 +166,7 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
           marginTop: "0",
         }}
       >
-        Using this form, please upload a photo, and/or provide additional
+        Using this form, please provide additional
         details about the dog you saw.
       </h4>
 
@@ -176,10 +179,18 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
         justifyContent={"center"}
       >
         <form onSubmit={handleSubmit}>
-          {/* <ImageUpload setPictures={setPictures}/> */}
-          <h3 style={{ color: "black", marginTop: "0" }}>Upload Image</h3>
-          <input type="file" name="image" id="image" placeholder="Dog Image" />
-          <img src={image} alt="Dog Image" />
+          {showImageUpload ? (
+            <div>
+              {" "}
+              <h3 style={{ color: "black", marginTop: "0" }}>Upload Image</h3>
+              <input
+                type="file"
+                name="image"
+                id="image"
+                placeholder="Dog Image"
+              />
+              <img src={image} alt="Dog Image" />{" "}
+        
 
           <Grid2
             xs
@@ -312,6 +323,8 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
               Breed Pictures
             </Button>
           </a>
+          </div>
+          ) : null}
           <Grid2 xs display="flex" justifyContent="center" alignItems="center">
             <TextField
               label="Additional Details:"

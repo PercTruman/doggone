@@ -1,4 +1,5 @@
 import React, { useContext, useState, useRef } from "react";
+import { useLocation, useParams } from "react-router-dom";
 import { UserContext } from "../UserContext";
 import FinderMap from "../Components/FinderMap";
 import FinderForm from "../Components/FinderForm";
@@ -6,12 +7,14 @@ import Box from "@mui/material/Box";
 import Navbar from "../Components/Navbar";
 
 function NewSighting() {
+  const location = useLocation();
+  const dogId = location.state
   const { user } = useContext(UserContext);
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [showMap, setShowMap] = useState(true);
   const mapRef = useRef();
-
+  const {id} = useParams()
 
   const [formData, setFormData] = useState({
     image: null,
@@ -20,7 +23,7 @@ function NewSighting() {
     breed: "",
     age_group: "",
     additional_details: "",
-    map_lat: latitude,
+    map_lat: latitude,  
     map_lng: longitude,
     contact_finder: false,
     contact_method: "",
@@ -48,6 +51,7 @@ function NewSighting() {
       {showMap ? (
         <Box>
           <FinderMap
+            dogId={dogId}
             setShowMap={setShowMap}
             latitude={latitude}
             longitude={longitude}
@@ -62,6 +66,7 @@ function NewSighting() {
           <Box display={"flex"} justifyContent={"space-around"}>
             <Box padding={"4rem"} marginRight={"6rem"}>
               <FinderForm
+                id = {id}
                 latitude={latitude}
                 longitude={longitude}
                 formData={formData}

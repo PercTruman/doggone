@@ -57,6 +57,6 @@ class LostDogsController < ApplicationController
     private
 
     def lost_dog_params
-        params.require(:lost_dog).permit(:image, :color, :sex, :breed, :age_group, :image_url, :additional_details, :contact_method, :contact_finder)
+        params.permit(:image, :color, :sex, :breed, :age_group, :image_url)
     end
 end

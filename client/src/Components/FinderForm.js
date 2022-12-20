@@ -10,13 +10,13 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Grid2 from "@mui/material/Unstable_Grid2";
 
-function FinderForm({ setFormData, formData, latitude, longitude}) {
+function FinderForm({ setFormData, formData, latitude, longitude }) {
   const { user } = useContext(UserContext);
   const [breedNames, setBreedNames] = useState([]);
   const [lostDog, setLostDog] = useState(null);
   const [image, setImage] = useState(null);
-  const {id} = useParams()
-  const [showImageUpload, setShowImageUpload] = useState( id ? false : true );
+  const { id } = useParams();
+  const [showImageUpload, setShowImageUpload] = useState(id ? false : true);
   useEffect(() => {
     fetch("https://api.thedogapi.com/v1/breeds?page=0")
       .then((res) => res.json())
@@ -38,17 +38,11 @@ function FinderForm({ setFormData, formData, latitude, longitude}) {
   function handleSubmit(e) {
     e.preventDefault();
     const lostDogData = new FormData();
-    lostDogData.append("lost_dog[image]", e.target.image.files[0]);
+    !id && lostDogData.append("lost_dog[image]", e.target.image.files[0]);
     lostDogData.append("lost_dog[color]", formData.color);
     lostDogData.append("lost_dog[sex]", formData.sex);
     lostDogData.append("lost_dog[breed]", formData.breed);
     lostDogData.append("lost_dog[age_group]", formData.age_group);
-    lostDogData.append(
-      "lost_dog[additional_details]",
-      formData.additional_details
-    );
-    lostDogData.append("lost_dog[contact_method]", formData.contact_method);
-    lostDogData.append("lost_dog[contact_finder]", formData.contact_finder);
 
     createLostDog(lostDogData);
   }
@@ -74,6 +68,15 @@ function FinderForm({ setFormData, formData, latitude, longitude}) {
     longitude: longitude,
     finder_id: user.id,
     owner_id: formData.owner_id,
+    additional_details: formData.additional_details,
+    contact_finder: formData.contact_finder,
+    contact_method: formData.contact_method,
+    //   lostDogData.append(
+    //     "lost_dog[additional_details]",
+    //     formData.additional_details
+    //   );
+    //   lostDogData.append("lost_dog[contact_method]", formData.contact_method);
+    //   lostDogData.append("lost_dog[contact_finder]", formData.contact_finder);
   };
 
   const createSighting = () => {
@@ -156,7 +159,6 @@ function FinderForm({ setFormData, formData, latitude, longitude}) {
       </MenuItem>
     ));
 
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <h4
@@ -166,8 +168,8 @@ function FinderForm({ setFormData, formData, latitude, longitude}) {
           marginTop: "0",
         }}
       >
-        Using this form, please provide additional
-        details about the dog you saw.
+        Using this form, please provide additional details about the dog you
+        saw.
       </h4>
 
       <Grid2
@@ -190,140 +192,142 @@ function FinderForm({ setFormData, formData, latitude, longitude}) {
                 placeholder="Dog Image"
               />
               <img src={image} alt="Dog Image" />{" "}
-        
+              <Grid2
+                xs
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                marginTop={"2rem"}
+              >
+                <FormControl fullWidth>
+                  <InputLabel
+                    sx={{
+                      fontSize: "12px",
+                      fontWeight: "bold",
+                      paddingTop: "10px",
+                      paddingLeft: "15px",
+                    }}
+                  >
+                    Primary Color
+                  </InputLabel>
+                  <Select
+                    value={formData.color}
+                    name="color"
+                    sx={{
+                      margin: "1rem",
+                      background: "white",
+                      width: "150px",
+                      height: "40px",
+                    }}
+                    onChange={handleChange}
+                  >
+                    {colorDropDownOptions}
+                  </Select>
+                </FormControl>
 
-          <Grid2
-            xs
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            marginTop={"2rem"}
-          >
-            <FormControl fullWidth>
-              <InputLabel
-                sx={{
-                  fontSize: "12px",
-                  fontWeight: "bold",
-                  paddingTop: "10px",
-                  paddingLeft: "15px",
-                }}
+                <FormControl fullWidth>
+                  <InputLabel
+                    sx={{
+                      fontSize: "12px",
+                      fontWeight: "bold",
+                      paddingTop: "10px",
+                      paddingLeft: "15px",
+                    }}
+                  >
+                    Sex
+                  </InputLabel>
+                  <Select
+                    value={formData.sex}
+                    name="sex"
+                    sx={{
+                      background: "white",
+                      margin: "1rem",
+                      width: "150px",
+                      height: "40px",
+                    }}
+                    onChange={handleChange}
+                  >
+                    {sexDropDownOptions}
+                  </Select>
+                </FormControl>
+              </Grid2>
+              <Grid2
+                xs
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
               >
-                Primary Color
-              </InputLabel>
-              <Select
-                value={formData.color}
-                name="color"
-                sx={{
-                  margin: "1rem",
-                  background: "white",
-                  width: "150px",
-                  height: "40px",
-                }}
-                onChange={handleChange}
+                <FormControl fullWidth>
+                  <InputLabel
+                    sx={{
+                      fontSize: "12px",
+                      paddingTop: "10px",
+                      paddingLeft: "15px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Breed
+                  </InputLabel>
+                  <Select
+                    value={formData.breed}
+                    name="breed"
+                    sx={{
+                      margin: "1rem",
+                      paddingTop: "5px",
+                      background: "white",
+                      width: "150px",
+                      height: "40px",
+                    }}
+                    onChange={handleChange}
+                  >
+                    {breedList}
+                  </Select>
+                </FormControl>
+                <FormControl fullWidth>
+                  <InputLabel
+                    sx={{
+                      fontSize: "12px",
+                      fontWeight: "bold",
+                      paddingTop: "10px",
+                      paddingLeft: "5px",
+                    }}
+                  >
+                    Age Group
+                  </InputLabel>
+                  <Select
+                    value={formData.age_group}
+                    name="age_group"
+                    sx={{
+                      margin: "1rem",
+                      background: "white",
+                      width: "150px",
+                      height: "40px",
+                    }}
+                    onChange={handleChange}
+                  >
+                    {ageDropDownOptions}
+                  </Select>
+                </FormControl>
+              </Grid2>
+              <a
+                href="https://www.dogthelove.com/category"
+                target="_blank"
+                rel="noreferrer"
               >
-                {colorDropDownOptions}
-              </Select>
-            </FormControl>
-
-            <FormControl fullWidth>
-              <InputLabel
-                sx={{
-                  fontSize: "12px",
-                  fontWeight: "bold",
-                  paddingTop: "10px",
-                  paddingLeft: "15px",
-                }}
-              >
-                Sex
-              </InputLabel>
-              <Select
-                value={formData.sex}
-                name="sex"
-                sx={{
-                  background: "white",
-                  margin: "1rem",
-                  width: "150px",
-                  height: "40px",
-                }}
-                onChange={handleChange}
-              >
-                {sexDropDownOptions}
-              </Select>
-            </FormControl>
-          </Grid2>
-
-          <Grid2 xs display="flex" justifyContent="center" alignItems="center">
-            <FormControl fullWidth>
-              <InputLabel
-                sx={{
-                  fontSize: "12px",
-                  paddingTop: "10px",
-                  paddingLeft: "15px",
-                  fontWeight: "bold",
-                }}
-              >
-                Breed
-              </InputLabel>
-              <Select
-                value={formData.breed}
-                name="breed"
-                sx={{
-                  margin: "1rem",
-                  paddingTop: "5px",
-                  background: "white",
-                  width: "150px",
-                  height: "40px",
-                }}
-                onChange={handleChange}
-              >
-                {breedList}
-              </Select>
-            </FormControl>
-            <FormControl fullWidth>
-              <InputLabel
-                sx={{
-                  fontSize: "12px",
-                  fontWeight: "bold",
-                  paddingTop: "10px",
-                  paddingLeft: "5px",
-                }}
-              >
-                Age Group
-              </InputLabel>
-              <Select
-                value={formData.age_group}
-                name="age_group"
-                sx={{
-                  margin: "1rem",
-                  background: "white",
-                  width: "150px",
-                  height: "40px",
-                }}
-                onChange={handleChange}
-              >
-                {ageDropDownOptions}
-              </Select>
-            </FormControl>
-          </Grid2>
-          <a
-            href="https://www.dogthelove.com/category"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <Button
-              sx={{
-                fontSize: "8px",
-                width: "100px",
-                backgroundColor: "#F6E89D",
-                color: "black",
-                marginBottom: "2rem",
-              }}
-              variant="contained"
-            >
-              Breed Pictures
-            </Button>
-          </a>
-          </div>
+                <Button
+                  sx={{
+                    fontSize: "8px",
+                    width: "100px",
+                    backgroundColor: "#F6E89D",
+                    color: "black",
+                    marginBottom: "2rem",
+                  }}
+                  variant="contained"
+                >
+                  Breed Pictures
+                </Button>
+              </a>
+            </div>
           ) : null}
           <Grid2 xs display="flex" justifyContent="center" alignItems="center">
             <TextField

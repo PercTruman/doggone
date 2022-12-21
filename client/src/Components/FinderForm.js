@@ -37,14 +37,18 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    id ? createSighting(id) :   buildAndSendLostDogObject(e)
+  
+  }
+
+  function buildAndSendLostDogObject(e){
     const lostDogData = new FormData();
     lostDogData.append("lost_dog[image]", e.target.image.files[0]);
     lostDogData.append("lost_dog[color]", formData.color);
     lostDogData.append("lost_dog[sex]", formData.sex);
     lostDogData.append("lost_dog[breed]", formData.breed);
     lostDogData.append("lost_dog[age_group]", formData.age_group);
-
-    id ? createSighting(id) : createLostDog(lostDogData);
+    createLostDog(lostDogData)
   }
 
   function createLostDog(data) {
@@ -61,19 +65,20 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
       .catch((err) => console.error(err));
   }
 
-  const sightingData = {
-    user_id: user.id,
-    lost_dog_id: lostDog && lostDog.id,
-    latitude: latitude,
-    longitude: longitude,
-    finder_id: user.id,
-    owner_id: formData.owner_id,
-    additional_details: formData.additional_details,
-    contact_finder: formData.contact_finder,
-    contact_method: formData.contact_method,
-  };
+
 
   const createSighting = () => {
+    const sightingData = {
+      user_id: user.id,
+      lost_dog_id: id ? id : lostDog.id,
+      latitude: latitude,
+      longitude: longitude,
+      finder_id: user.id,
+      owner_id: formData.owner_id,
+      additional_details: formData.additional_details,
+      contact_finder: formData.contact_finder,
+      contact_method: formData.contact_method,
+    };
     fetch("/sightings", {
       method: "POST",
       headers: { "Content-Type": "application/json" },

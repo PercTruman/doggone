@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   get "/users", to: "users#index"
   get "/me", to: "users#show"
   get "/lost_dogs", to: "lost_dogs#index"
-  get "seen_dogs/:id", to: "lost_dogs#show"
+  get "/seen_dogs/:id", to: "lost_dogs#show"
+  get "/sightings/:id", to: "sightings#show"
+  get "/sightings", to: "sightings#index"
 
   post "/signup", to: "users#create"
   post "/login", to: "sessions#create"

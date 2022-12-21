@@ -1,4 +1,7 @@
 class SightingSerializer
   include JSONAPI::Serializer
-  attributes :id, :map_lat, :map_lng, :created_at, :finder_id
+  attributes :id, :latitude, :longitude, :created_at, :finder_id
+
+  belongs_to :lost_dog
+  belongs_to :user
 end

@@ -1,10 +1,17 @@
 class SightingsController < ApplicationController
     skip_before_action :authenticate_user, only: :create
-    # belongs_to :lost_dog
+  
 
     def index
-        local_dogs = Sighting.near(@current_user[:latitude, :longitude], 0.01 )
-        render json: local_dogs
+        sightings = Sighting.all
+        render json: sightings, status: :created
+    end
+
+
+
+    def local_sightings
+        local_sightings = Sighting.near(@current_user[:latitude, :longitude], 0.01 )
+        render json: local_sightings
     end
 
     def create
@@ -16,6 +23,6 @@ class SightingsController < ApplicationController
 
     private
         def sightings_params
-            params.permit(:user_id, :lost_dog_id, :owner_id, :finder_id, :map_lat, :map_lng,:additional_details, :contact_method, :contact_finder)
+            params.permit( :user_id, :lost_dog_id, :owner_id, :finder_id, :latitude, :longitude,:additional_details, :contact_method, :contact_finder)
         end
 end

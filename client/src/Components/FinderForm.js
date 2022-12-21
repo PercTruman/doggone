@@ -38,13 +38,13 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
   function handleSubmit(e) {
     e.preventDefault();
     const lostDogData = new FormData();
-    !id && lostDogData.append("lost_dog[image]", e.target.image.files[0]);
+    lostDogData.append("lost_dog[image]", e.target.image.files[0]);
     lostDogData.append("lost_dog[color]", formData.color);
     lostDogData.append("lost_dog[sex]", formData.sex);
     lostDogData.append("lost_dog[breed]", formData.breed);
     lostDogData.append("lost_dog[age_group]", formData.age_group);
 
-    createLostDog(lostDogData);
+    id ? createSighting(id) : createLostDog(lostDogData);
   }
 
   function createLostDog(data) {
@@ -71,12 +71,6 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
     additional_details: formData.additional_details,
     contact_finder: formData.contact_finder,
     contact_method: formData.contact_method,
-    //   lostDogData.append(
-    //     "lost_dog[additional_details]",
-    //     formData.additional_details
-    //   );
-    //   lostDogData.append("lost_dog[contact_method]", formData.contact_method);
-    //   lostDogData.append("lost_dog[contact_finder]", formData.contact_finder);
   };
 
   const createSighting = () => {

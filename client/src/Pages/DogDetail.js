@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../Components/Navbar";
-import { Box} from "@mui/system";
+import { Box } from "@mui/system";
 import Grid2 from "@mui/material/Unstable_Grid2";
 import { Typography } from "@mui/material";
 import OwnerMap from "../Components/OwnerMap";
@@ -9,8 +9,9 @@ import Button from "@mui/material/Button";
 
 function DogDetail() {
   const { id } = useParams();
-  const [showOwnerMap, setShowOwnerMap] = useState(false)
+  const [showOwnerMap, setShowOwnerMap] = useState(false);
   const [dogDetails, setDogDetails] = useState(null);
+  const [sightingsArray, setSightingsArray] = useState([]);
   useEffect(() => {
     getDogDetails();
   }, []);
@@ -18,7 +19,23 @@ function DogDetail() {
   function getDogDetails() {
     fetch(`/seen_dogs/${id}`)
       .then((res) => res.json())
-      .then((data) =>
+      .then((data) => {
+        buildMarkerObjects(data);
+
+    
+
+        function buildMarkerObjects(data) {
+          const arr = [];
+          for (let i = 0; i < data.sightings.length; i++) {
+            arr[i] = {
+              id: data.sightings[i].id,
+              lat: data.sightings[i].latitude,
+              lng: data.sightings[i].longitude,
+            };
+            setSightingsArray(arr)
+          }
+        }
+
         setDogDetails({
           picture: data.image_url,
           age: data.age_group,
@@ -27,15 +44,20 @@ function DogDetail() {
           color: data.color,
           contact_finder: data.contact_finder,
           contact_method: data.contact_method,
-        })
-      );
+        });
+      });
   }
 
-  if(!dogDetails) return null;
+  if (!dogDetails) return null;
 
-  return (
-    showOwnerMap ? <OwnerMap setShowOwnerMap={setShowOwnerMap} showOwnerMap={showOwnerMap}/> : (
-       <Box>
+  return showOwnerMap ? (
+    <OwnerMap
+      setShowOwnerMap={setShowOwnerMap}
+      showOwnerMap={showOwnerMap}
+      sightingsArray={sightingsArray}
+    />
+  ) : (
+    <Box>
       <Navbar />
       <Grid2
         container
@@ -80,13 +102,15 @@ function DogDetail() {
             Sex: {dogDetails.sex.toLowerCase()}
           </p>
         </Grid2>
-
       </Grid2>
-      <Button variant="contained" onClick={()=>setShowOwnerMap(showOwnerMap =>!showOwnerMap)} sx={{height:'45px', marginTop:'2.5rem'}}>{showOwnerMap ? 'Close Map':'Show Sightings Map'}</Button>
-    
-    </Box>)
-   
-    
+      <Button
+        variant="contained"
+        onClick={() => setShowOwnerMap((showOwnerMap) => !showOwnerMap)}
+        sx={{ height: "45px", marginTop: "2.5rem" }}
+      >
+        {showOwnerMap ? "Close Map" : "Show Sightings Map"}
+      </Button>
+    </Box>
   );
 }
 

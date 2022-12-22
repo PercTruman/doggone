@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "../UserContext";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
@@ -16,6 +16,7 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
   const [lostDog, setLostDog] = useState(null);
   const [image, setImage] = useState(null);
   const { id } = useParams();
+  const navigate = useNavigate()
   const [showImageUpload, setShowImageUpload] = useState(id ? false : true);
   useEffect(() => {
     fetch("https://api.thedogapi.com/v1/breeds?page=0")
@@ -37,18 +38,18 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    id ? createSighting(id) :   buildAndSendLostDogObject(e)
-  
+    id ? createSighting(id) : buildAndSendLostDogObject(e);
+    navigate('/-seen_dogs')
   }
 
-  function buildAndSendLostDogObject(e){
+  function buildAndSendLostDogObject(e) {
     const lostDogData = new FormData();
     lostDogData.append("lost_dog[image]", e.target.image.files[0]);
     lostDogData.append("lost_dog[color]", formData.color);
     lostDogData.append("lost_dog[sex]", formData.sex);
     lostDogData.append("lost_dog[breed]", formData.breed);
     lostDogData.append("lost_dog[age_group]", formData.age_group);
-    createLostDog(lostDogData)
+    createLostDog(lostDogData);
   }
 
   function createLostDog(data) {
@@ -64,8 +65,6 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
       )
       .catch((err) => console.error(err));
   }
-
-
 
   const createSighting = () => {
     const sightingData = {

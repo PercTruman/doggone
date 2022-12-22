@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, useRef } from "react";
+import React, { useState, useMemo, useCallback} from "react";
 import {
   useLoadScript,
   GoogleMap,
@@ -22,6 +22,7 @@ const options = {
   zoomControl: true,
 };
 
+
 function FinderMap({ setShowMap, setLatitude, setLongitude, mapRef, dogId }) {
   const [showSaveWindow, setShowSaveWindow] = useState(false);
   const center = useMemo(() => ({ lat: 32.59048, lng: -97.04098 }), []);
@@ -29,10 +30,11 @@ function FinderMap({ setShowMap, setLatitude, setLongitude, mapRef, dogId }) {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
 
+
   const panTo = useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(15);
-  }, []);
+  }, [mapRef]);
 
   const [marker, setMarker] = useState(null);
   const [selected, setSelected] = useState(null);
@@ -51,7 +53,7 @@ function FinderMap({ setShowMap, setLatitude, setLongitude, mapRef, dogId }) {
 
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
-  }, []);
+  }, [mapRef]);
 
   const removeMarker = () => {
     setMarker(null);
@@ -74,7 +76,10 @@ function FinderMap({ setShowMap, setLatitude, setLongitude, mapRef, dogId }) {
         onLoad={onMapLoad}
         options={options}
       >
+
+
         {marker ? (
+          
           <div>
             <MarkerF
               key={marker.time}

@@ -44,7 +44,7 @@ function App() {
           <Route path="/-new_sighting" element={<NewSighting />} />
           <Route path="/-new_sighting/:id" element={<NewSighting />} />
           <Route path="/-dog_registration" element={<DogRegistration />} />
-          <Route path="/-registered_dogs/:id" element={<DogDetail />} />
+          {/* <Route path="/-registered_dogs/:id" element={<DogDetail />} /> */}
           <Route path="/-seen_dogs/:id" element={<DogDetail />} />
         </Routes>
     </div>

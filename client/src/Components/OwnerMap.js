@@ -44,7 +44,7 @@ function OwnerMap({ setShowOwnerMap, sightingsArray }) {
  
     window.google &&
     sightingsArray.map((sighting) => {
-        console.log(sighting.created_at)
+      
         const date = new Date(sighting.created_at).toLocaleString()
       return (
         <div key={sighting.id}>
@@ -53,6 +53,7 @@ function OwnerMap({ setShowOwnerMap, sightingsArray }) {
               lat: Number(sighting.lat),
               lng: Number(sighting.lng),
             }}
+            sx={{color:'red'}}
             icon={{
               url: dogPaw,
               scaledSize: new window.google.maps.Size(20, 20),
@@ -61,14 +62,15 @@ function OwnerMap({ setShowOwnerMap, sightingsArray }) {
             }}
           />
           <InfoWindowF
-            options={{ pixelOffset: new window.google.maps.Size(0, -15) }}
+            options={{pixelOffset: new window.google.maps.Size(0, -15) }}
+            maxWidth={50}
             position={{ lat: sighting.lat, lng: sighting.lng }}
             onCloseClick={() => {
               setSelected(null);
             }}
           >
-            <div>
-              <h2>{sortedSightingsArray.indexOf(sighting) + 1}</h2>
+            <div style={{maxHeight:'100px',maxWidth:'75px'}}>
+              <h3 style={{color:'red'}}>{sortedSightingsArray.indexOf(sighting) + 1}</h3>
               <p>Seen at: {date}</p>
             </div>
           </InfoWindowF>{" "}
@@ -76,7 +78,7 @@ function OwnerMap({ setShowOwnerMap, sightingsArray }) {
       );
     });
 
-  console.log(markers);
+  
   if (!isLoaded) return <div>Loading...</div>;
 
   return (

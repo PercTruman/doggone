@@ -31,11 +31,14 @@ function DogDetail() {
               id: data.sightings[i].id,
               lat: data.sightings[i].latitude,
               lng: data.sightings[i].longitude,
+              contact_finder: data.sightings[i].contact_finder,
+              contact_method: data.sightings[i].contact_method,
               created_at: data.sightings[i].created_at
             };
             setSightingsArray(arr)
           }
         }
+
 
         setDogDetails({
           picture: data.image_url,
@@ -43,8 +46,6 @@ function DogDetail() {
           sex: data.sex,
           breed: data.breed,
           color: data.color,
-          contact_finder: data.contact_finder,
-          contact_method: data.contact_method,
         });
       });
   }
@@ -56,6 +57,7 @@ function DogDetail() {
       setShowOwnerMap={setShowOwnerMap}
       showOwnerMap={showOwnerMap}
       sightingsArray={sightingsArray}
+      dogDetails={dogDetails}
     />
   ) : (
     <Box>

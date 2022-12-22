@@ -13,8 +13,10 @@ class LostDogsController < ApplicationController
    end
 
     def create
+        byebug
         @lost_dog = LostDog.create!(lost_dog_params)
         render json: LostDogSerializer.new(@lost_dog).serializable_hash[:data][:attributes], status: :created 
+      
     end
 
 
@@ -57,6 +59,6 @@ class LostDogsController < ApplicationController
     private
 
     def lost_dog_params
-        params.permit(:image, :color, :sex, :breed, :age_group, :image_url)
+        params.permit(:image, :color, :sex, :breed, :age_group)
     end
 end

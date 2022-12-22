@@ -59,7 +59,7 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
     })
       .then((res) =>
         res.json().then((data) => {
-          setImage(data.image_url);
+          console.log(data.image_url);
           setLostDog(data);
         })
       )
@@ -75,7 +75,6 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
       finder_id: user.id,
       owner_id: formData.owner_id,
       additional_details: formData.additional_details,
-      contact_finder: formData.contact_finder,
       contact_method: formData.contact_method,
     };
     fetch("/sightings", {

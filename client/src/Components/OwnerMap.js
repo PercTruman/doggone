@@ -23,7 +23,9 @@ const options = {
 };
 
 function OwnerMap({ setShowOwnerMap, sightingsArray }) {
+  console.log(sightingsArray);
   const [selected, setSelected] = useState(null);
+  const [showContactInfo, setShowContactInfo] = useState(false);
   const center = useMemo(() => ({ lat: 32.59048, lng: -97.04098 }), []);
   const mapRef = useRef();
   const { isLoaded } = useLoadScript({
@@ -37,15 +39,16 @@ function OwnerMap({ setShowOwnerMap, sightingsArray }) {
   function compareSightingTimes(a, b) {
     return a - b;
   }
-  
+
+  function toggleInfoWindow() {
+    setShowContactInfo(!showContactInfo);
+  }
 
   const sortedSightingsArray = sightingsArray.sort(compareSightingTimes);
   const markers =
- 
     window.google &&
     sightingsArray.map((sighting) => {
-      
-        const date = new Date(sighting.created_at).toLocaleString()
+      const date = new Date(sighting.created_at).toLocaleString();
       return (
         <div key={sighting.id}>
           <MarkerF
@@ -61,23 +64,48 @@ function OwnerMap({ setShowOwnerMap, sightingsArray }) {
             }}
           />
           <InfoWindowF
-            options={{pixelOffset: new window.google.maps.Size(0, -15) }}
+            options={{ pixelOffset: new window.google.maps.Size(0, -15) }}
             maxWidth={50}
             position={{ lat: sighting.lat, lng: sighting.lng }}
             onCloseClick={() => {
               setSelected(null);
             }}
           >
-            <div style={{maxHeight:'100px',maxWidth:'75px'}}>
-              <h3 style={{color:'red'}}>{sortedSightingsArray.indexOf(sighting) + 1}</h3>
+            <div style={{ maxHeight: "100px", maxWidth: "75px" }}>
+              <h3 style={{ color: "red" }}>
+                {sortedSightingsArray.indexOf(sighting) + 1}
+              </h3>
               <p>Seen at: {date}</p>
+              {sighting.contact_finder ? (
+                <Button
+                  onClick={() => toggleInfoWindow()}
+                  size="small"
+                  variant="contained"
+                  sx={{ height: "40px", width: "20px" }}
+                >
+                  Contact Finder
+                </Button>
+              ) : null}
             </div>
           </InfoWindowF>{" "}
+          {showContactInfo ? (
+            <InfoWindowF
+              options={{ pixelOffset: new window.google.maps.Size(0, -15) }}
+              maxWidth={50}
+              position={{ lat: sighting.lat, lng: sighting.lng }}
+              onCloseClick={() => {
+                setSelected(null);
+              }}
+            >
+              <div style={{ maxHeight: "100px", maxWidth: "75px" }}>
+                <h3 style={{ color: "red" }}>{sighting.contact_method}</h3>
+              </div>
+            </InfoWindowF>
+          ) : null}
         </div>
       );
     });
 
-  
   if (!isLoaded) return <div>Loading...</div>;
 
   return (

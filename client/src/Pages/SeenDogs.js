@@ -75,6 +75,7 @@ function SeenDogs() {
                   loading="lazy"
                   alt="doggy"
                 />{" "}
+                <p style={{margin:'0 auto', position:'absolute', top: 5, left:5}}>{dogObject.attributes.sightings.length} sightings</p>
                 <ImageListItemBar
                   title={<span>{dogObject.attributes.breed}</span>}
                   subtitle={<span> {dogObject.attributes.age_group}</span>}

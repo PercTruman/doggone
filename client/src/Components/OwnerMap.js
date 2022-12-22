@@ -53,7 +53,6 @@ function OwnerMap({ setShowOwnerMap, sightingsArray }) {
               lat: Number(sighting.lat),
               lng: Number(sighting.lng),
             }}
-            sx={{color:'red'}}
             icon={{
               url: dogPaw,
               scaledSize: new window.google.maps.Size(20, 20),

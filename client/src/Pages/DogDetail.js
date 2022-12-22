@@ -31,6 +31,7 @@ function DogDetail() {
               id: data.sightings[i].id,
               lat: data.sightings[i].latitude,
               lng: data.sightings[i].longitude,
+              created_at: data.sightings[i].created_at
             };
             setSightingsArray(arr)
           }

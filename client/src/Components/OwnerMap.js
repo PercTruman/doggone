@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, useRef } from "react";
+import React, { useState, useMemo, useCallback, useRef } from "react";
 
 import {
   useLoadScript,
@@ -9,6 +9,7 @@ import {
 import { formatRelative } from "date-fns";
 import dogPaw from "../Pages/dog-paw.svg";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 
 const mapContainerStyle = {
   margin: "0 auto",
@@ -22,6 +23,7 @@ const options = {
 };
 
 function OwnerMap({ setShowOwnerMap, sightingsArray }) {
+  const [selected, setSelected] = useState(null);
   const center = useMemo(() => ({ lat: 32.59048, lng: -97.04098 }), []);
   const mapRef = useRef();
   const { isLoaded } = useLoadScript({
@@ -32,9 +34,19 @@ function OwnerMap({ setShowOwnerMap, sightingsArray }) {
     mapRef.current = map;
   }, []);
 
+  function compareSightingTimes(a, b) {
+    return a - b;
+  }
+  
 
-    const markers =  window.google &&  sightingsArray.map((sighting) => {
-    return(
+  const sortedSightingsArray = sightingsArray.sort(compareSightingTimes);
+  const markers =
+ 
+    window.google &&
+    sightingsArray.map((sighting) => {
+        console.log(sighting.created_at)
+        const date = new Date(sighting.created_at).toLocaleString()
+      return (
         <div key={sighting.id}>
           <MarkerF
             position={{
@@ -48,13 +60,25 @@ function OwnerMap({ setShowOwnerMap, sightingsArray }) {
               anchor: new window.google.maps.Point(15, 15),
             }}
           />
-        </div>)
-    })
-    
-   
-    console.log(markers)
+          <InfoWindowF
+            options={{ pixelOffset: new window.google.maps.Size(0, -15) }}
+            position={{ lat: sighting.lat, lng: sighting.lng }}
+            onCloseClick={() => {
+              setSelected(null);
+            }}
+          >
+            <div>
+              <h2>{sortedSightingsArray.indexOf(sighting) + 1}</h2>
+              <p>Seen at: {date}</p>
+            </div>
+          </InfoWindowF>{" "}
+        </div>
+      );
+    });
+
+  console.log(markers);
   if (!isLoaded) return <div>Loading...</div>;
- 
+
   return (
     <div style={{ paddingTop: "3rem" }}>
       <h2 style={{ color: "#85BBCC" }}>Sightings for this dog:</h2>
@@ -65,8 +89,7 @@ function OwnerMap({ setShowOwnerMap, sightingsArray }) {
         onLoad={onMapLoad}
         options={options}
       >
-    
-    {markers ? markers: null}
+        {markers ? markers : null}
       </GoogleMap>
       <Button
         variant="contained"

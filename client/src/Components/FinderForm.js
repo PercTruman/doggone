@@ -16,6 +16,7 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
   const [lostDog, setLostDog] = useState(null);
   const [image, setImage] = useState(null);
   const { id } = useParams();
+  const [showContactInfo, setShowContactInfo] = useState(false)
   const navigate = useNavigate();
   const [showImageUpload, setShowImageUpload] = useState(id ? false : true);
   useEffect(() => {
@@ -146,7 +147,7 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
       {choice}
     </MenuItem>
   ));
-
+ 
   const breedList =
     breedNames &&
     breedNames.map((breed) => (
@@ -369,6 +370,17 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
               >
                 {contactOptions}
               </Select>
+              {showContactInfo && formData.contact_method != "No Contact"? <div>          
+                  <TextField
+              // value={dialormData.name}
+              name="contact_info"
+              onChange={handleChange}
+              margin="dense"
+              label= "Your contact Info"
+              type="text"
+              fullWidth
+              variant="standard"
+            /></div> : null}
             </FormControl>
           </Grid2>
           <Button

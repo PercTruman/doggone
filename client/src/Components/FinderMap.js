@@ -5,7 +5,6 @@ import {
   MarkerF,
   InfoWindowF,
 } from "@react-google-maps/api";
-// import { formatRelative } from "date-fns";
 import dogPaw from "../Pages/dog-paw.svg";
 import Locate from "./Locate";
 import Button from "@mui/material/Button";

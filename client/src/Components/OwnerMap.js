@@ -39,9 +39,7 @@ function OwnerMap({ setShowOwnerMap, sightingsArray }) {
     return a - b;
   }
 
-  function toggleInfoWindow() {
-    setShowContactInfo(!showContactInfo);
-  }
+
   console.log(sightingsArray)
 
   const sortedSightingsArray = sightingsArray.sort(compareSightingTimes);

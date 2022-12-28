@@ -66,7 +66,7 @@ function OwnerMap({ setShowOwnerMap, sightingsArray }) {
           <InfoWindowF
             options={{ pixelOffset: new window.google.maps.Size(0, -15) }}
             maxWidth={50}
-            position={{ lat: sighting.lat, lng: sighting.lng }}
+            position={{ lat: sighting.lat, lng: sighting.lng}}
             onCloseClick={() => {
               setSelected(null);
             }}

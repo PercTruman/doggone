@@ -36,7 +36,6 @@ function SeenDogs() {
     fetch("/lost_dogs")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
         setImageGallery(data);
       });
   }

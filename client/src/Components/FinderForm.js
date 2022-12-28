@@ -68,12 +68,13 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
       .catch((err) => console.error(err));
   }
 
-  const createSighting = () => {
+  const createSighting = (id) => {
+    console.log(formData)
     const sightingData = {
       user_id: user.id,
       lost_dog_id: id ? id : lostDog.id,
-      latitude: latitude,
-      longitude: longitude,
+      latitude: formData.latitude,
+      longitude: formData.longitude,
       finder_id: user.id,
       owner_id: formData.owner_id,
       additional_details: formData.additional_details,

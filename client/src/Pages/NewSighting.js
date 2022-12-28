@@ -1,11 +1,11 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
+import React, { useContext, useState, useRef } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { UserContext } from "../UserContext";
 import FinderMap from "../Components/FinderMap";
 import FinderForm from "../Components/FinderForm";
 import Box from "@mui/material/Box";
 import Navbar from "../Components/Navbar";
-import { bottomNavigationActionClasses } from "@mui/material";
+
 
 function NewSighting() {
   const location = useLocation();
@@ -34,8 +34,6 @@ function NewSighting() {
   });
 
 
-console.log(formData)
-
   return (
     <Box display={"flex"} flexDirection={"column"} justifyContent={"center"}>
       <Navbar />
@@ -51,7 +49,7 @@ console.log(formData)
           Create New Sighting
         </h3>
       </Box>
-    
+    {showMap ?
         <Box>
           <FinderMap
             dogId={dogId}
@@ -60,8 +58,8 @@ console.log(formData)
             formData={formData}
             mapRef={mapRef}
           />
-        </Box>
-    
+        </Box> : null
+          }
         <Box display={"flex"} justifyContent={"space-around"}>
           <Box display={"flex"} justifyContent={"space-around"}>
             <Box padding={"4rem"} marginRight={"6rem"}>

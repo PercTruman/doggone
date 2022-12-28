@@ -109,7 +109,7 @@ const Navbar = () => {
                   onClick={() => navigate("/-seen_dogs")}
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
-                  Lost Dogs
+                  Seen Dogs
                 </Button>
               </Box>
               <h3>Hello {user.username}</h3>

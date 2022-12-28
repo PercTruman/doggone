@@ -75,10 +75,10 @@ function SeenDogs() {
                   loading="lazy"
                   alt="doggy"
                 />{" "}
-                {/* <p style={{margin:'0 auto', position:'absolute', top: 5, left:5}}>{dogObject.attributes.sightings.length} sightings</p> */}
+               
                 <ImageListItemBar
                   title={<span>{dogObject.attributes.breed}</span>}
-                  subtitle={<span> {dogObject.attributes.age_group}</span>}
+                  subtitle={<span style={{marginBottom:'1rem'}}> {dogObject.attributes.age_group} <br/><br/><span style={{letterSpacing:'3px', fontSize:'18px', fontWeight:'bold', color:'red'}}>{dogObject.attributes.sightings.length} sighting(s)</span></span>}
                 />
                 <SpeedDial
                   ariaLabel="SpeedDial"

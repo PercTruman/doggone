@@ -54,14 +54,12 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
   }
 
   function createLostDog(data) {
-    console.log(data)
     fetch("/lost_dogs", {
       method: "POST",
       body: data,
     })
       .then((res) =>
         res.json().then((data) => {
-          console.log(data);
           setLostDog(data);
         })
       )
@@ -69,7 +67,6 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
   }
 
   const createSighting = (id) => {
-    console.log(formData)
     const sightingData = {
       user_id: user.id,
       lost_dog_id: id ? id : lostDog.id,
@@ -95,7 +92,6 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
             additional_details: "",
             latitude: "",
             longitude: "",
-            contact_finder: false,
             contact_method: "",
             finder_id: "",
             owner_id: "",
@@ -144,7 +140,7 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
     </MenuItem>
   ));
 
-  const contacts = ["Text Message", "Phone", "Email", "No Contact"];
+  const contacts = [ "Phone/TextMessage", "Email", "No Contact"];
   const contactOptions = contacts.map((choice) => (
     <MenuItem key={choice} type="text" name={choice} value={choice}>
       {choice}

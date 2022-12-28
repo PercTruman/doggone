@@ -25,7 +25,6 @@ function NewSighting() {
     additional_details: "",
     latitude: null,  
     longitude: null,
-    contact_finder: false,
     contact_method: "",
     time_of_sighting: "",
     date_of_sighting: "",

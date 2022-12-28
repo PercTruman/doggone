@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useCallback, useRef } from "react";
-
+import Navbar from "./Navbar";
 import {
   useLoadScript,
   GoogleMap,
@@ -23,7 +23,6 @@ const options = {
 };
 
 function OwnerMap({ setShowOwnerMap, sightingsArray }) {
-  console.log(sightingsArray);
   const [selected, setSelected] = useState(null);
   const [showContactInfo, setShowContactInfo] = useState(false);
   const center = useMemo(() => ({ lat: 32.59048, lng: -97.04098 }), []);
@@ -43,6 +42,7 @@ function OwnerMap({ setShowOwnerMap, sightingsArray }) {
   function toggleInfoWindow() {
     setShowContactInfo(!showContactInfo);
   }
+  console.log(sightingsArray)
 
   const sortedSightingsArray = sightingsArray.sort(compareSightingTimes);
   const markers =
@@ -76,15 +76,11 @@ function OwnerMap({ setShowOwnerMap, sightingsArray }) {
                 {sortedSightingsArray.indexOf(sighting) + 1}
               </h3>
               <p>Seen at: {date}</p>
-              {sighting.contact_finder ? (
-                <Button
-                  onClick={() => toggleInfoWindow()}
-                  size="small"
-                  variant="contained"
-                  sx={{ height: "40px", width: "20px" }}
-                >
-                  Contact Finder
-                </Button>
+              {sighting.contact_method ? (
+                <div style={{fontWeight:'bold'}}> {sighting.contact_method}:
+                <br/>
+                blah</div>
+           
               ) : null}
             </div>
           </InfoWindowF>{" "}
@@ -109,6 +105,8 @@ function OwnerMap({ setShowOwnerMap, sightingsArray }) {
   if (!isLoaded) return <div>Loading...</div>;
 
   return (
+    <div>
+    <Navbar />
     <div style={{ paddingTop: "3rem" }}>
       <h2 style={{ color: "#85BBCC" }}>Sightings for this dog:</h2>
       <GoogleMap
@@ -127,6 +125,7 @@ function OwnerMap({ setShowOwnerMap, sightingsArray }) {
       >
         Back to Details
       </Button>
+    </div>
     </div>
   );
 }

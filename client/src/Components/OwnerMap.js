@@ -6,10 +6,10 @@ import {
   MarkerF,
   InfoWindowF,
 } from "@react-google-maps/api";
-import { formatRelative } from "date-fns";
+
 import dogPaw from "../Pages/dog-paw.svg";
 import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
+
 
 const mapContainerStyle = {
   margin: "0 auto",

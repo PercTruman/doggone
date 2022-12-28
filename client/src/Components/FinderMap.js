@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback} from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import {
   useLoadScript,
   GoogleMap,
@@ -22,27 +22,27 @@ const options = {
   zoomControl: true,
 };
 
-
-function FinderMap({ setShowMap, setLatitude, setLongitude, mapRef, dogId }) {
+function FinderMap({ setShowMap, mapRef, formData, setFormData }) {
   const [showSaveWindow, setShowSaveWindow] = useState(false);
   const center = useMemo(() => ({ lat: 32.59048, lng: -97.04098 }), []);
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
 
-
-  const panTo = useCallback(({ lat, lng }) => {
-    mapRef.current.panTo({ lat, lng });
-    mapRef.current.setZoom(15);
-  }, [mapRef]);
+  const panTo = useCallback(
+    ({ lat, lng }) => {
+      mapRef.current.panTo({ lat, lng });
+      mapRef.current.setZoom(15);
+    },
+    [mapRef]
+  );
 
   const [marker, setMarker] = useState(null);
   const [selected, setSelected] = useState(null);
 
   const onMapClick = useCallback((e) => {
     setShowSaveWindow(true);
-    setLatitude(e.latLng.lat);
-    setLongitude(e.latLng.lng);
+    setFormData({...formData, latitude:e.latLng.lat(), longitude:e.latLng.lng()})
     setMarker({
       lat: e.latLng.lat(),
       lng: e.latLng.lng(),
@@ -50,10 +50,12 @@ function FinderMap({ setShowMap, setLatitude, setLongitude, mapRef, dogId }) {
     });
   }, []);
 
-
-  const onMapLoad = useCallback((map) => {
-    mapRef.current = map;
-  }, [mapRef]);
+  const onMapLoad = useCallback(
+    (map) => {
+      mapRef.current = map;
+    },
+    [mapRef]
+  );
 
   const removeMarker = () => {
     setMarker(null);
@@ -67,7 +69,9 @@ function FinderMap({ setShowMap, setLatitude, setLongitude, mapRef, dogId }) {
   if (!isLoaded) return <div>Loading...</div>;
   return (
     <div>
-      <h2  style={{color: "#85BBCC"}}>Click the map to mark the location of the dog:</h2>
+      <h2 style={{ color: "#85BBCC" }}>
+        Click the map to mark the location of the dog:
+      </h2>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={17}
@@ -76,10 +80,7 @@ function FinderMap({ setShowMap, setLatitude, setLongitude, mapRef, dogId }) {
         onLoad={onMapLoad}
         options={options}
       >
-
-
         {marker ? (
-          
           <div>
             <MarkerF
               key={marker.time}

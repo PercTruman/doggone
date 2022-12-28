@@ -16,7 +16,7 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
   const [lostDog, setLostDog] = useState(null);
   const [image, setImage] = useState(null);
   const { id } = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [showImageUpload, setShowImageUpload] = useState(id ? false : true);
   useEffect(() => {
     fetch("https://api.thedogapi.com/v1/breeds?page=0")
@@ -39,7 +39,7 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
   function handleSubmit(e) {
     e.preventDefault();
     id ? createSighting(id) : buildAndSendLostDogObject(e);
-    navigate('/-seen_dogs')
+    // navigate('/-seen_dogs')
   }
 
   function buildAndSendLostDogObject(e) {
@@ -49,17 +49,19 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
     lostDogData.append("lost_dog[sex]", formData.sex);
     lostDogData.append("lost_dog[breed]", formData.breed);
     lostDogData.append("lost_dog[age_group]", formData.age_group);
+
     createLostDog(lostDogData);
   }
 
   function createLostDog(data) {
+    console.log(data)
     fetch("/lost_dogs", {
       method: "POST",
       body: data,
     })
       .then((res) =>
         res.json().then((data) => {
-          console.log(data.image_url);
+          console.log(data);
           setLostDog(data);
         })
       )
@@ -90,8 +92,8 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
 
           setFormData({
             additional_details: "",
-            map_lat: "",
-            map_lng: "",
+            latitude: "",
+            longitude: "",
             contact_finder: false,
             contact_method: "",
             finder_id: "",
@@ -186,7 +188,6 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
                 type="file"
                 name="image"
                 id="image"
-                placeholder="Dog Image"
               />
               <img src={image} alt="Dog Image" />{" "}
               <Grid2

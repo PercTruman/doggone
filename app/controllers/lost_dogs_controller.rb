@@ -1,22 +1,24 @@
+
 class LostDogsController < ApplicationController
     skip_before_action :authenticate_user, only: :create
    
 
     def index
         lost_dogs=LostDog.all
+        # seen_dogs = lost_dogs.select {|dog|
+        #     dog.sightings.length > 0
+        # }
         render json: LostDogSerializer.new(lost_dogs), status: :ok
     end
     
    def show
-    @lost_dog= LostDog.find(params[:id])
+    @lost_dog = LostDog.find(params[:id])
     render json: LostDogSerializer.new(@lost_dog).serializable_hash[:data][:attributes], status: :created
    end
 
     def create
-        byebug
         @lost_dog = LostDog.create!(lost_dog_params)
         render json: LostDogSerializer.new(@lost_dog).serializable_hash[:data][:attributes], status: :created 
-      
     end
 
 
@@ -34,7 +36,7 @@ class LostDogsController < ApplicationController
             end
         end
         render json: {
-            lost_dog: lost_dog, status: {code: 202, message: "Image successfully updated"}
+            lost_dog: lost_dog, status: {code: 202, message: "Dog successfully updated"}
         }, status: :accepted
     end
 
@@ -43,7 +45,7 @@ class LostDogsController < ApplicationController
         lost_dog.destroy
 
         render json: {
-            status: {code: 202, message: "Receipt successfully deleted"}
+            status: {code: 202, message: "Dog successfully deleted"}
         }, status: :accepted
     end
 
@@ -59,6 +61,6 @@ class LostDogsController < ApplicationController
     private
 
     def lost_dog_params
-        params.permit(:image, :color, :sex, :breed, :age_group)
+        params.require(:lost_dog).permit(:image, :color, :sex, :breed, :age_group, :image_url)
     end
 end

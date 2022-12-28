@@ -1,10 +1,11 @@
-import React, { useContext, useState, useRef } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { UserContext } from "../UserContext";
 import FinderMap from "../Components/FinderMap";
 import FinderForm from "../Components/FinderForm";
 import Box from "@mui/material/Box";
 import Navbar from "../Components/Navbar";
+import { bottomNavigationActionClasses } from "@mui/material";
 
 function NewSighting() {
   const location = useLocation();
@@ -17,14 +18,13 @@ function NewSighting() {
   const {id} = useParams()
 
   const [formData, setFormData] = useState({
-    image: null,
     color: "",
     sex: "",
     breed: "",
     age_group: "",
     additional_details: "",
-    latitude: latitude,  
-    longitude: longitude,
+    latitude: null,  
+    longitude: null,
     contact_finder: false,
     contact_method: "",
     time_of_sighting: "",
@@ -32,6 +32,9 @@ function NewSighting() {
     finder_id: user && user.id,
     owner_id: "",
   });
+
+
+console.log(formData)
 
   return (
     <Box display={"flex"} flexDirection={"column"} justifyContent={"center"}>
@@ -48,20 +51,17 @@ function NewSighting() {
           Create New Sighting
         </h3>
       </Box>
-      {showMap ? (
+    
         <Box>
           <FinderMap
             dogId={dogId}
             setShowMap={setShowMap}
-            latitude={latitude}
-            longitude={longitude}
-            setLatitude={setLatitude}
-            setLongitude={setLongitude}
+            setFormData={setFormData}
+            formData={formData}
             mapRef={mapRef}
           />
         </Box>
-      ) : null}
-      {!showMap ? (
+    
         <Box display={"flex"} justifyContent={"space-around"}>
           <Box display={"flex"} justifyContent={"space-around"}>
             <Box padding={"4rem"} marginRight={"6rem"}>
@@ -70,12 +70,12 @@ function NewSighting() {
                 latitude={latitude}
                 longitude={longitude}
                 formData={formData}
+               
                 setFormData={setFormData}
               />
             </Box>
           </Box>
         </Box>
-      ) : null}
     </Box>
   );
 }

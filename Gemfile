@@ -53,7 +53,7 @@ group :test do
 end
 
 gem "active_model_serializers", "~> 0.10.12"
-
+gem "pry"
 gem "jsonapi-serializer", "~> 2.2"
 
 

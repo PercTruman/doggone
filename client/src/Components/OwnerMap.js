@@ -12,7 +12,7 @@ import dogPaw from '../Pages/dog-paw.svg';
 const mapContainerStyle = {
 	margin: '0 auto',
 	width: '60vw',
-	height: '40vh',
+	height: '50vh',
 };
 
 const options = {
@@ -36,8 +36,6 @@ function OwnerMap({ sightingsArray }) {
 	function compareSightingTimes(a, b) {
 		return a - b;
 	}
-
-
 
 	const sortedSightingsArray = sightingsArray.sort(compareSightingTimes);
 	const markers =
@@ -81,7 +79,11 @@ function OwnerMap({ sightingsArray }) {
 									{' '}
 									{sighting.contact_method}:
 									<br />
-									blah
+									<p>
+										<span style={{ fontWeight: 'bold' }}>
+											{sighting.contact_info}
+										</span>
+									</p>
 								</div>
 							) : null}
 						</div>
@@ -106,9 +108,7 @@ function OwnerMap({ sightingsArray }) {
 							<div
 								style={{ maxHeight: '100px', maxWidth: '75px' }}
 							>
-								<h3 style={{ color: 'red' }}>
-									{sighting.contact_method}
-								</h3>
+								<h3>{sighting.contact_method}</h3>
 							</div>
 						</InfoWindowF>
 					) : null}
@@ -121,8 +121,7 @@ function OwnerMap({ sightingsArray }) {
 	return (
 		window.google && (
 			<div>
-				<div style={{ paddingTop: '3rem' }}>
-					{/* <h2 style={{ color: "#85BBCC" }}>Sightings for this dog:</h2> */}
+				<div style={{ paddingTop: '1rem' }}>
 					<GoogleMap
 						mapContainerStyle={mapContainerStyle}
 						zoom={16}
@@ -132,13 +131,6 @@ function OwnerMap({ sightingsArray }) {
 					>
 						{markers ? markers : null}
 					</GoogleMap>
-					{/* <Button
-        variant="contained"
-        onClick={() => setShowOwnerMap((showOwnerMap) => !showOwnerMap)}
-        sx={{ height: "45px", marginTop: "2.5rem" }}
-      >
-        Back to Details
-      </Button> */}
 				</div>
 			</div>
 		)

@@ -31,6 +31,7 @@ function DogDetail() {
 							lng: data.sightings[i].longitude,
 							contact_method: data.sightings[i].contact_method,
 							created_at: data.sightings[i].created_at,
+							contact_info: data.sightings[i].contact_info,
 						};
 						setSightingsArray(arr);
 					}
@@ -45,7 +46,6 @@ function DogDetail() {
 				});
 			});
 	}
-  console.log(sightingsArray)
 
 	if (!dogDetails) return null;
 
@@ -75,7 +75,7 @@ function DogDetail() {
 					<Box
 						sx={{
 							display: 'flex',
-              border:'2px solid #85BBCC',
+							border: '2px solid #85BBCC',
 							// border: '2px solid red',
 							margin: '0 auto',
 						}}
@@ -84,35 +84,40 @@ function DogDetail() {
 							style={{ width: '150px', height: '150px' }}
 							src={dogDetails.picture}
 							alt={'specific dog picture'}
-							// 
+							//
 						/>
 						<Box
 							style={{
-                paddingTop: '1rem',
+								paddingTop: '1rem',
 								backgroundColor: 'darkGray',
 								border: '2px solid black',
 							}}
 						>
-							<Typography sx={{padding:'.5rem',fontSize:'14px'}}>
+							<Typography
+								sx={{ padding: '.5rem', fontSize: '14px' }}
+							>
 								Breed: {dogDetails.breed}
 							</Typography>
-							<Typography sx={{padding:'.5rem',fontSize:'14px'}}>
+							<Typography
+								sx={{ padding: '.5rem', fontSize: '14px' }}
+							>
 								Age Range: {dogDetails.age.toLowerCase()}
 							</Typography>
-							<Typography sx={{padding:'.5rem', fontSize:'14px'}}>
+							<Typography
+								sx={{ padding: '.5rem', fontSize: '14px' }}
+							>
 								Sex: {dogDetails.sex.toLowerCase()}
 							</Typography>
 						</Box>
-					
 					</Box>
 				)}
 			</Grid2>
-      <OwnerMap
-							setShowOwnerMap={setShowOwnerMap}
-							showOwnerMap={showOwnerMap}
-							sightingsArray={sightingsArray}
-							dogDetails={dogDetails}
-						/>
+			<OwnerMap
+				setShowOwnerMap={setShowOwnerMap}
+				showOwnerMap={showOwnerMap}
+				sightingsArray={sightingsArray}
+				dogDetails={dogDetails}
+			/>
 		</Box>
 	);
 }

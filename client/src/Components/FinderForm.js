@@ -76,6 +76,7 @@ function FinderForm({ setFormData, formData }) {
 			owner_id: formData.owner_id,
 			additional_details: formData.additional_details,
 			contact_method: formData.contact_method,
+			contact_info: formData.contact_info,
 		};
 		fetch('/sightings', {
 			method: 'POST',
@@ -93,6 +94,7 @@ function FinderForm({ setFormData, formData }) {
 						latitude: '',
 						longitude: '',
 						contact_method: '',
+						contact_info: '',
 						finder_id: '',
 						owner_id: '',
 						image: null,

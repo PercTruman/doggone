@@ -99,12 +99,7 @@ const Navbar = () => {
                 >
                   Create Sighting
                 </Button>
-                <Button
-                  onClick={() => navigate("/-dog_registration")}
-                  sx={{ my: 2, color: "white", display: "block" }}
-                >
-                  Register My Dog
-                </Button>
+               
                 <Button
                   onClick={() => navigate("/-seen_dogs")}
                   sx={{ my: 2, color: "white", display: "block" }}

@@ -37,7 +37,7 @@ function OwnerMap({ sightingsArray }) {
 		return a - b;
 	}
 
-	console.log(sightingsArray);
+
 
 	const sortedSightingsArray = sightingsArray.sort(compareSightingTimes);
 	const markers =

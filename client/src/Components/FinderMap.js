@@ -21,7 +21,7 @@ const options = {
   zoomControl: true,
 };
 
-function FinderMap({ setShowMap, mapRef, formData, setFormData }) {
+function FinderMap({ setShowForm, setShowMap, mapRef, formData, setFormData }) {
   const [showSaveWindow, setShowSaveWindow] = useState(false);
   const center = useMemo(() => ({ lat: 32.59048, lng: -97.04098 }), []);
   const { isLoaded } = useLoadScript({
@@ -61,6 +61,7 @@ function FinderMap({ setShowMap, mapRef, formData, setFormData }) {
     setSelected(null);
   };
   const saveMarker = () => {
+    setShowForm(true);
     setShowMap(false);
     alert("Dog Location saved successfully.");
   };

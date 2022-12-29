@@ -12,6 +12,7 @@ function NewSighting() {
 	const { user } = useContext(UserContext);
 	const [latitude, setLatitude] = useState(null);
 	const [longitude, setLongitude] = useState(null);
+	const [showForm, setShowForm] = useState(false);
 	const [showMap, setShowMap] = useState(true);
 	const mapRef = useRef();
 	const { id } = useParams();
@@ -55,26 +56,28 @@ function NewSighting() {
 				<Box>
 					<FinderMap
 						dogId={dogId}
+						setShowForm={setShowForm}
 						setShowMap={setShowMap}
 						setFormData={setFormData}
 						formData={formData}
 						mapRef={mapRef}
 					/>
 				</Box>
-			) : null}
-			<Box display={'flex'} justifyContent={'space-around'}>
+			) : (
 				<Box display={'flex'} justifyContent={'space-around'}>
-					<Box padding={'4rem'} marginRight={'6rem'}>
-						<FinderForm
-							id={id}
-							latitude={latitude}
-							longitude={longitude}
-							formData={formData}
-							setFormData={setFormData}
-						/>
+					<Box display={'flex'} justifyContent={'space-around'}>
+						<Box padding={'4rem'} marginRight={'6rem'}>
+							<FinderForm
+								id={id}
+								latitude={latitude}
+								longitude={longitude}
+								formData={formData}
+								setFormData={setFormData}
+							/>
+						</Box>
 					</Box>
 				</Box>
-			</Box>
+			)}
 		</Box>
 	);
 }

@@ -23,6 +23,6 @@ class SightingsController < ApplicationController
 
     private
         def sightings_params
-            params.permit( :user_id, :lost_dog_id, :owner_id, :finder_id, :latitude, :longitude,:additional_details, :contact_method)
+            params.permit( :user_id, :lost_dog_id, :owner_id, :finder_id, :latitude, :longitude, :additional_details, :contact_method, :contact_info)
         end
 end

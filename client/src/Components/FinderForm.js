@@ -16,7 +16,7 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
   const [lostDog, setLostDog] = useState(null);
   const [image, setImage] = useState(null);
   const { id } = useParams();
-  const [showContactInfo, setShowContactInfo] = useState(false)
+  const [showContactInfo, setShowContactInfo] = useState(false);
   const navigate = useNavigate();
   const [showImageUpload, setShowImageUpload] = useState(id ? false : true);
   useEffect(() => {
@@ -141,13 +141,13 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
     </MenuItem>
   ));
 
-  const contacts = [ "Phone/TextMessage", "Email", "No Contact"];
+  const contacts = ["Phone/TextMessage", "Email", "No Contact"];
   const contactOptions = contacts.map((choice) => (
     <MenuItem key={choice} type="text" name={choice} value={choice}>
       {choice}
     </MenuItem>
   ));
- 
+
   const breedList =
     breedNames &&
     breedNames.map((breed) => (
@@ -182,11 +182,7 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
             <div>
               {" "}
               <h3 style={{ color: "black", marginTop: "0" }}>Upload Image</h3>
-              <input
-                type="file"
-                name="image"
-                id="image"
-              />
+              <input type="file" name="image" id="image" />
               <img src={image} alt="Dog Image" />{" "}
               <Grid2
                 xs
@@ -370,17 +366,31 @@ function FinderForm({ setFormData, formData, latitude, longitude }) {
               >
                 {contactOptions}
               </Select>
-              {showContactInfo && formData.contact_method != "No Contact"? <div>          
+              {formData.contact_method != "No Contact" ? (
+                <Grid2
+                  xs
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                >
                   <TextField
-              // value={dialormData.name}
-              name="contact_info"
-              onChange={handleChange}
-              margin="dense"
-              label= "Your contact Info"
-              type="text"
-              fullWidth
-              variant="standard"
-            /></div> : null}
+                    value={formData.contact_info}
+                    name="contact_info"
+                    onChange={handleChange}
+                    margin="dense"
+                    placeholder="Contact Info:"
+                    type="text"
+                    fullWidth
+                    variant="standard"
+                    sx={{
+                      width: "200px",
+                      borderRadius: "3px",
+                      background: "white",
+                      margin: "0, 1.5rem",
+                    }}
+                  />
+                </Grid2>
+              ) : null}
             </FormControl>
           </Grid2>
           <Button

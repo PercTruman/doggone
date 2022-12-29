@@ -13,8 +13,8 @@ import Button from "@mui/material/Button";
 
 const mapContainerStyle = {
   margin: "0 auto",
-  width: "60vw",
-  height: "60vh",
+  width: "50vw",
+  height: "40vh",
 };
 
 const options = {
@@ -64,7 +64,7 @@ function OwnerMap({ setShowOwnerMap, sightingsArray }) {
           <InfoWindowF
             options={{ pixelOffset: new window.google.maps.Size(0, -15) }}
             maxWidth={50}
-            position={{ lat: sighting.lat, lng: sighting.lng}}
+            position={{ lat: Number(sighting.lat), lng: Number(sighting.lng)}}
             onCloseClick={() => {
               setSelected(null);
             }}
@@ -86,7 +86,7 @@ function OwnerMap({ setShowOwnerMap, sightingsArray }) {
             <InfoWindowF
               options={{ pixelOffset: new window.google.maps.Size(0, -15) }}
               maxWidth={50}
-              position={{ lat: sighting.lat, lng: sighting.lng }}
+              position={{ lat: Number(sighting.lat), lng: Number(sighting.lng) }}
               onCloseClick={() => {
                 setSelected(null);
               }}
@@ -103,10 +103,11 @@ function OwnerMap({ setShowOwnerMap, sightingsArray }) {
   if (!isLoaded) return <div>Loading...</div>;
 
   return (
+    window.google &&
     <div>
-    <Navbar />
+   
     <div style={{ paddingTop: "3rem" }}>
-      <h2 style={{ color: "#85BBCC" }}>Sightings for this dog:</h2>
+      {/* <h2 style={{ color: "#85BBCC" }}>Sightings for this dog:</h2> */}
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={17}
@@ -116,13 +117,13 @@ function OwnerMap({ setShowOwnerMap, sightingsArray }) {
       >
         {markers ? markers : null}
       </GoogleMap>
-      <Button
+      {/* <Button
         variant="contained"
         onClick={() => setShowOwnerMap((showOwnerMap) => !showOwnerMap)}
         sx={{ height: "45px", marginTop: "2.5rem" }}
       >
         Back to Details
-      </Button>
+      </Button> */}
     </div>
     </div>
   );

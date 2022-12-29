@@ -22,7 +22,7 @@ const options = {
 
 function OwnerMap({ sightingsArray }) {
 	const [selected, setSelected] = useState(null);
-	const [showContactInfo, setShowContactInfo] = useState(false);
+
 	const center = useMemo(() => ({ lat: 32.59048, lng: -97.04098 }), []);
 	const mapRef = useRef();
 	const { isLoaded } = useLoadScript({
@@ -56,39 +56,7 @@ function OwnerMap({ sightingsArray }) {
 							anchor: new window.google.maps.Point(15, 15),
 						}}
 					/>
-					<InfoWindowF
-						options={{
-							pixelOffset: new window.google.maps.Size(0, -15),
-						}}
-						maxWidth={50}
-						position={{
-							lat: Number(sighting.lat),
-							lng: Number(sighting.lng),
-						}}
-						onCloseClick={() => {
-							setSelected(null);
-						}}
-					>
-						<div style={{ maxHeight: '100px', maxWidth: '75px' }}>
-							<h3 style={{ color: 'red' }}>
-								{sortedSightingsArray.indexOf(sighting) + 1}
-							</h3>
-							<p>Seen at: {date}</p>
-							{sighting.contact_method ? (
-								<div style={{ fontWeight: 'bold' }}>
-									{' '}
-									{sighting.contact_method}:
-									<br />
-									<p>
-										<span style={{ fontWeight: 'bold' }}>
-											{sighting.contact_info}
-										</span>
-									</p>
-								</div>
-							) : null}
-						</div>
-					</InfoWindowF>{' '}
-					{showContactInfo ? (
+					<div style={{ width: '200px', height: '200px' }}>
 						<InfoWindowF
 							options={{
 								pixelOffset: new window.google.maps.Size(
@@ -108,10 +76,27 @@ function OwnerMap({ sightingsArray }) {
 							<div
 								style={{ maxHeight: '100px', maxWidth: '75px' }}
 							>
-								<h3>{sighting.contact_method}</h3>
+								<h3 style={{ color: 'red' }}>
+									{sortedSightingsArray.indexOf(sighting) + 1}
+								</h3>
+								<p>Seen at: {date}</p>
+								{sighting.contact_method ? (
+									<div style={{ fontWeight: 'bold' }}>
+										{' '}
+										{sighting.contact_method}:
+										<br />
+										<p>
+											<span
+												style={{ fontWeight: 'bold' }}
+											>
+												{sighting.contact_info}
+											</span>
+										</p>
+									</div>
+								) : null}
 							</div>
 						</InfoWindowF>
-					) : null}
+					</div>{' '}
 				</div>
 			);
 		});
@@ -121,7 +106,7 @@ function OwnerMap({ sightingsArray }) {
 	return (
 		window.google && (
 			<div>
-				<div style={{ paddingTop: '1rem' }}>
+				<div style={{  paddingTop: '1rem' }}>
 					<GoogleMap
 						mapContainerStyle={mapContainerStyle}
 						zoom={16}

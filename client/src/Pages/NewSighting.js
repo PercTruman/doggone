@@ -32,7 +32,6 @@ function NewSighting() {
 		owner_id: '',
 	});
 
-	console.log(formData);
 	return (
 		<Box
 			display={'flex'}

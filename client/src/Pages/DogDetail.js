@@ -5,7 +5,6 @@ import { Box } from '@mui/system';
 import Grid2 from '@mui/material/Unstable_Grid2';
 import { Typography } from '@mui/material';
 import OwnerMap from '../Components/OwnerMap';
-import Button from '@mui/material/Button';
 
 function DogDetail() {
 	const { id } = useParams();
@@ -112,6 +111,7 @@ function DogDetail() {
 					</Box>
 				)}
 			</Grid2>
+
 			<OwnerMap
 				setShowOwnerMap={setShowOwnerMap}
 				showOwnerMap={showOwnerMap}

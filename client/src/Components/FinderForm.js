@@ -143,7 +143,7 @@ function FinderForm({ setFormData, formData }) {
 		</MenuItem>
 	));
 
-	const contacts = ['Phone/TextMessage', 'Email', 'No Contact'];
+	const contacts = ['Phone/Text', 'Email', 'No Contact'];
 	const contactOptions = contacts.map((choice) => (
 		<MenuItem key={choice} type='text' name={choice} value={choice}>
 			{choice}

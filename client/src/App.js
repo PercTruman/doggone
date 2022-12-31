@@ -12,6 +12,7 @@ import RegisteredDogGallery from './Pages/RegisteredDogGallery';
 import SeenDogs from './Pages/SeenDogs';
 import Sightings from './Pages/Sightings';
 import LostDog from './LostDog.jpg';
+import Posts from './Pages/Posts';
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
           <Route path="/-new_sighting/:id" element={<NewSighting />} />
           <Route path="/-dog_registration" element={<DogRegistration />} />
           <Route path="/-seen_dogs/:id" element={<DogDetail />} />
+          <Route path="/-posts" element={<Posts />} />
         </Routes>
     </div>
   );

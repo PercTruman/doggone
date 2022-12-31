@@ -106,6 +106,12 @@ const Navbar = () => {
                 >
                   Seen Dogs
                 </Button>
+                <Button
+                  onClick={() => navigate("/-posts")}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  Message Board
+                </Button>
               </Box>
               <h3>Hello {user.username}</h3>
               <Box sx={{ flexGrow: 0 }}>

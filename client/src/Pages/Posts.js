@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Navbar from '../Components/Navbar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -18,10 +18,25 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function Posts() {
     const [showPostForm, setShowPostForm] = useState(false)
+    const [posts, setPosts] = useState([])
     function handleClick(){
         setShowPostForm(!showPostForm)
 
     }
+
+    useEffect(() => {
+		getPosts();
+	}, []);
+
+    function getPosts(){
+        fetch('/posts')
+			.then((res) => res.json())
+			.then((data) => {
+				setPosts(data);
+			});
+    }
+const postDisplay = 
+   posts ?  posts.map((post) =><Item key={post.id}>{post.subject}{post.content}</Item>):null
 	return (
 		<Box>
 			<Navbar />
@@ -38,7 +53,7 @@ function Posts() {
 					Message Board
 				</h2>
                 <Button  onClick={handleClick} variant='contained' sx={{ backgroundColor: '#F6E89D', color: 'black' }}>Create New Message</Button>
-                {showPostForm ?  <PostForm />:
+                {showPostForm ?  <PostForm  setShowPostForm={setShowPostForm}/>:
 			<Box
 				sx={{
 					paddingTop: '3rem',
@@ -48,9 +63,7 @@ function Posts() {
 				}}
 			>
 				<Stack spacing={2}>
-					<Item>Item 1</Item>
-					<Item>Item 2</Item>
-					<Item>Item 3</Item>
+				{postDisplay}
 				</Stack>
 			</Box>}
 		</Box>

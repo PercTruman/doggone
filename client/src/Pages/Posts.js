@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../Components/Navbar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -17,55 +17,71 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function Posts() {
-    const [showPostForm, setShowPostForm] = useState(false)
-    const [posts, setPosts] = useState([])
-    function handleClick(){
-        setShowPostForm(!showPostForm)
+	const [showPostForm, setShowPostForm] = useState(false);
+	const [posts, setPosts] = useState([]);
 
-    }
+	function handleClick() {
+		setShowPostForm(!showPostForm);
+	}
 
-    useEffect(() => {
+	useEffect(() => {
 		getPosts();
 	}, []);
 
-    function getPosts(){
-        fetch('/posts')
+	function getPosts() {
+		fetch('/posts')
 			.then((res) => res.json())
 			.then((data) => {
 				setPosts(data);
 			});
-    }
-const postDisplay = 
-   posts ?  posts.map((post) =><Item key={post.id}>{post.subject}{post.content}</Item>):null
+	}
+
+	const postDisplay = posts &&
+		 posts.map((post) => {
+            const date = new Date(post.created_at).toLocaleString();
+			return	<Item key={post.id}>
+					{date}
+					{post.subject}
+					{post.content}
+				</Item>;
+		  })
+		
 	return (
 		<Box>
 			<Navbar />
-		
-				<h2
-					style={{
-                        fontSize: '48px',
-						marginTop: '1rem',
-						paddingBottom: '0',
-						marginBottom: '1rem',
-						color: '#85BBCC',
-					}}
-				>
-					Message Board
-				</h2>
-                <Button  onClick={handleClick} variant='contained' sx={{ backgroundColor: '#F6E89D', color: 'black' }}>Create New Message</Button>
-                {showPostForm ?  <PostForm  setShowPostForm={setShowPostForm}/>:
-			<Box
-				sx={{
-					paddingTop: '3rem',
-					width: '100%',
-					display: 'flex',
-					justifyContent: 'center',
+
+			<h2
+				style={{
+					fontSize: '48px',
+					marginTop: '1rem',
+					paddingBottom: '0',
+					marginBottom: '1rem',
+					color: '#85BBCC',
 				}}
 			>
-				<Stack spacing={2}>
-				{postDisplay}
-				</Stack>
-			</Box>}
+				Message Board
+			</h2>
+			<Button
+				onClick={handleClick}
+				variant='contained'
+				sx={{ backgroundColor: '#F6E89D', color: 'black' }}
+			>
+				{showPostForm ? 'Cancel' : 'Create New Message'}
+			</Button>
+			{showPostForm ? (
+				<PostForm setShowPostForm={setShowPostForm} />
+			) : (
+				<Box
+					sx={{
+						paddingTop: '3rem',
+						width: '100%',
+						display: 'flex',
+						justifyContent: 'center',
+					}}
+				>
+					<Stack spacing={2}>{postDisplay}</Stack>
+				</Box>
+			)}
 		</Box>
 	);
 }

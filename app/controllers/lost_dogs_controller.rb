@@ -5,9 +5,6 @@ class LostDogsController < ApplicationController
 
     def index
         lost_dogs=LostDog.all
-        # seen_dogs = lost_dogs.select {|dog|
-        #     dog.sightings.length > 0
-        # }
         render json: LostDogSerializer.new(lost_dogs), status: :ok
     end
     

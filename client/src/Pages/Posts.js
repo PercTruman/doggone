@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../UserContext';
 import Navbar from '../Components/Navbar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -6,9 +7,10 @@ import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import PostForm from '../Components/PostForm';
+import { Typography } from '@mui/material';
 
 const Item = styled(Paper)(({ theme }) => ({
-	backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+	backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : 'lightgray',
 	...theme.typography.body2,
 	padding: theme.spacing(1),
 	textAlign: 'center',
@@ -17,6 +19,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function Posts() {
+	const { user } = useContext(UserContext);
 	const [showPostForm, setShowPostForm] = useState(false);
 	const [posts, setPosts] = useState([]);
 
@@ -35,17 +38,32 @@ function Posts() {
 				setPosts(data);
 			});
 	}
+	console.log(posts);
+	const postDisplay =
+		posts &&
+		user &&
+		posts
+			.sort((a, b) => b.id - a.id)
+			.map((post) => {
+				const date = new Date(post.created_at).toLocaleString();
+				return (
+					<Item key={post.id}>
+						<Typography variant='caption'>
+							{date} by:{' '}
+							<span
+								style={{ fontWeight: 'bold', color: '#85BBCC' }}
+							>
+								{user.username}
+							</span>
+						</Typography>
+						<Typography sx={{ fontWeight: 'bold' }}>
+							Subject: {post.subject}
+						</Typography>
+						<Typography>{post.content}</Typography>
+					</Item>
+				);
+			});
 
-	const postDisplay = posts &&
-		 posts.map((post) => {
-            const date = new Date(post.created_at).toLocaleString();
-			return	<Item key={post.id}>
-					{date}
-					{post.subject}
-					{post.content}
-				</Item>;
-		  })
-		
 	return (
 		<Box>
 			<Navbar />

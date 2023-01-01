@@ -87,7 +87,7 @@ function Posts() {
 				{showPostForm ? 'Cancel' : 'Create New Message'}
 			</Button>
 			{showPostForm ? (
-				<PostForm setShowPostForm={setShowPostForm} />
+				<PostForm setShowPostForm={setShowPostForm} posts={posts}setPosts={setPosts}/>
 			) : (
 				<Box
 					sx={{

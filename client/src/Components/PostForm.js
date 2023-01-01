@@ -4,8 +4,9 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
+import Posts from '../Pages/Posts';
 
-function PostForm({ setShowPostForm }) {
+function PostForm({ setShowPostForm , setPosts, posts}) {
 	const { user } = useContext(UserContext);
 	const [postFormData, setPostFormData] = useState({
 		subject: '',
@@ -29,11 +30,11 @@ function PostForm({ setShowPostForm }) {
 			body: JSON.stringify(postFormData),
 		}).then((res) => {
 			if (res.ok) {
-				res.json().then(() => {
+				res.json().then((newPost) => {
 					alert(
 						'Thank you for submitting.  Your message has been saved successfully.'
 					);
-
+						setPosts([...posts, newPost])
 					setPostFormData({
 						subject: '',
 						content: '',

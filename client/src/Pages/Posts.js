@@ -38,7 +38,7 @@ function Posts() {
 				setPosts(data);
 			});
 	}
-	console.log(posts);
+
 	const postDisplay =
 		posts &&
 		user &&
@@ -87,7 +87,11 @@ function Posts() {
 				{showPostForm ? 'Cancel' : 'Create New Message'}
 			</Button>
 			{showPostForm ? (
-				<PostForm setShowPostForm={setShowPostForm} posts={posts}setPosts={setPosts}/>
+				<PostForm
+					setShowPostForm={setShowPostForm}
+					posts={posts}
+					setPosts={setPosts}
+				/>
 			) : (
 				<Box
 					sx={{

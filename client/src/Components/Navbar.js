@@ -71,16 +71,17 @@ const Navbar = () => {
 								</Button>
 
 								<Button
-									onClick={() => navigate('/-seen_dogs')}
+									onClick={() => navigate('/-dogs')}
 									sx={{
 										my: 2,
 										color: 'white',
 										display: 'block',
 									}}
 								>
-									Seen Dogs
+									 Dogs Gallery
 								</Button>
 								{loggedIn && (
+                  <>
 									<Button
 										onClick={() => navigate('/-posts')}
 										sx={{
@@ -91,7 +92,17 @@ const Navbar = () => {
 									>
 										Message Board
 									</Button>
-								)}
+								<Button
+                onClick={() => navigate('/-missing_dog')}
+                sx={{
+                  my: 2,
+                  color: 'white',
+                  display: 'block',
+                }}
+              >
+               Report My Dog
+              </Button>
+              </>)}
 							</Box>
 							<h3>Hello {user.username}</h3>
 							<Box sx={{ flexGrow: 0 }}>

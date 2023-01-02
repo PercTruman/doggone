@@ -96,7 +96,7 @@ const Navbar = () => {
                 onClick={() => navigate('/-missing_dog')}
                 sx={{
                   my: 2,
-                  color: 'white',
+                  color: 'red',
                   display: 'block',
                 }}
               >

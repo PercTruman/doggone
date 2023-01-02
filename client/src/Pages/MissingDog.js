@@ -122,6 +122,7 @@ function MissingDog() {
 				display={'flex'}
 				flexDirection={'column'}
 				justifyContent={'center'}
+                
 			>
 				<Navbar />
 				<Box sx={{ textAlign: 'center', fontSize: '30px' }}>
@@ -149,11 +150,13 @@ function MissingDog() {
 
 			<Grid2
 				container
+                margin='0 auto'
 				backgroundColor={'darkGray'}
 				padding={'1rem'}
 				borderRadius={'10px'}
 				spacing={2}
 				justifyContent={'center'}
+                sx={{width: '50%'}}
 			>
 				<form onSubmit={handleSubmit}>
 				

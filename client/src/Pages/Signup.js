@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { UserContext } from "../UserContext";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
-import Grid from "@mui/material/Unstable_Grid2";
+import Grid2 from "@mui/material/Unstable_Grid2";
 import TextField from "@mui/material/TextField";
 
 const Signup = () => {
@@ -47,13 +47,14 @@ const Signup = () => {
 
   return (
     <div>
-      <Grid sx={{ justifyContent: "center" }} container spacing={2}>
-      <Grid item>
-      <h2 style={{color: '#76B5C5'}}>Create an Account</h2>
+      <Grid2 sx={{ display:'flex',justifyContent: "center" }} >
+      <Grid2 >
+      <h2 style={{color: '#76B5C5'}}>Account Signup</h2>
       <form onSubmit={handleSubmit}>
         <TextField
            sx={{marginBottom: "2rem", background:'white'}}
            size = "small"
+           fullWidth
            label = "Username"
            name="username"
            type="text"
@@ -65,6 +66,7 @@ const Signup = () => {
         <br />
         <TextField
            sx={{marginBottom: "2rem",background:'white'}}
+           fullWidth
            size = "small"
            label = "Email"
            name="email"
@@ -78,6 +80,7 @@ const Signup = () => {
         <TextField
            sx={{marginBottom: "2rem",background:'white'}}
            size = "small"
+           fullWidth
            label = "Address"
            name="address"
            type="address"
@@ -90,6 +93,7 @@ const Signup = () => {
         <TextField
             sx={{marginBottom: "2rem",background:'white'}}
            size = "small"
+           fullWidth
            label = "Password"
            name="password"
            type="password"
@@ -103,6 +107,7 @@ const Signup = () => {
         <TextField
             sx={{marginBottom: "2rem",background:'white'}}
            size = "small"
+           fullWidth
            label = "Password Confirmation"
            name="Password Confirmation"
            type="password"
@@ -112,12 +117,15 @@ const Signup = () => {
            onChange={(e) => setPasswordConfirmation(e.target.value)}
         />
         <br />
+        <Grid2 container display='flex'justifyContent={'space-between'}>
         <Button variant="contained" type="submit" sx={{m: "2rem"}}>Create Account</Button>
-        <Button variant="contained" onClick={()=>navigate('/')}>Back</Button>
+        <Button variant="contained" sx={{m:'2rem'}}onClick={()=>navigate('/')}>Home Page</Button>
+        </Grid2>
+       
       </form>
-      </Grid>
+      </Grid2>
       <ul>{errorsList}</ul>
-      </Grid>
+      </Grid2>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-    skip_before_action :authenticate_user, only: :create
+   
 
     def index
         @posts = Post.all

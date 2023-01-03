@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Unstable_Grid2";
 import TextField from "@mui/material/TextField";
+import { Typography } from "@mui/material";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -39,11 +40,11 @@ const Login = () => {
 
   return (
     <div>
-      <Grid sx={{ justifyContent: "center" }} container spacing={2}>
+      <Grid sx={{ display:'flex', width: '30%', margin:'0 auto',justifyContent: "center", paddingTop:'3rem' }} >
         <form onSubmit={handleSubmit}>
-          <h2 style={{ marginLeft: "4rem" }}>Login</h2>
+          <Typography  variant='h4'sx={{  paddingBottom:'2rem', color:"#76B5C5"}}>Login</Typography>
           <TextField
-            sx={{ marginBottom: "2rem" }}
+            sx={{ marginBottom: "2rem", background:'white' }}
             size="small"
             label="Username"
             name="username"
@@ -55,6 +56,7 @@ const Login = () => {
           />
           <br />
           <TextField
+           sx={{ marginBottom: "2rem", background:'white' }}
             label="Password"
             size="small"
             name="password"
@@ -65,20 +67,22 @@ const Login = () => {
             onChange={handleChange}
           />
           <br />
+          <Grid container sx={{display:'flex', justifyContent:'space-between'}}>
           <Button
             type="submit"
-            sx={{ marginLeft: "4rem", marginTop: "2rem" }}
+            sx={{ marginTop: "2rem" }}
             variant="contained"
           >
             Log In
           </Button>
           <Button
-            sx={{ marginLeft: "4rem", marginTop: "2rem" }}
+            sx={{  marginTop: "2rem" }}
             variant="contained"
             onClick={() => navigate("/-signup")}
           >
             Signup
           </Button>
+          </Grid>
         </form>
       </Grid>
     </div>

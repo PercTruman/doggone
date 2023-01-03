@@ -95,6 +95,7 @@ const Navbar = () => {
 								<Button
                 onClick={() => navigate('/-missing_dog')}
                 sx={{
+					fontWeight:'bold',
                   my: 2,
                   color: 'red',
                   display: 'block',

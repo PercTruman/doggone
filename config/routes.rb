@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   post "/lost_dogs", to: "lost_dogs#create"
   post "/sightings", to: "sightings#create"
   post "/posts", to: "posts#create"
+  
 
   patch "/lost_dogs/:id", to: "lost_dogs#update"
   patch "/posts/:id", to: "posts#update"

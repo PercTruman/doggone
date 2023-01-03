@@ -55,7 +55,9 @@ function MissingDog() {
 		lostDogData.append('lost_dog[sex]', formData.sex);
 		lostDogData.append('lost_dog[breed]', formData.breed);
 		lostDogData.append('lost_dog[age_group]', formData.age_group);
-
+        lostDogData.append('lost_dog[additional_details]', formData.additional_details);
+        lostDogData.append('lost_dog[contact_method]', formData.contact_method);
+        lostDogData.append('lost_dog[contact_info]', formData.contact_info);
 		createLostDog(lostDogData);
 	}
 

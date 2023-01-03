@@ -187,7 +187,7 @@ function FinderForm({ setFormData, formData }) {
 								Upload Image
 							</h3>
 							<input type='file' name='image' id='image' />
-							<img src={image} alt='Dog Image' />{' '}
+							<img src={image} alt='Dog Image' />
 							<Grid2
 								xs
 								display='flex'

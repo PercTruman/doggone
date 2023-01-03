@@ -15,19 +15,19 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 
 const Navbar = () => {
-	const [anchorElNav, setAnchorElNav] = useState(null);
+	// const [anchorElNav, setAnchorElNav] = useState(null);
 	const [anchorElUser, setAnchorElUser] = useState(null);
 
-	const handleOpenNavMenu = (event) => {
-		setAnchorElNav(event.currentTarget);
-	};
+	// const handleOpenNavMenu = (event) => {
+	// 	setAnchorElNav(event.currentTarget);
+	// };
 	const handleOpenUserMenu = (event) => {
 		setAnchorElUser(event.currentTarget);
 	};
 
-	const handleCloseNavMenu = () => {
-		setAnchorElNav(null);
-	};
+	// const handleCloseNavMenu = () => {
+	// 	setAnchorElNav(null);
+	// };
 
 	const handleCloseUserMenu = () => {
 		setAnchorElUser(null);
@@ -78,40 +78,38 @@ const Navbar = () => {
 										display: 'block',
 									}}
 								>
-									 Dogs Gallery
+									Dogs Gallery
 								</Button>
 								{loggedIn && (
-                  <>
-									<Button
-										onClick={() => navigate('/-posts')}
-										sx={{
-											my: 2,
-											color: 'white',
-											display: 'block',
-										}}
-									>
-										Message Board
-									</Button>
-								<Button
-                onClick={() => navigate('/-missing_dog')}
-                sx={{
-					fontWeight:'bold',
-                  my: 2,
-                  color: 'red',
-                  display: 'block',
-                }}
-              >
-               Report My Dog
-              </Button>
-              </>)}
+									<>
+										<Button
+											onClick={() => navigate('/-posts')}
+											sx={{
+												my: 2,
+												color: 'white',
+												display: 'block',
+											}}
+										>
+											Message Board
+										</Button>
+										<Button
+											onClick={() => navigate('/-missing_dog')}
+											sx={{
+												fontWeight: 'bold',
+												my: 2,
+												color: 'red',
+												display: 'block',
+											}}
+										>
+											Report My Dog
+										</Button>
+									</>
+								)}
 							</Box>
 							<h3>Hello {user.username}</h3>
 							<Box sx={{ flexGrow: 0 }}>
 								<Tooltip title='Open settings'>
-									<IconButton
-										onClick={handleOpenUserMenu}
-										sx={{ p: 0 }}
-									>
+									<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
 										<Avatar alt='Remy Sharp' />
 									</IconButton>
 								</Tooltip>
@@ -132,9 +130,7 @@ const Navbar = () => {
 									onClose={handleCloseUserMenu}
 								>
 									<MenuItem onClick={logoutUser}>
-										<Typography textAlign='center'>
-											Logout
-										</Typography>
+										<Typography textAlign='center'>Logout</Typography>
 									</MenuItem>
 								</Menu>
 							</Box>
@@ -146,17 +142,23 @@ const Navbar = () => {
 	} else {
 		return (
 			<div>
-				<h1>Please Sign In</h1>
-
-				<Button variant='contained' onClick={() => navigate('/-login')}>
-					Login
-				</Button>
-				<Button
-					variant='contained'
-					onClick={() => navigate('/-signup')}
-				>
-					Signup
-				</Button>
+				<AppBar position='static'>
+					<Toolbar color={theme.palette.primary.light}>
+						<Box
+							sx={{
+								flexGrow: 1,
+								display: 'flex',
+							}}
+						>
+							<Button variant='contained' onClick={() => navigate('/-login')}>
+								Login
+							</Button>
+							<Button variant='contained' onClick={() => navigate('/-signup')}>
+								Signup
+							</Button>
+						</Box>
+					</Toolbar>
+				</AppBar>
 			</div>
 		);
 	}

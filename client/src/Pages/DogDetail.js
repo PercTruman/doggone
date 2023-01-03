@@ -16,7 +16,7 @@ function DogDetail() {
 	}, []);
 
 	function getDogDetails() {
-		fetch(`/seen_dogs/${id}`)
+		fetch(`/dogs/${id}`)
 			.then((res) => res.json())
 			.then((data) => {
 				buildMarkerObjects(data);

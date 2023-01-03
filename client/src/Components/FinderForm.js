@@ -103,7 +103,7 @@ function FinderForm({ setFormData, formData }) {
 						breed: '',
 						age_group: '',
 					});
-					navigate('/-seen_dogs');
+					navigate('/-dogs');
 				});
 			} else {
 				res.json().then((errors) => {

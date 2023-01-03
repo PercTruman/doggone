@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get "/users", to: "users#index"
   get "/me", to: "users#show"
   get "/lost_dogs", to: "lost_dogs#index"
-  get "/seen_dogs/:id", to: "lost_dogs#show"
+  get "/dogs/:id", to: "lost_dogs#show"
   get "/sightings/:id", to: "sightings#show"
   get "/sightings", to: "sightings#index"
   get "/posts", to: "posts#index"
@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   post "/posts", to: "posts#create"
   
 
-  patch "/lost_dogs/:id", to: "lost_dogs#update"
+  patch "/dogs/:id", to: "lost_dogs#update"
   patch "/posts/:id", to: "posts#update"
 
   delete "/lost_dogs/:id", to: "lost_dogs#destroy"

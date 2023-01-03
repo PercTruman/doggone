@@ -13,11 +13,13 @@ import SpeedDialAction from '@mui/material/SpeedDialAction';
 import Grid from '@mui/material/Unstable_Grid2';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import PetsIcon from '@mui/icons-material/Pets';
 import Button from '@mui/material/Button';
 
 function SeenDogs() {
 	const { loggedIn } = useContext(UserContext);
 	const [imageGallery, setImageGallery] = useState(null);
+	const [dogsLoaded, setDogsLoaded] = useState(false);
 	const navigate = useNavigate();
 	const [showMissingDogs, setShowMissingDogs] = useState(false);
 
@@ -25,37 +27,51 @@ function SeenDogs() {
 		getDogs();
 	}, []);
 
-	const actions = loggedIn
-		? [
-				{
-					icon: <VisibilityIcon />,
-					name: 'Add sighting for this dog ',
-				},
-				{ icon: <InfoIcon />, name: 'View sightings for this dog' },
-		  ]
-		: [{ icon: <VisibilityIcon />, name: 'Add sighting for this dog ' }];
+	const actions =
+		loggedIn && dogsLoaded
+			? [
+					{
+						icon: <VisibilityIcon />,
+						name: 'Add sighting for this dog ',
+					},
+					{ icon: <InfoIcon />, name: 'View sightings for this dog' },
+					{ icon: <PetsIcon />, name: 'Claim this dog' },
+			  ]
+			: [{ icon: <VisibilityIcon />, name: 'Add sighting for this dog ' }];
 
 	function getDogs() {
 		fetch('/lost_dogs')
 			.then((res) => res.json())
 			.then((data) => {
 				setImageGallery(data);
+				setDogsLoaded(true);
 			});
 	}
 	const fullDogObjects =
 		imageGallery &&
-		imageGallery.data.filter((dog) =>
-			dog.attributes.image_url ? dog : null
-		);
+		imageGallery.data.filter((dog) => (dog.attributes.image_url ? dog : null));
 
 	function toggleShowMissingDogs() {
 		setShowMissingDogs(!showMissingDogs);
 	}
 
+	function claimDog(id) {
+		fetch(`/lost_dogs/${id}`, {
+			method: 'DELETE',
+		}).then((res) => {
+			if (res.ok) {
+				getDogs();
+				alert('Dog was successfully claimed, and will be removed from the gallery.');
+			} else {
+				res.json().then((errors) => alert(errors.error));
+			}
+		});
+	}
+
 	return showMissingDogs ? (
 		<div>
 			<Navbar />
-      	<Grid
+			<Grid
 				container
 				spacing={0}
 				direction='column'
@@ -64,14 +80,10 @@ function SeenDogs() {
 				style={{ minHeight: '10vh' }}
 				paddingTop={'1rem'}
 			>
-			<Typography
-				variant='h2'
-				align='center'
-				style={{ color: '#85BBCC' }}
-			>
-				Missing Dogs
-			</Typography>
-      </Grid>
+				<Typography variant='h2' align='center' style={{ color: '#85BBCC' }}>
+					Missing Dogs
+				</Typography>
+			</Grid>
 			<Button
 				onClick={() => toggleShowMissingDogs()}
 				variant='contained'
@@ -92,8 +104,7 @@ function SeenDogs() {
 					{fullDogObjects &&
 						fullDogObjects
 							.filter(
-								(dogObject) =>
-									dogObject.attributes.sightings.length === 0
+								(dogObject) => dogObject.attributes.sightings.length === 0
 							)
 							.map((dogObject) => (
 								<ImageListItem key={dogObject.id}>
@@ -104,11 +115,7 @@ function SeenDogs() {
 										alt='doggy'
 									/>{' '}
 									<ImageListItemBar
-										title={
-											<span>
-												{dogObject.attributes.breed}
-											</span>
-										}
+										title={<span>{dogObject.attributes.breed}</span>}
 										subtitle={
 											<span
 												style={{
@@ -116,10 +123,7 @@ function SeenDogs() {
 												}}
 											>
 												{' '}
-												{
-													dogObject.attributes
-														.age_group
-												}{' '}
+												{dogObject.attributes.age_group}{' '}
 											</span>
 										}
 									/>
@@ -143,17 +147,18 @@ function SeenDogs() {
 												icon={action.icon}
 												tooltipTitle={action.name}
 												onClick={() => {
-													action.name ===
-													'Add sighting for this dog '
-														? navigate(
-																`/-new_sighting/${dogObject.id}`,
-																{
-																	state: dogObject.id,
-																}
-														  )
-														: navigate(
-																`/-seen_dogs/${dogObject.id}`
-														  );
+													if (action.name === 'Add sighting for this dog ') {
+														navigate(`/-new_sighting/${dogObject.id}`, {
+															state: dogObject.id,
+														});
+													} else if (
+														action.name === 'View sightings for this dog'
+													) {
+														navigate(`/dogs/${dogObject.id}`);
+													} else if (action.name === 'Claim this dog') {
+														console.log('hi');
+														claimDog(dogObject.id);
+													}
 												}}
 											/>
 										))}
@@ -176,11 +181,7 @@ function SeenDogs() {
 				style={{ minHeight: '10vh' }}
 				paddingTop={'1rem'}
 			>
-				<Typography
-					variant='h2'
-					align='center'
-					style={{ color: '#85BBCC' }}
-				>
+				<Typography variant='h2' align='center' style={{ color: '#85BBCC' }}>
 					{' '}
 					Seen Dogs
 				</Typography>
@@ -200,10 +201,7 @@ function SeenDogs() {
 				>
 					{fullDogObjects &&
 						fullDogObjects
-							.filter(
-								(dogObject) =>
-									dogObject.attributes.sightings.length > 0
-							)
+							.filter((dogObject) => dogObject.attributes.sightings.length > 0)
 							.map((dogObject) => (
 								<ImageListItem key={dogObject.id}>
 									{' '}
@@ -213,21 +211,11 @@ function SeenDogs() {
 										alt='doggy'
 									/>{' '}
 									<ImageListItemBar
-										title={
-											<span>
-												{dogObject.attributes.breed}
-											</span>
-										}
+										title={<span>{dogObject.attributes.breed}</span>}
 										subtitle={
-											<span
-												style={{ marginBottom: '1rem' }}
-											>
+											<span style={{ marginBottom: '1rem' }}>
 												{' '}
-												{
-													dogObject.attributes
-														.age_group
-												}{' '}
-												<br />
+												{dogObject.attributes.age_group} <br />
 												<br />
 												<span
 													style={{
@@ -237,11 +225,7 @@ function SeenDogs() {
 														color: 'red',
 													}}
 												>
-													{
-														dogObject.attributes
-															.sightings.length
-													}{' '}
-													sighting(s)
+													{dogObject.attributes.sightings.length} sighting(s)
 												</span>
 											</span>
 										}
@@ -266,17 +250,17 @@ function SeenDogs() {
 												icon={action.icon}
 												tooltipTitle={action.name}
 												onClick={() => {
-													action.name ===
-													'Add sighting for this dog '
-														? navigate(
-																`/-new_sighting/${dogObject.id}`,
-																{
-																	state: dogObject.id,
-																}
-														  )
-														: navigate(
-																`/-seen_dogs/${dogObject.id}`
-														  );
+													if (action.name === 'Add sighting for this dog ') {
+														navigate(`/-new_sighting/${dogObject.id}`, {
+															state: dogObject.id,
+														});
+													} else if (
+														action.name === 'View sightings for this dog'
+													) {
+														navigate(`/dogs/${dogObject.id}`);
+													} else if (action.name === 'Claim this dog') {
+														claimDog(dogObject.id);
+													}
 												}}
 											/>
 										))}

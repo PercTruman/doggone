@@ -125,16 +125,7 @@ function SeenDogs() {
 			</Button>
 			<br />
 		
-			{/* {showImageUpload ? (
-				<div>
-					<form onSubmit={() => updateDogImage()}>
-				<Button variant='contained' component='label' sx={{marginTop:'2rem'}}>
-					Upload File
-					<input type='file' hidden />
-				</Button>
-				</form>
-				</div>
-			) : null} */}
+		
 			<Grid container alignItems='center' justifyContent='center'>
 				<ImageList
 					gap={10}
@@ -207,7 +198,7 @@ function SeenDogs() {
 												/>
 											))}
 										</SpeedDial>
-										<><UpdatePhotoDialog /></>	
+										<UpdatePhotoDialog />
 									</ImageListItem>
 								
 								</Box>
@@ -241,17 +232,6 @@ function SeenDogs() {
 			>
 				Show Missing Dogs
 			</Button>
-			<UpdatePhotoDialog />
-			{/* {showImageUpload ? (
-				<div>
-					<form onSubmit={() => updateDogImage()}>
-				<Button variant='contained' component='label' sx={{marginTop:'2rem'}}>
-					Upload File
-					<input type='file' hidden />
-				</Button>
-				</form>
-				</div>
-			) : null} */}
 			<Grid container alignItems='center' justifyContent='center'>
 				<ImageList
 					gap={10}
@@ -324,7 +304,7 @@ function SeenDogs() {
 											/>
 										))}
 									</SpeedDial>
-								<><UpdatePhotoDialog /></>	
+								<UpdatePhotoDialog />
 								</ImageListItem>
 								
 							))}

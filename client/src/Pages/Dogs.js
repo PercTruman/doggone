@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../UserContext';
 import { useNavigate } from 'react-router-dom';
+import { styled } from '@mui/material/styles';
+
 import Navbar from '../Components/Navbar';
 import Box from '@mui/material/Box';
 import ImageList from '@mui/material/ImageList';
@@ -13,10 +15,29 @@ import SpeedDialAction from '@mui/material/SpeedDialAction';
 import Grid from '@mui/material/Unstable_Grid2';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import PhotoIcon from '@mui/icons-material/Photo';
 import PetsIcon from '@mui/icons-material/Pets';
 import Button from '@mui/material/Button';
+import UpdatePhotoDialog from '../Components/UpdatePhotoDialog';
+
+const Input = styled('input')({
+	display: 'none',
+});
+
+const style = {
+	position: 'absolute',
+	top: '50%',
+	left: '50%',
+	transform: 'translate(-50%, -50%)',
+	width: 400,
+	bgcolor: 'background.paper',
+	border: '2px solid #000',
+	boxShadow: 24,
+	p: 4,
+};
 
 function SeenDogs() {
+	const [openDialog, setOpenDialog] = useState(false);
 	const { loggedIn } = useContext(UserContext);
 	const [imageGallery, setImageGallery] = useState(null);
 	const [dogsLoaded, setDogsLoaded] = useState(false);
@@ -26,18 +47,6 @@ function SeenDogs() {
 	useEffect(() => {
 		getDogs();
 	}, []);
-
-	const actions =
-		loggedIn && dogsLoaded
-			? [
-					{
-						icon: <VisibilityIcon />,
-						name: 'Add sighting for this dog ',
-					},
-					{ icon: <InfoIcon />, name: 'View sightings for this dog' },
-					{ icon: <PetsIcon />, name: 'Claim this dog' },
-			  ]
-			: [{ icon: <VisibilityIcon />, name: 'Add sighting for this dog ' }];
 
 	function getDogs() {
 		fetch('/lost_dogs')
@@ -51,6 +60,23 @@ function SeenDogs() {
 		imageGallery &&
 		imageGallery.data.filter((dog) => (dog.attributes.image_url ? dog : null));
 
+	// const dogsWithSightings = fullDogObjects.filter(
+	// 	(dog) => dog.attributes.sightings.length > 0
+	// );
+
+	const actions =
+		loggedIn && dogsLoaded
+			? [
+					{
+						icon: <VisibilityIcon />,
+						name: 'Add sighting for this dog ',
+					},
+					{ icon: <InfoIcon />, name: 'View sightings for this dog' },
+					{ icon: <PetsIcon />, name: 'Claim this dog' },
+					
+			  ]
+			: { icon: <VisibilityIcon />, name: 'Add sighting for this dog ' };
+
 	function toggleShowMissingDogs() {
 		setShowMissingDogs(!showMissingDogs);
 	}
@@ -61,11 +87,17 @@ function SeenDogs() {
 		}).then((res) => {
 			if (res.ok) {
 				getDogs();
-				alert('Dog was successfully claimed, and will be removed from the gallery.');
+				alert(
+					'Dog was successfully claimed, and will be removed from the gallery.'
+				);
 			} else {
 				res.json().then((errors) => alert(errors.error));
 			}
 		});
+	}
+
+	function revDialog(id) {
+		setOpenDialog(true);
 	}
 
 	return showMissingDogs ? (
@@ -91,6 +123,18 @@ function SeenDogs() {
 			>
 				Show Seen Dogs
 			</Button>
+			<br />
+		
+			{/* {showImageUpload ? (
+				<div>
+					<form onSubmit={() => updateDogImage()}>
+				<Button variant='contained' component='label' sx={{marginTop:'2rem'}}>
+					Upload File
+					<input type='file' hidden />
+				</Button>
+				</form>
+				</div>
+			) : null} */}
 			<Grid container alignItems='center' justifyContent='center'>
 				<ImageList
 					gap={10}
@@ -107,63 +151,67 @@ function SeenDogs() {
 								(dogObject) => dogObject.attributes.sightings.length === 0
 							)
 							.map((dogObject) => (
-								<ImageListItem key={dogObject.id}>
-									{' '}
-									<img
-										src={dogObject.attributes.image_url}
-										loading='lazy'
-										alt='doggy'
-									/>{' '}
-									<ImageListItemBar
-										title={<span>{dogObject.attributes.breed}</span>}
-										subtitle={
-											<span
-												style={{
-													marginBottom: '1rem',
-												}}
-											>
-												{' '}
-												{dogObject.attributes.age_group}{' '}
-											</span>
-										}
-									/>
-									<SpeedDial
-										ariaLabel='SpeedDial'
-										direction='down'
-										sx={{
-											'& .MuiFab-primary': {
-												width: 40,
-												height: 40,
-											},
-											position: 'absolute',
-											top: 10,
-											right: 5,
-										}}
-										icon={<SpeedDialIcon />}
-									>
-										{actions.map((action) => (
-											<SpeedDialAction
-												key={action.name}
-												icon={action.icon}
-												tooltipTitle={action.name}
-												onClick={() => {
-													if (action.name === 'Add sighting for this dog ') {
-														navigate(`/-new_sighting/${dogObject.id}`, {
-															state: dogObject.id,
-														});
-													} else if (
-														action.name === 'View sightings for this dog'
-													) {
-														navigate(`/dogs/${dogObject.id}`);
-													} else if (action.name === 'Claim this dog') {
-														console.log('hi');
-														claimDog(dogObject.id);
-													}
-												}}
-											/>
-										))}
-									</SpeedDial>
-								</ImageListItem>
+								<Box>
+									<ImageListItem key={dogObject.id}>
+									
+										<img
+											src={dogObject.attributes.image_url}
+											loading='lazy'
+											alt='doggy'
+										/>{' '}
+										<ImageListItemBar
+											title={<span>{dogObject.attributes.breed}</span>}
+											subtitle={
+												<span
+													style={{
+														marginBottom: '1rem',
+													}}
+												>
+													{' '}
+													{dogObject.attributes.age_group}{' '}
+												</span>
+											}
+										/>
+										<SpeedDial
+											ariaLabel='SpeedDial'
+											direction='down'
+											sx={{
+												'& .MuiFab-primary': {
+													width: 40,
+													height: 40,
+												},
+												position: 'absolute',
+												top: 10,
+												right: 5,
+											}}
+											icon={<SpeedDialIcon />}
+										>
+											{actions.map((action) => (
+												<SpeedDialAction
+													key={action.name}
+													icon={action.icon}
+													tooltipTitle={action.name}
+													onClick={() => {
+														if (action.name === 'Add sighting for this dog ') {
+															navigate(`/-new_sighting/${dogObject.id}`, {
+																state: dogObject.id,
+															});
+														} else if (
+															action.name === 'View sightings for this dog'
+														) {
+															navigate(`/-dogs/${dogObject.id}`);
+														} else if (action.name === 'Claim this dog') {
+															claimDog(dogObject.id);
+														} 
+													}}
+												/>
+											))}
+										</SpeedDial>
+										<><UpdatePhotoDialog /></>	
+									</ImageListItem>
+								
+								</Box>
+								
 							))}
 				</ImageList>
 			</Grid>
@@ -193,6 +241,17 @@ function SeenDogs() {
 			>
 				Show Missing Dogs
 			</Button>
+			<UpdatePhotoDialog />
+			{/* {showImageUpload ? (
+				<div>
+					<form onSubmit={() => updateDogImage()}>
+				<Button variant='contained' component='label' sx={{marginTop:'2rem'}}>
+					Upload File
+					<input type='file' hidden />
+				</Button>
+				</form>
+				</div>
+			) : null} */}
 			<Grid container alignItems='center' justifyContent='center'>
 				<ImageList
 					gap={10}
@@ -257,15 +316,17 @@ function SeenDogs() {
 													} else if (
 														action.name === 'View sightings for this dog'
 													) {
-														navigate(`/dogs/${dogObject.id}`);
+														navigate(`/-dogs/${dogObject.id}`);
 													} else if (action.name === 'Claim this dog') {
 														claimDog(dogObject.id);
-													}
+													} 
 												}}
 											/>
 										))}
 									</SpeedDial>
+								<><UpdatePhotoDialog /></>	
 								</ImageListItem>
+								
 							))}
 				</ImageList>
 			</Grid>

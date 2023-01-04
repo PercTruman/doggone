@@ -1,6 +1,6 @@
 class LostDog < ApplicationRecord
     has_one_attached :image
-    has_many :sightings
+    has_many :sightings, dependent: :destroy
     has_many :users, through: :sightings
 
     validates :additional_details, length: { maximum: 250}

@@ -10,6 +10,9 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Grid2 from '@mui/material/Unstable_Grid2';
 
+
+const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+
 function FinderForm({ setFormData, formData }) {
 	const { user } = useContext(UserContext);
 	const [breedNames, setBreedNames] = useState([]);
@@ -49,6 +52,7 @@ function FinderForm({ setFormData, formData }) {
 		lostDogData.append('lost_dog[sex]', formData.sex);
 		lostDogData.append('lost_dog[breed]', formData.breed);
 		lostDogData.append('lost_dog[age_group]', formData.age_group);
+		lostDogData.append('lost_dog[owner_id]', formData.owner_id);
 
 		createLostDog(lostDogData);
 	}
@@ -167,8 +171,8 @@ function FinderForm({ setFormData, formData }) {
 					marginTop: '0',
 				}}
 			>
-				Using this form, please provide additional details about the dog
-				you saw.
+				Using this form, please provide additional details about the dog you
+				saw.
 			</h4>
 
 			<Grid2
@@ -183,11 +187,10 @@ function FinderForm({ setFormData, formData }) {
 					{showImageUpload ? (
 						<div>
 							{' '}
-							<h3 style={{ color: 'black', marginTop: '0' }}>
-								Upload Image
-							</h3>
+							<h3 style={{ color: 'black', marginTop: '0' }}>Upload Image</h3>
 							<input type='file' name='image' id='image' />
 							<img src={image} alt='Dog Image' />
+						
 							<Grid2
 								xs
 								display='flex'
@@ -325,12 +328,8 @@ function FinderForm({ setFormData, formData }) {
 							</a>
 						</div>
 					) : null}
-					<Grid2
-						xs
-						display='flex'
-						justifyContent='center'
-						alignItems='center'
-					>
+					
+					<Grid2 xs display='flex' justifyContent='center' alignItems='center'>
 						<TextField
 							label='Additional Details:'
 							multiline
@@ -350,16 +349,8 @@ function FinderForm({ setFormData, formData }) {
 							onChange={handleChange}
 						/>
 					</Grid2>
-					<Grid2
-						xs
-						display='flex'
-						justifyContent='center'
-						alignItems='center'
-					>
-						<FormControl
-							fullWidth
-							sx={{ mb: '1em', width: '150px' }}
-						>
+					<Grid2 xs display='flex' justifyContent='center' alignItems='center'>
+						<FormControl fullWidth sx={{ mb: '1em', width: '150px' }}>
 							<InputLabel
 								sx={{
 									fontSize: '12px',

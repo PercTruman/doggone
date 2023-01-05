@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../UserContext';
 import { useParams } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
 import { Box } from '@mui/system';
@@ -9,6 +10,7 @@ import UpdatePhotoDialog from '../Components/UpdatePhotoDialog';
 
 function DogDetail() {
 	const { id } = useParams();
+	const { loggedIn} =useContext(UserContext)
 	const [showOwnerMap, setShowOwnerMap] = useState(false);
 	const [dogDetails, setDogDetails] = useState(null);
 	const [sightingsArray, setSightingsArray] = useState([]);
@@ -114,13 +116,13 @@ function DogDetail() {
 					</Box>
 				)}
 			</Grid2>
-
+			{loggedIn ?
 			<OwnerMap
 				setShowOwnerMap={setShowOwnerMap}
 				showOwnerMap={showOwnerMap}
 				sightingsArray={sightingsArray}
 				dogDetails={dogDetails}
-			/>
+			/>:null}
 		</Box>
 	);
 }

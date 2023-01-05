@@ -60,7 +60,7 @@ function SeenDogs() {
 
 
 	const actions =
-		loggedIn && dogsLoaded
+		dogsLoaded
 			? [
 					{
 						icon: <VisibilityIcon />,

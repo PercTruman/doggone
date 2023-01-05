@@ -60,6 +60,16 @@ const Navbar = () => {
 								}}
 							>
 								<Button
+									onClick={() => navigate('/')}
+									sx={{
+										my: 2,
+										color: 'white',
+										display: 'block',
+									}}
+								>
+									Home
+								</Button>
+								<Button
 									onClick={() => navigate('/-new_sighting')}
 									sx={{
 										my: 2,
@@ -150,10 +160,28 @@ const Navbar = () => {
 								display: 'flex',
 							}}
 						>
-							<Button variant='contained' onClick={() => navigate('/-login')}>
+							<Button
+								onClick={() => navigate('/')}
+								sx={{
+									my: 2,
+									color: 'white',
+									display: 'block',
+								}}
+							>
+								Home
+							</Button>
+							<Button variant='text' sx={{
+										my: 2,
+										color: 'white',
+										display: 'block',
+									}}onClick={() => navigate('/-login')}>
 								Login
 							</Button>
-							<Button variant='contained' onClick={() => navigate('/-signup')}>
+							<Button variant='text' sx={{
+										my: 2,
+										color: 'white',
+										display: 'block',
+									}}onClick={() => navigate('/-signup')}>
 								Signup
 							</Button>
 						</Box>

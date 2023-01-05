@@ -11,10 +11,14 @@ class PostsController < ApplicationController
        render json: @post
     end
 
-    def update
-    end
 
     def destroy
+        post = Post.find(params[:id])
+        post.destroy
+
+        render json: {
+            status: {code: 202, message: "Post successfully deleted"}
+        }, status: :accepted
     end
 
     private

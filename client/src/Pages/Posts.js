@@ -19,7 +19,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function Posts() {
-	const { user } = useContext(UserContext);
+	const { user, loggedIn } = useContext(UserContext);
 	const [showPostForm, setShowPostForm] = useState(false);
 	const [posts, setPosts] = useState([]);
 
@@ -37,6 +37,23 @@ function Posts() {
 			.then((data) => {
 				setPosts(data);
 			});
+	}
+	function handleClick(id){
+		
+		loggedIn ?
+		fetch(`/posts/${id}`, {
+			method: 'DELETE',
+		}).then((res) => {
+			if (res.ok) {
+				getPosts();
+				alert(
+					'Post has been deleted successfully.'
+				);
+			} else {
+				res.json().then((errors) => alert(errors.error));
+			}
+		}): alert('You cannot delete posts without an account.')
+
 	}
 
 	const postDisplay =
@@ -60,6 +77,10 @@ function Posts() {
 							Subject: {post.subject}
 						</Typography>
 						<Typography>{post.content}</Typography>
+						<Button						onClick={()=>handleClick(post.id)}
+													variant='contained'
+													size='small'
+													color='primary'>Delete Post</Button>
 					</Item>
 				);
 			});

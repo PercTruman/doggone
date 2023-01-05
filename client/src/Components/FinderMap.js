@@ -70,8 +70,9 @@ function FinderMap({ setShowForm, setShowMap, mapRef, formData, setFormData }) {
   if (!isLoaded) return <div>Loading...</div>;
   return (
     <div>
+      <h2 style={{ color: "#85BBCC" }}>First, allow your browser to use your current location by clicking the compass icon in the upper right.</h2>
       <h2 style={{ color: "#85BBCC" }}>
-        Click the map to mark the location of the dog:
+       Then, click the map to mark the location of the dog:
       </h2>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}

@@ -8,6 +8,9 @@ import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import PostForm from '../Components/PostForm';
 import { Typography } from '@mui/material';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import { borderRadius } from '@mui/system';
 
 const Item = styled(Paper)(({ theme }) => ({
 	backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : 'lightgray',
@@ -23,7 +26,7 @@ function Posts() {
 	const [showPostForm, setShowPostForm] = useState(false);
 	const [posts, setPosts] = useState([]);
 
-	function handleClick() {
+	function handleShowPostForm() {
 		setShowPostForm(!showPostForm);
 	}
 
@@ -38,22 +41,21 @@ function Posts() {
 				setPosts(data);
 			});
 	}
-	function handleClick(id){
-		
-		loggedIn ?
-		fetch(`/posts/${id}`, {
-			method: 'DELETE',
-		}).then((res) => {
-			if (res.ok) {
-				getPosts();
-				alert(
-					'Post has been deleted successfully.'
-				);
-			} else {
-				res.json().then((errors) => alert(errors.error));
-			}
-		}): alert('You cannot delete posts without an account.')
 
+	console.log(posts)
+	function handleClick(id) {
+		loggedIn
+			? fetch(`/posts/${id}`, {
+					method: 'DELETE',
+			  }).then((res) => {
+					if (res.ok) {
+						getPosts();
+						alert('Post has been deleted successfully.');
+					} else {
+						res.json().then((errors) => alert(errors.error));
+					}
+			  })
+			: alert('You cannot delete posts without an account.');
 	}
 
 	const postDisplay =
@@ -64,24 +66,34 @@ function Posts() {
 			.map((post) => {
 				const date = new Date(post.created_at).toLocaleString();
 				return (
-					<Item key={post.id}>
+					<Box>
+					<ImageListItem key={post.id} sx={{padding: '10px'}}>
 						<Typography variant='caption'>
 							{date} by:{' '}
 							<span
-								style={{ fontWeight: 'bold', color: '#85BBCC' }}
+								style={{ fontWeight: 'bold', color: '#85BBCC', height: '50px' }}
 							>
-								{user.username}
+								{post.author}
 							</span>
 						</Typography>
 						<Typography sx={{ fontWeight: 'bold' }}>
 							Subject: {post.subject}
 						</Typography>
 						<Typography>{post.content}</Typography>
-						<Button						onClick={()=>handleClick(post.id)}
-													variant='contained'
-													size='small'
-													color='primary'>Delete Post</Button>
-					</Item>
+						<Button
+							onClick={() => handleClick(post.id)}
+							variant='contained'
+							size='small'
+							sx={{ width: '60px', margin: '0 auto', fontSize:'8px' }}
+							color='primary'
+						>
+							Delete 
+						</Button>
+						
+					</ImageListItem>
+					<hr style={{backgroundColor: 'black'}}></hr>
+					</Box>
+					
 				);
 			});
 
@@ -101,7 +113,7 @@ function Posts() {
 				Message Board
 			</h2>
 			<Button
-				onClick={handleClick}
+				onClick={handleShowPostForm}
 				variant='contained'
 				sx={{ backgroundColor: '#F6E89D', color: 'black' }}
 			>
@@ -122,7 +134,20 @@ function Posts() {
 						justifyContent: 'center',
 					}}
 				>
-					<Stack spacing={2}>{postDisplay}</Stack>
+					<ImageList
+						gap={10}
+						sx={{
+							paddingTop: '1rem',
+							width: '50vw',
+							height: '60vh',
+							backgroundColor: 'white',
+							borderRadius: '10px',
+						}}
+						cols={1}
+					>
+						{postDisplay}
+					</ImageList>
+					
 				</Box>
 			)}
 		</Box>

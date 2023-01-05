@@ -3,4 +3,5 @@ class Post < ApplicationRecord
 
     validates :content, presence: true, uniqueness: true, length: { maximum: 1000}
     validates :user_id, presence: true
+    validates :author, presence: true
 end

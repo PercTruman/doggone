@@ -11,16 +11,17 @@ function PostForm({ setShowPostForm , setPosts, posts}) {
 	const [postFormData, setPostFormData] = useState({
 		subject: '',
 		content: '',
-		author_id: '',
+		author: '',
 	});
 	const handleChange = (e) => {
 		setPostFormData({
 			...postFormData,
 			[e.target.name]: e.target.value,
-			user_id: user.id,
+			author: user.username,
+			user_id:user.id
 		});
 	};
-
+console.log(user.username)
 	function handleSubmit(e) {
 		e.preventDefault();
 
@@ -38,6 +39,7 @@ function PostForm({ setShowPostForm , setPosts, posts}) {
 					setPostFormData({
 						subject: '',
 						content: '',
+						author: ''
 					});
 					setShowPostForm(false);
 				});

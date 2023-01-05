@@ -75,7 +75,7 @@ function Welcome() {
 			<Grid2
 				display={'flex'}
 				justifyContent='center'
-				sx={{ marginTop: '9rem' }}
+				sx={{ marginTop: '11rem' }}
 			>
 				{' '}
 				<Box

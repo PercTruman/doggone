@@ -77,6 +77,7 @@ function SeenDogs() {
 	}
 
 	function claimDog(id) {
+		loggedIn ?
 		fetch(`/lost_dogs/${id}`, {
 			method: 'DELETE',
 		}).then((res) => {
@@ -88,7 +89,7 @@ function SeenDogs() {
 			} else {
 				res.json().then((errors) => alert(errors.error));
 			}
-		});
+		}): alert('You cannot claim this dog without an account.')
 	}
 
 

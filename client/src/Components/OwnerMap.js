@@ -5,6 +5,7 @@ import {
 	GoogleMap,
 	MarkerF,
 	InfoWindowF,
+	  InfoBox
 } from '@react-google-maps/api';
 
 import dogPaw from '../Pages/dog-paw.svg';
@@ -59,10 +60,12 @@ function OwnerMap({ sightingsArray }) {
 					<div style={{ width: '200px', height: '200px' }}>
 						<InfoWindowF
 							options={{
+								
 								pixelOffset: new window.google.maps.Size(
 									0,
 									-15
 								),
+								
 							}}
 							maxWidth={50}
 							position={{
@@ -74,7 +77,7 @@ function OwnerMap({ sightingsArray }) {
 							}}
 						>
 							<div
-								style={{ maxHeight: '100px', maxWidth: '75px' }}
+								style={{ height: '110px', width: '200px' }}
 							>
 								<h3 style={{ color: 'red' }}>
 									{sortedSightingsArray.indexOf(sighting) + 1}

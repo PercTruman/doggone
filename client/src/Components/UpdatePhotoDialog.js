@@ -1,28 +1,28 @@
-import React, { useState, useContext } from 'react';
-
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import PhotoIcon from '@mui/icons-material/Photo';
 import IconButton from '@mui/material/IconButton';
-import { Input, Typography } from '@mui/material';
+import { Input } from '@mui/material';
+import { Box } from '@mui/system';
 
-export default function UpdatePhotoDialog({}) {
+export default function UpdatePhotoDialog({ id, dogDetails, setDogDetails }) {
 	const [open, setOpen] = useState(false);
-	const [photoFormData, setPhotoFormData] = useState({
-		image: null,
-	});
-	const { id } = useParams();
-
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [imageUrl, setImageUrl] = useState(null);
 	const navigate = useNavigate();
 	const handleClickOpen = () => {
 		setOpen(true);
 	};
+
+    useEffect(()=>{
+        if (selectedImage){
+            setImageUrl(URL.createObjectURL(selectedImage));
+        }
+    }, [selectedImage])
 
 	const handleClose = () => {
 		setOpen(false);
@@ -34,38 +34,46 @@ export default function UpdatePhotoDialog({}) {
 	};
 
 	function buildDogImage(e) {
+        setSelectedImage(e.target.files[0])
 		const photoData = new FormData();
-		photoData.append('lost_dog[image]', e.target.image.files[0]);
+		photoData.append('lost_dog[image]', e.target.files[0]);
 		sendPhoto(photoData);
 	}
 
 	function sendPhoto(data) {
-		fetch('/lost_dogs', {
-			method: 'POST',
+		fetch(`/dogs/${id}`, {
+			method: 'PATCH',
 			body: data,
 		})
 			.then((res) =>
 				res.json().then((data) => {
-					// setLostDog(data);
+					setDogDetails({ ...dogDetails, picture: data.image_url });
+					navigate('/-dogs');
 				})
 			)
 			.catch((err) => console.error(err));
 	}
-
-	const handleChange = (e) => {
-		setPhotoFormData({
-			...photoFormData,
-			[e.target.name]: e.target.value,
-			//   user_id: user.id,
-		});
-	};
-
+console.log(selectedImage)
 	return (
 		<div>
-			<Button sx={{position:'absolute',left:'15px', top:'10px', width:'50px', fontSize:'10px', letterSpacing:'1.5px' }} variant='contained' onClick={handleClickOpen}>
+            <input accept='image' type='file' id='select-image'style={{display: 'none'}} onChange={e=>buildDogImage(e)}/>
+            <label htmlFor='select-image'>
+			<Button
+				sx={{ marginBottom: '2rem' }}
+				variant='contained'
+				onClick={handleClickOpen}
+                component='span'
+			>
 				Update Photo
 			</Button>
-			<Dialog open={open} onClose={handleClose}>
+            </label>
+            {imageUrl && selectedImage && (
+        <Box mt={2} textAlign="center">
+          <div>Image Preview:</div>
+          <img src={imageUrl} alt={selectedImage.name} height="100px" />
+        </Box>
+      )}
+			{/* <Dialog open={open} onClose={handleClose}>
 				<form onSubmit={(e) => handleSubmit(e, id)}>
 					<DialogTitle>Update Photo</DialogTitle>
 					<DialogContent sx={{ background: 'white' }}>
@@ -88,7 +96,7 @@ export default function UpdatePhotoDialog({}) {
 						</Button>
 					</DialogActions>
 				</form>
-			</Dialog>
+			</Dialog> */}
 		</div>
 	);
 }

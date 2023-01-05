@@ -5,6 +5,7 @@ import { Box } from '@mui/system';
 import Grid2 from '@mui/material/Unstable_Grid2';
 import { Typography } from '@mui/material';
 import OwnerMap from '../Components/OwnerMap';
+import UpdatePhotoDialog from '../Components/UpdatePhotoDialog';
 
 function DogDetail() {
 	const { id } = useParams();
@@ -63,11 +64,12 @@ function DogDetail() {
 				<Typography
 					variant='h4'
 					align='center'
-					style={{ color: '#85BBCC' }}
+					style={{ color: '#85BBCC' , paddingBottom: '2rem' }}
 				>
 					{' '}
-					Dog Sightings
+					Dog Details
 				</Typography>
+				<UpdatePhotoDialog id={id} dogDetails={dogDetails}setDogDetails={setDogDetails}/>
 			</Grid2>
 			<Grid2 container>
 				{dogDetails && (

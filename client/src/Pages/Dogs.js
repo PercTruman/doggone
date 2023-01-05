@@ -15,7 +15,6 @@ import SpeedDialAction from '@mui/material/SpeedDialAction';
 import Grid from '@mui/material/Unstable_Grid2';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
-import PhotoIcon from '@mui/icons-material/Photo';
 import PetsIcon from '@mui/icons-material/Pets';
 import Button from '@mui/material/Button';
 import UpdatePhotoDialog from '../Components/UpdatePhotoDialog';
@@ -96,9 +95,6 @@ function SeenDogs() {
 		});
 	}
 
-	function revDialog(id) {
-		setOpenDialog(true);
-	}
 
 	return showMissingDogs ? (
 		<div>
@@ -198,7 +194,7 @@ function SeenDogs() {
 												/>
 											))}
 										</SpeedDial>
-										<UpdatePhotoDialog />
+										
 									</ImageListItem>
 								
 								</Box>
@@ -304,7 +300,8 @@ function SeenDogs() {
 											/>
 										))}
 									</SpeedDial>
-								<UpdatePhotoDialog />
+									
+							
 								</ImageListItem>
 								
 							))}

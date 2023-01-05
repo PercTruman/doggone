@@ -17,7 +17,6 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import PetsIcon from '@mui/icons-material/Pets';
 import Button from '@mui/material/Button';
-import UpdatePhotoDialog from '../Components/UpdatePhotoDialog';
 
 const Input = styled('input')({
 	display: 'none',
@@ -59,9 +58,6 @@ function SeenDogs() {
 		imageGallery &&
 		imageGallery.data.filter((dog) => (dog.attributes.image_url ? dog : null));
 
-	// const dogsWithSightings = fullDogObjects.filter(
-	// 	(dog) => dog.attributes.sightings.length > 0
-	// );
 
 	const actions =
 		loggedIn && dogsLoaded
@@ -70,7 +66,7 @@ function SeenDogs() {
 						icon: <VisibilityIcon />,
 						name: 'Add sighting for this dog ',
 					},
-					{ icon: <InfoIcon />, name: 'View sightings for this dog' },
+					{ icon: <InfoIcon />, name: 'View dog details' },
 					{ icon: <PetsIcon />, name: 'Claim this dog' },
 					
 			  ]
@@ -184,7 +180,7 @@ function SeenDogs() {
 																state: dogObject.id,
 															});
 														} else if (
-															action.name === 'View sightings for this dog'
+															action.name === 'View dog details'
 														) {
 															navigate(`/-dogs/${dogObject.id}`);
 														} else if (action.name === 'Claim this dog') {
@@ -290,7 +286,7 @@ function SeenDogs() {
 															state: dogObject.id,
 														});
 													} else if (
-														action.name === 'View sightings for this dog'
+														action.name === 'View dog details'
 													) {
 														navigate(`/-dogs/${dogObject.id}`);
 													} else if (action.name === 'Claim this dog') {

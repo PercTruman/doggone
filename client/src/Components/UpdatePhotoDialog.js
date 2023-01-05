@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { UserContext } from '../UserContext';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 
 
 export default function UpdatePhotoDialog({ id, dogDetails, setDogDetails }) {
+    const {loggedIn, user} = useContext(UserContext)
 	const [open, setOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
     const [imageUrl, setImageUrl] = useState(null);
@@ -11,7 +13,7 @@ export default function UpdatePhotoDialog({ id, dogDetails, setDogDetails }) {
 	const handleClickOpen = () => {
 		setOpen(true);
 	};
-
+   const owner= Number(dogDetails.owner_id)
     useEffect(()=>{
         if (selectedImage){
             setImageUrl(URL.createObjectURL(selectedImage));
@@ -40,8 +42,8 @@ export default function UpdatePhotoDialog({ id, dogDetails, setDogDetails }) {
 			)
 			.catch((err) => console.error(err));
 	}
-
 	return (
+        loggedIn && owner === user.id &&
 		<div>
             <input accept='image' type='file' id='select-image'style={{display: 'none'}} onChange={e=>buildDogImage(e)}/>
             <label htmlFor='select-image'>

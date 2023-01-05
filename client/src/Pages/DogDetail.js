@@ -43,6 +43,7 @@ function DogDetail() {
 					sex: data.sex,
 					breed: data.breed,
 					color: data.color,
+					owner_id: data.owner_id
 				});
 			});
 	}

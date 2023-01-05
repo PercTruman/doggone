@@ -38,6 +38,7 @@ function DogDetail() {
 						setSightingsArray(arr);
 					}
 				}
+			
 
 				setDogDetails({
 					picture: data.image_url,
@@ -116,7 +117,7 @@ function DogDetail() {
 					</Box>
 				)}
 			</Grid2>
-			{loggedIn ?
+			{loggedIn  && sightingsArray.length > 0 ?
 			<OwnerMap
 				setShowOwnerMap={setShowOwnerMap}
 				showOwnerMap={showOwnerMap}

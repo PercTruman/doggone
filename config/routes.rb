@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get "/users", to: "users#index"
   get "/me", to: "users#show"
-  get "/lost_dogs", to: "lost_dogs#index"
+  get "/dogs", to: "lost_dogs#index"
   get "/dogs/:id", to: "lost_dogs#show"
   get "/sightings/:id", to: "sightings#show"
   get "/sightings", to: "sightings#index"
@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   patch "/dogs/:id", to: "lost_dogs#update"
   patch "/posts/:id", to: "posts#update"
 
-  delete "/lost_dogs/:id", to: "lost_dogs#destroy"
+  delete "/dogs/:id", to: "lost_dogs#destroy"
   delete "/posts/:id", to: "posts#destroy"
   delete '/logout', to: 'sessions#destroy'
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }

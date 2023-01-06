@@ -47,7 +47,7 @@ function SeenDogs() {
 	}, []);
 
 	function getDogs() {
-		fetch('/lost_dogs')
+		fetch('/dogs')
 			.then((res) => res.json())
 			.then((data) => {
 				setImageGallery(data);
@@ -78,7 +78,7 @@ function SeenDogs() {
 
 	function claimDog(id) {
 		loggedIn ?
-		fetch(`/lost_dogs/${id}`, {
+		fetch(`/dogs/${id}`, {
 			method: 'DELETE',
 		}).then((res) => {
 			if (res.ok) {

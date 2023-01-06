@@ -42,7 +42,6 @@ function Posts() {
 			});
 	}
 
-	console.log(posts)
 	function handleClick(id) {
 		loggedIn
 			? fetch(`/posts/${id}`, {
@@ -67,33 +66,35 @@ function Posts() {
 				const date = new Date(post.created_at).toLocaleString();
 				return (
 					<Box>
-					<ImageListItem key={post.id} sx={{padding: '10px'}}>
-						<Typography variant='caption'>
-							{date} by:{' '}
-							<span
-								style={{ fontWeight: 'bold', color: '#85BBCC', height: '50px' }}
+						<ImageListItem key={post.id} sx={{ padding: '10px' }}>
+							<Typography variant='caption'>
+								{date} by:{' '}
+								<span
+									style={{
+										fontWeight: 'bold',
+										color: '#85BBCC',
+										height: '50px',
+									}}
+								>
+									{post.author}
+								</span>
+							</Typography>
+							<Typography sx={{ fontWeight: 'bold' }}>
+								Subject: {post.subject}
+							</Typography>
+							<Typography>{post.content}</Typography>
+							<Button
+								onClick={() => handleClick(post.id)}
+								variant='contained'
+								size='small'
+								sx={{ width: '60px', margin: '0 auto', fontSize: '8px' }}
+								color='primary'
 							>
-								{post.author}
-							</span>
-						</Typography>
-						<Typography sx={{ fontWeight: 'bold' }}>
-							Subject: {post.subject}
-						</Typography>
-						<Typography>{post.content}</Typography>
-						<Button
-							onClick={() => handleClick(post.id)}
-							variant='contained'
-							size='small'
-							sx={{ width: '60px', margin: '0 auto', fontSize:'8px' }}
-							color='primary'
-						>
-							Delete 
-						</Button>
-						
-					</ImageListItem>
-					<hr style={{backgroundColor: 'black'}}></hr>
+								Delete
+							</Button>
+						</ImageListItem>
+						<hr style={{ backgroundColor: 'black' }}></hr>
 					</Box>
-					
 				);
 			});
 
@@ -147,7 +148,6 @@ function Posts() {
 					>
 						{postDisplay}
 					</ImageList>
-					
 				</Box>
 			)}
 		</Box>

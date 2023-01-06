@@ -65,7 +65,7 @@ const navigate = useNavigate()
 	}
 
 	function createLostDog(data) {
-		fetch('/lost_dogs', {
+		fetch('/dogs', {
 			method: 'POST',
 			body: data,
 		})

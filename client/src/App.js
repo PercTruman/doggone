@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+import logo from './Assets/logo.svg';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Welcome from './Pages/Welcome';
@@ -7,8 +7,7 @@ import Login from './Pages/Login';
 import DogDetail from './Pages/DogDetail';
 import NewSighting from './Pages/NewSighting';
 import Dogs from './Pages/Dogs';
-import Sightings from './Pages/Sightings';
-import LostDog from './LostDog.jpg';
+import LostDog from './Assets/LostDog.jpg';
 import Posts from './Pages/Posts';
 import MissingDog from './Pages/MissingDog';
 
@@ -34,7 +33,6 @@ function App() {
 				<Route path='/' element={<Welcome />} />
 				<Route path='/-login' element={<Login />} />
 				<Route path='/-signup' element={<Signup />} />
-				<Route path='/-sightings' element={<Sightings />} />
 				<Route path='/-dogs' element={<Dogs />} />
 				<Route path='/-new_sighting' element={<NewSighting />} />
 				<Route path='/-new_sighting/:id' element={<NewSighting />} />

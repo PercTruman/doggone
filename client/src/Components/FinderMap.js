@@ -6,7 +6,7 @@ import {
   InfoWindowF,
 
 } from "@react-google-maps/api";
-import dogPaw from "../Pages/dog-paw.svg";
+import dogPaw from "../Assets/dog-paw.svg";
 import Locate from "./Locate";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";

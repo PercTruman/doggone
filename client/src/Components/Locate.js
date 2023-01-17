@@ -1,5 +1,5 @@
 import React from "react";
-import compass from "../Pages/Compass.jpg";
+import compass from "../Assets/Compass.jpg";
 
 function Locate({ panTo }) {
   return (

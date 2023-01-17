@@ -8,7 +8,7 @@ import {
 	  InfoBox
 } from '@react-google-maps/api';
 
-import dogPaw from '../Pages/dog-paw.svg';
+import dogPaw from '../Assets/dog-paw.svg';
 
 const mapContainerStyle = {
 	margin: '0 auto',

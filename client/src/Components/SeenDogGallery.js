@@ -18,9 +18,8 @@ import PetsIcon from '@mui/icons-material/Pets';
 function SeenDogGallery({
 	toggleShowMissingDogs,
 	claimDog,
-    fullDogObjects,
+	fullDogObjects,
 	dogsLoaded,
-	
 }) {
 	const navigate = useNavigate();
 

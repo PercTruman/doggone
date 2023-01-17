@@ -17,14 +17,11 @@ import PetsIcon from '@mui/icons-material/Pets';
 
 function MissingDogGallery({
 	toggleShowMissingDogs,
-    fullDogObjects,
+	fullDogObjects,
 	claimDog,
-	imageGallery,
 	dogsLoaded,
 }) {
 	const navigate = useNavigate();
-
-
 
 	const actions = dogsLoaded
 		? [
@@ -78,7 +75,7 @@ function MissingDogGallery({
 								(dogObject) => dogObject.attributes.sightings.length === 0
 							)
 							.map((dogObject) => (
-								<Box key= {dogObject.id}>
+								<Box key={dogObject.id}>
 									<ImageListItem key={dogObject.id}>
 										<img
 											src={dogObject.attributes.image_url}

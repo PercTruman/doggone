@@ -76,7 +76,6 @@ function FinderForm({ setFormData, formData }) {
 			lost_dog_id: id ? id : lostDog.id,
 			latitude: formData.latitude,
 			longitude: formData.longitude,
-			finder_id: user.id,
 			owner_id: formData.owner_id,
 			additional_details: formData.additional_details,
 			contact_method: formData.contact_method,

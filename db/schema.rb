@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_06_135924) do
+ActiveRecord::Schema.define(version: 2023_01_06_210020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,10 +66,7 @@ ActiveRecord::Schema.define(version: 2023_01_06_135924) do
   end
 
   create_table "sightings", force: :cascade do |t|
-    t.integer "dog_id"
     t.integer "lost_dog_id"
-    t.integer "owner_id"
-    t.integer "finder_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"
@@ -78,6 +75,7 @@ ActiveRecord::Schema.define(version: 2023_01_06_135924) do
     t.string "additional_details"
     t.string "contact_method"
     t.string "contact_info"
+    t.string "owner_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -85,7 +83,6 @@ ActiveRecord::Schema.define(version: 2023_01_06_135924) do
     t.string "username"
     t.string "password_digest"
     t.integer "phone_number"
-    t.integer "dog_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.float "latitude"

@@ -8,7 +8,9 @@ class User < ApplicationRecord
     after_validation :geocode
 
     validates :username, presence: true, uniqueness: true
-    validates :email, presence: true, uniqueness: true
+    validates :email,  format: { with: /(.+)@(.+)/, message: "Email invalid"  },
+                uniqueness: { case_sensitive: false },
+                length: { minimum: 4, maximum: 254 }
     validates :password, presence: true
     validates :address, presence: true
 end

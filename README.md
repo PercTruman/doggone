@@ -8,7 +8,7 @@ If a user creates an account, they have full access to all of the app's function
 
 If a user doesn't have an account, they can still create sightings, if they happen to come across a dog in their neighborhood.  Simply click on the map provided (using their browser's location service) and click on the location.  The finder can add other details as well about the dog they've seen. Finally, they too can provide their contact information, if they choose.
 
-All users can view the galleries of dogs.  There are 2 galleries: one for dogs that have been sighted ("Seen Dogs"), and one for those who've not yet been seen ("Missing Dogs").  Dogs that have initially been reported missing will be initially added to the Missing Dogs gallery. Upon a sighting, the dog will be moved to the Seen Dogs gallery, where the user can "claim" it.  When a dog is claimed, it will be removed from the galleries.  Only account holders can claim a dog.
+All users can view the galleries of dogs.  There are 2 galleries: one for dogs that have been sighted ("Seen Dogs"), and one for those who've not yet been seen ("Missing Dogs").  Dogs that have initially been reported missing will be added to the Missing Dogs gallery. Upon being seen, the dog will be moved to the Seen Dogs gallery.  When a dog is claimed, it will be removed from the galleries.  Only account holders can claim a dog.
 
 
 

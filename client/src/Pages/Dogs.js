@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../UserContext';
 import { useNavigate } from 'react-router-dom';
-import { styled } from '@mui/material/styles';
-
 import Navbar from '../Components/Navbar';
 import Box from '@mui/material/Box';
 import ImageList from '@mui/material/ImageList';
@@ -17,25 +15,12 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import PetsIcon from '@mui/icons-material/Pets';
 import Button from '@mui/material/Button';
+import FullNavbar from '../Components/FullNavbar';
 
-const Input = styled('input')({
-	display: 'none',
-});
 
-const style = {
-	position: 'absolute',
-	top: '50%',
-	left: '50%',
-	transform: 'translate(-50%, -50%)',
-	width: 400,
-	bgcolor: 'background.paper',
-	border: '2px solid #000',
-	boxShadow: 24,
-	p: 4,
-};
+
 
 function SeenDogs() {
-	const [openDialog, setOpenDialog] = useState(false);
 	const { loggedIn } = useContext(UserContext);
 	const [imageGallery, setImageGallery] = useState(null);
 	const [dogsLoaded, setDogsLoaded] = useState(false);
@@ -75,17 +60,24 @@ function SeenDogs() {
 	function toggleShowMissingDogs() {
 		setShowMissingDogs(!showMissingDogs);
 	}
-
+ imageGallery && console.log(imageGallery.data)
 	function claimDog(id) {
 		loggedIn ?
 		fetch(`/dogs/${id}`, {
 			method: 'DELETE',
 		}).then((res) => {
 			if (res.ok) {
-				getDogs();
+				res.json()
+				.then((deletedDog) =>{
+					console.log(deletedDog);
+                    getDogs();
+				const array = imageGallery.data
+				const updatedGallery = array.filter(dog => dog.id !== deletedDog.id)
+				console.log(updatedGallery)
+				setImageGallery(updatedGallery)
 				alert(
 					'Dog was successfully claimed, and will be removed from the gallery.'
-				);
+				)})
 			} else {
 				res.json().then((errors) => alert(errors.error));
 			}
@@ -95,7 +87,7 @@ function SeenDogs() {
 
 	return showMissingDogs ? (
 		<div>
-			<Navbar />
+			<FullNavbar />
 			<Grid
 				container
 				spacing={0}
